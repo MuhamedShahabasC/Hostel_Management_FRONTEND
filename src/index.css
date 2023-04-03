@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+@layer base {
+    body{
+        font-family: 'Montserrat', sans-serif;
+    }
+    h1{
+        @apply font-semibold uppercase tracking-widest text-primary 
+    }
+}
+
+.header-btn{
+    @apply flex items-center bg-primary text-white py-1 px-2.5 rounded hover:brightness-125 hover:shadow-md
+}
+
