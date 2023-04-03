@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,400&display=swap'); */
 
 @layer base {
     body{
@@ -11,9 +12,26 @@
     h1{
         @apply font-semibold uppercase tracking-widest text-primary 
     }
+    h2{
+        @apply uppercase tracking-wider text-primary text-center my-4
+    }
 }
 
 .header-btn{
     @apply flex items-center bg-primary text-white py-1 px-2.5 rounded hover:brightness-125 hover:shadow-md
+}
+
+.parent-container{
+    @apply bg-white w-full p-2 max-w-md rounded-lg lg:p-8 shadow-xl m-2 flex flex-col 
+}
+
+.parent-container h2 {
+    font-weight: bolder;
+    font-size: larger;
+
+}
+
+.border-1{
+    border: 1px solid #DEE2E6;
 }
 

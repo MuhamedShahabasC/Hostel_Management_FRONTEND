@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router";
 import ChiefWardenRoutes from "./routes/ChiefWarden";
 import StudentRoutes from "./routes/Student";
 import { BrowserRouter } from "react-router-dom";
-import Header from "./components/Header";
+import Header from "./components/Layout/Header";
 
 function App() {
   return (
@@ -10,8 +10,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Header/>} />
         <Route path="/*" element={`NOT FOUND`} />
-        <Route path="/student/*" element={<StudentRoutes />} />
-        <Route path="/chief-warden/*" element={<ChiefWardenRoutes />} />
+        <Route path="/students/*" element={<StudentRoutes />} />
+        <Route path="/staffs/*" element={<StudentRoutes />} />
+        <Route path="/chief-wardens/*" element={<ChiefWardenRoutes />} />
       </Routes>
     </BrowserRouter>
   );

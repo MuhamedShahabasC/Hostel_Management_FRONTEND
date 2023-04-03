@@ -1,19 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import { Outlet } from "react-router-dom";
+import Login from "../pages/chief-warden/Login";
+import ChiefWarden from "../layouts/ChiefWarden";
 
 function ChiefWardenRoutes() {
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <div>
-            <h1>skjdfhsdf</h1>
-            <Outlet />
-          </div>
-        }
-      >
-        <Route path="l" element={<h2>lllllllll</h2>} />
+      <Route path="/" element={<ChiefWarden />}>
+        <Route path="login" element={<Login />} />
       </Route>
     </Routes>
   );
