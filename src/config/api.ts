@@ -4,3 +4,8 @@ import axios from 'axios'
 export const chiefWardenAPI = axios.create({
     baseURL: `http://localhost:8000/api/v1/chief-warden`
 })
+
+// Staff API
+export const staffAPI = axios.create({
+    baseURL: `http://localhost:8000/api/v1/staffs`
+})

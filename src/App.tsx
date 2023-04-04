@@ -4,6 +4,7 @@ import StudentRoutes from "./routes/Student";
 import { BrowserRouter } from "react-router-dom";
 import Header from "./components/Layout/Header";
 import ReactToastify from "./components/UI/ReactToastify";
+import StaffRoutes from "./routes/Staff";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
           <Route path="/" element={<Header />} />
           <Route path="/*" element={`NOT FOUND`} />
           <Route path="/students/*" element={<StudentRoutes />} />
-          <Route path="/staffs/*" element={<StudentRoutes />} />
+          <Route path="/staffs/*" element={<StaffRoutes />} />
           <Route path="/chief-wardens/*" element={<ChiefWardenRoutes />} />
         </Routes>
       </BrowserRouter>

@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import LoginForm from "../../components/Form/LoginForm";
-import { login } from "../../apiRoutes/chiefWarden";
+import { login } from "../../apiRoutes/staff";
 
-// Login Page
 function Login() {
   const tokenHandler = (token: string): void => {
     console.log(token);
@@ -11,14 +10,14 @@ function Login() {
   return (
     <>
       <div className="parent-container">
-        <h2 className="mb-6">Chief Warden login</h2>
+        <h2 className="mb-6">Staff login</h2>
         <LoginForm
-         onSubmit={login}
           tokenHandler={tokenHandler}
-          navigateTo="/chief-wardens/dashboard"
+          navigateTo="/staffs/dashboard"
+          onSubmit={login}
         />
         <div className="lg:ml-auto text-sm pt-1 px-2 ">
-          <Link to="/staffs/login">Staff Login →</Link>
+          <Link to="/chief-wardens/login">Chief-Warden →</Link>
         </div>
       </div>
     </>

@@ -5,17 +5,22 @@ import Button from "../UI/Button";
 import PasswordInput from "./PasswordInput";
 import * as yup from "yup";
 import LoadingButton from "../UI/LoadingButton";
-import { login } from "../../apiRoutes/chiefWarden";
-import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-function LoginForm() {
+interface Props {
+  navigateTo: string;
+  tokenHandler: (token: string) => void;
+  onSubmit: (formData: { email: string; password: string }) => Promise<any>;
+}
+
+function LoginForm({ tokenHandler, navigateTo, onSubmit }: Props) {
   const [message, setMessage] = useState<string | null>(null);
+
   const navigate = useNavigate();
   return (
-    <div className="parent-container">
-      <h2 className="mb-6">Chief Warden login</h2>
+    <>
       <Formik
         initialValues={{
           email: "",
@@ -39,7 +44,7 @@ function LoginForm() {
         })}
         onSubmit={(formData, { setSubmitting }) => {
           setSubmitting(true);
-          login(formData)
+          onSubmit(formData)
             .then(
               ({
                 data: {
@@ -47,9 +52,9 @@ function LoginForm() {
                   data: { name },
                 },
               }) => {
-                console.log(token);
+                tokenHandler(token);
                 toast.success(`Welcome ${name}`);
-                navigate("/chief-warden/dashboard");
+                navigate(navigateTo);
               }
             )
             .catch(
@@ -85,15 +90,12 @@ function LoginForm() {
           </Form>
         )}
       </Formik>
-      <div className="lg:ml-auto text-sm pt-1 px-2 ">
-        <button>Warden Login</button>
-      </div>
       {message && (
         <span className="text-center text-md font-semibold text-red-700">
           {message}
         </span>
       )}
-    </div>
+    </>
   );
 }
 

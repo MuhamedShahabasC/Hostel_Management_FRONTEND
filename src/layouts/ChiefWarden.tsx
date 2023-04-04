@@ -8,7 +8,6 @@ function ChiefWarden() {
       style={{
         backgroundImage:
           "url('https://res.cloudinary.com/dqrnskj2b/image/upload/q_95/v1680582321/Hostel%20Management%20Project/UI/backgroundImages/cw-bg_soo604.webp')",
-        // backgroundColor: "white",
         height: "100vh",
         backgroundPosition: "center",
         backgroundSize: "cover",
