@@ -7,10 +7,11 @@ import * as yup from "yup";
 import LoadingButton from "../UI/LoadingButton";
 import { login } from "../../apiRoutes/chiefWarden";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
-  const [message, setMessage] = useState<any>(null);
+  const [message, setMessage] = useState<string | null>(null);
   const navigate = useNavigate();
   return (
     <div className="parent-container">
@@ -39,9 +40,18 @@ function LoginForm() {
         onSubmit={(formData, { setSubmitting }) => {
           setSubmitting(true);
           login(formData)
-            .then(({ data: { token } }) => {
-              navigate("/chief-warden/dashboard");
-            })
+            .then(
+              ({
+                data: {
+                  token,
+                  data: { name },
+                },
+              }) => {
+                console.log(token);
+                toast.success(`Welcome ${name}`);
+                navigate("/chief-warden/dashboard");
+              }
+            )
             .catch(
               ({
                 response: {

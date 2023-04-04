@@ -7,9 +7,10 @@ function ChiefWarden() {
     <div
       style={{
         backgroundImage:
-          "url('https://images.pexels.com/photos/1242348/pexels-photo-1242348.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')",
+          "url('https://res.cloudinary.com/dqrnskj2b/image/upload/q_95/v1680582321/Hostel%20Management%20Project/UI/backgroundImages/cw-bg_soo604.webp')",
         // backgroundColor: "white",
         height: "100vh",
+        backgroundPosition: "center",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
       }}
