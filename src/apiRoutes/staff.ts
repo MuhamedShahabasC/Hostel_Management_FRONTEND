@@ -4,3 +4,7 @@ import { ILogin } from "../interfaces/auth";
 // Login staff
 export const login = async (formData: ILogin) =>
   await staffAPI.post("/auth", formData);
+
+// -- CHEF --
+// All meal plans
+export const allMealPlans = async() => await staffAPI.get('/jango@gmail.com/meals/all')
