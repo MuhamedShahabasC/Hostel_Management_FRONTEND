@@ -7,4 +7,8 @@ export const login = async (formData: ILogin) =>
 
 // -- CHEF --
 // All meal plans
-export const allMealPlans = async() => await staffAPI.get('/jango@gmail.com/meals/all')
+export const allMealPlans = async () =>
+  await staffAPI.get("/jango@gmail.com/meals/all");
+
+export const updateMealPlan = async (_id: string, data: any) =>
+  await staffAPI.put(`/jango@gmail.com/meals/${_id}`, data);

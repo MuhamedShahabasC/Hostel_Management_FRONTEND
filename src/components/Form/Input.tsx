@@ -5,9 +5,11 @@ interface props {
   name: string;
   placeholder: string;
   type: string;
+  value?: any;
+  onChange?: any;
 }
 
-function Input({ id, name, placeholder, type }: props) {
+function Input({ id, name, placeholder, type, value, onChange }: props) {
   return (
     <div className="flex flex-col">
       <Field

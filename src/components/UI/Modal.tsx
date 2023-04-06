@@ -45,7 +45,7 @@ function Modal({ isOpen, children, heading, closeHandler }: any) {
       )}
       contentElement={(props, children) => <div {...props}>{children}</div>}
     >
-      <h1 className="text-lg">{heading}</h1>
+      <h1 className="text-lg underline underline-offset-4 mb-2">{heading}</h1>
       <div className="overflow-y-auto">{children}</div>
       <span className="text-sm">
         <Button type="button" onClick={() => closeHandler(false)}>
