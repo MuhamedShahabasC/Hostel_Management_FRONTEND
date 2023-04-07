@@ -2,7 +2,7 @@ import { Media, TableColumn } from "react-data-table-component";
 import { useEffect, useMemo, useState } from "react";
 import Table from "../../components/Table";
 import { getAllNotices } from "../../apiRoutes/chiefWarden";
-import { errorToast } from "../../middleware/errorToast";
+import { errorToast } from "../../helpers/toasts";
 import Modal from "../../components/UI/Modal";
 
 interface TableRow {

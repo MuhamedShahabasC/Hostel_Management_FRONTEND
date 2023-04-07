@@ -1,7 +1,7 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { allMealPlans, updateMealPlan } from "../../apiRoutes/staff";
 import Table, { TableColumn, Media } from "../../components/Table";
-import { errorToast } from "../../middleware/errorToast";
+import { errorToast } from "../../helpers/toasts";
 import Modal from "../../components/UI/Modal";
 import Input from "../../components/Form/Input";
 import { Form, Formik } from "formik";
@@ -20,17 +20,22 @@ interface TableRow {
 }
 
 function MealsChef() {
-  const [allMeals, setAllMeals] = useState<any>([]);
   const [pending, setPending] = useState<boolean>(true);
   const [modalOpen, setModal] = useState<boolean>(false);
+  const [allMeals, setAllMeals] = useState<any>([]);
   const [modalData, setModalData] = useState<any>(null);
   const [message, setMessage] = useState<string | null>(null);
 
-  useEffect(() => {
+  const fetchAllMeals = useCallback(() => {
     allMealPlans()
       .then(({ data: { data } }) => setAllMeals(data))
       .catch((err) => errorToast(err.message))
       .finally(() => setPending(false));
+  }, []);
+
+  useEffect(() => {
+    fetchAllMeals();
+    // eslint-disable-next-line
   }, []);
 
   const editForm = (
@@ -39,13 +44,20 @@ function MealsChef() {
         enableReinitialize
         initialValues={{
           title: modalData?.title,
+          price: modalData?.price,
+          breakfast: modalData?.breakfast,
+          lunch: modalData?.lunch,
+          evening: modalData?.evening,
+          dinner: modalData?.dinner,
         }}
         validationSchema={mealPlanSchema}
         onSubmit={(formData, { setSubmitting }) => {
+          console.log(formData);
           setSubmitting(true);
           updateMealPlan(modalData._id, formData)
-            .then(({ data }) => {
+            .then(async ({ data }) => {
               console.log(data);
+              await fetchAllMeals();
               toast.success(`${modalData.title} updated successfully`);
               setModal(false);
             })
@@ -59,20 +71,56 @@ function MealsChef() {
             .finally(() => setSubmitting(false));
         }}
       >
-        {({ isSubmitting, values }) => (
+        {({ isSubmitting }) => (
           <Form className="flex flex-col justify-center gap-4 px-1 mb-3">
             <Input
-              type="title"
+              type="text"
               placeholder="Title"
               name="title"
               id="title"
-              value={values.title}
+              edit
             />
-
+            <Input
+              type="number"
+              placeholder="Price"
+              name="price"
+              id="price"
+              edit
+            />
+            <Input
+              type="text"
+              placeholder="Breakfast"
+              name="breakfast"
+              id="breakfast"
+              edit
+            />
+            <Input
+              type="text"
+              placeholder="Lunch"
+              name="lunch"
+              id="lunch"
+              edit
+            />
+            <Input
+              type="text"
+              placeholder="Evening"
+              name="evening"
+              id="evening"
+              edit
+            />
+            <Input
+              type="text"
+              placeholder="Dinner"
+              name="dinner"
+              id="dinner"
+              edit
+            />
             {isSubmitting ? (
               <LoadingButton />
             ) : (
-              <Button type="submit">Edit</Button>
+              <Button className="max-w-fit mx-auto" type="submit">
+                Update Meal Plan
+              </Button>
             )}
           </Form>
         )}
@@ -140,7 +188,11 @@ function MealsChef() {
     <div className="parent-container ">
       <h2>Meals Plan</h2>
       <Table columns={columns} data={allMeals} pending={pending} />
-      <Modal isOpen={modalOpen} heading="Heading" closeHandler={setModal}>
+      <Modal
+        isOpen={modalOpen}
+        heading="Edit Meal Plan"
+        closeHandler={setModal}
+      >
         {modalData && editForm}
       </Modal>
     </div>

@@ -5,8 +5,12 @@ import { BrowserRouter } from "react-router-dom";
 import Header from "./components/Layout/Header";
 import ReactToastify from "./components/UI/ReactToastify";
 import StaffRoutes from "./routes/Staff";
+// import { getToken } from "./helpers/localStorage";
 
 function App() {
+  // const token = getToken();
+
+
   return (
     <>
       <ReactToastify />

@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
 import LoginForm from "../../components/Form/LoginForm";
 import { login } from "../../apiRoutes/chiefWarden";
+import { useDispatch } from "react-redux";
+import { saveToken } from "../../helpers/localStorage";
+import { currentUserActions } from "../../store/currentUser";
 
-// Login Page
+// Login Page - Chief warden
 function Login() {
-  const tokenHandler = (token: string): void => {
-    console.log(token);
+  const dispatch = useDispatch();
+  const loginHandler = (token: string, data: any): void => {
+    dispatch(currentUserActions.login(data));
+    saveToken(token);
   };
 
   return (
@@ -13,7 +18,7 @@ function Login() {
       <h2 className="mb-6">Chief Warden login</h2>
       <LoginForm
         onSubmit={login}
-        tokenHandler={tokenHandler}
+        loginHandler={loginHandler}
         navigateTo="/chief-wardens/notices"
       />
       <div className="lg:ml-auto text-sm pt-1 px-2 ">

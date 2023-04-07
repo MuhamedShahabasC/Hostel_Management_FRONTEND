@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
 import LoginForm from "../../components/Form/LoginForm";
-import { login } from "../../apiRoutes/staff";
+import { login as loginAPI } from "../../apiRoutes/staff";
+import { saveToken } from "../../helpers/localStorage";
+import { useDispatch } from "react-redux";
+import { currentUserActions } from "../../store/currentUser";
 
+// Staff login page
 function Login() {
-  const tokenHandler = (token: string): void => {
-    console.log(token);
+  const dispatch = useDispatch();
+  const loginHandler = (token: string, data: any): void => {
+    saveToken(token);
+    dispatch(currentUserActions.login(data));
   };
 
   return (
@@ -12,10 +18,9 @@ function Login() {
       <div className="parent-container lg:max-w-md">
         <h2 className="mb-6">Staff login</h2>
         <LoginForm
-          tokenHandler={tokenHandler}
-          // navigateTo="/staffs/dashboard"
+          loginHandler={loginHandler}
           navigateTo="/staffs/chef/meals"
-          onSubmit={login}
+          onSubmit={loginAPI}
         />
         <div className="lg:ml-auto text-sm pt-1 px-2 ">
           <Link to="/chief-wardens/login">Chief-Warden →</Link>

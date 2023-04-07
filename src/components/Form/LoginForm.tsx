@@ -11,11 +11,11 @@ import { useState } from "react";
 
 interface Props {
   navigateTo: string;
-  tokenHandler: (token: string) => void;
+  loginHandler: (token: string, data: any) => void;
   onSubmit: (formData: { email: string; password: string }) => Promise<any>;
 }
 
-function LoginForm({ tokenHandler, navigateTo, onSubmit }: Props) {
+function LoginForm({ loginHandler, navigateTo, onSubmit }: Props) {
   const [message, setMessage] = useState<string | null>(null);
 
   const navigate = useNavigate();
@@ -45,18 +45,11 @@ function LoginForm({ tokenHandler, navigateTo, onSubmit }: Props) {
         onSubmit={(formData, { setSubmitting }) => {
           setSubmitting(true);
           onSubmit(formData)
-            .then(
-              ({
-                data: {
-                  token,
-                  data: { name },
-                },
-              }) => {
-                tokenHandler(token);
-                toast.success(`Welcome ${name}`);
-                navigate(navigateTo);
-              }
-            )
+            .then(({ data: { token, data } }) => {
+              loginHandler(token, data);
+              toast.success(`Welcome ${data.name}`);
+              navigate(navigateTo);
+            })
             .catch(
               ({
                 response: {

@@ -6,7 +6,7 @@ function Modal({ isOpen, children, heading, closeHandler }: any) {
 
   return (
     <ReactModal
-      className="w-full xl:w-6/12 items-center justify-center focus:outline-none gap-3"
+      className="w-full lg:w-2/3 xl:w-1/2 items-center justify-center focus:outline-none gap-3"
       isOpen={isOpen}
       style={{
         overlay: {
@@ -18,11 +18,13 @@ function Modal({ isOpen, children, heading, closeHandler }: any) {
           display: "flex",
           borderRadius: "8px",
           flexDirection: "column",
+          justifyContent: "center",
           zIndex: 10,
           margin: "auto",
           padding: "25px",
           background: "white",
-          maxHeight: "80%",
+          maxHeight: "90%",
+          minHeight: "50%",
         },
       }}
       contentLabel={"Example Modal"}
@@ -46,7 +48,7 @@ function Modal({ isOpen, children, heading, closeHandler }: any) {
       contentElement={(props, children) => <div {...props}>{children}</div>}
     >
       <h1 className="text-lg underline underline-offset-4 mb-2">{heading}</h1>
-      <div className="overflow-y-auto">{children}</div>
+      <div className="w-full overflow-y-auto">{children}</div>
       <span className="text-sm">
         <Button type="button" onClick={() => closeHandler(false)}>
           Close
