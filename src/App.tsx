@@ -5,11 +5,12 @@ import { BrowserRouter } from "react-router-dom";
 import Header from "./components/Layout/Header";
 import ReactToastify from "./components/UI/ReactToastify";
 import StaffRoutes from "./routes/Staff";
+import { AppDispatch, RootState } from "./config/store";
 // import { getToken } from "./helpers/localStorage";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 function App() {
   // const token = getToken();
-
 
   return (
     <>
@@ -26,5 +27,10 @@ function App() {
     </>
   );
 }
+
+// TS config for Redux
+type DispatchFunc = () => AppDispatch;
+export const useAppDispatch: DispatchFunc = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export default App;

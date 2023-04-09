@@ -1,8 +1,8 @@
-function LoadingButton() {
+function LoadingButton(props: Props) {
   return (
     <button
       type="button"
-      className={`bg-primary text-white text-center rounded-md p-2 tracking-wider flex justify-center`}
+      className={`bg-primary text-white text-center rounded-md p-2 tracking-wider flex justify-center ${props?.className}`}
     >
       <img
         className="animate-spin h-6 w-6"
@@ -11,6 +11,10 @@ function LoadingButton() {
       />
     </button>
   );
+}
+
+interface Props {
+  className?: string;
 }
 
 export default LoadingButton;

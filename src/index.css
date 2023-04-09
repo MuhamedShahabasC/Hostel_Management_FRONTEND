@@ -15,6 +15,12 @@
   h2 {
     @apply uppercase tracking-wider text-primary text-center my-4;
   }
+  h3 {
+    @apply font-medium text-sm text-gray-800 uppercase tracking-widest;
+  }
+  h4 {
+    @apply font-extrabold text-sm tracking-wider text-primary;
+  }
 }
 
 .header-btn {
@@ -24,6 +30,9 @@
 .parent-container {
   @apply bg-white w-full md:max-w-xl lg:max-w-2xl p-2 rounded-lg lg:p-8 shadow-xl m-2 flex flex-col;
 }
+.profile-container {
+  @apply bg-white w-full md:max-w-xl lg:max-w-2xl p-2 rounded-lg lg:p-8 shadow-xl m-2 flex flex-wrap mx-auto;
+}
 
 .parent-container h2 {
   font-weight: bolder;
@@ -32,4 +41,8 @@
 
 .border-1 {
   border: 1px solid #dee2e6;
+}
+
+.image-button {
+  @apply hover:shadow-xl hover:brightness-90 active:brightness-75 active:shadow-2xl;
 }

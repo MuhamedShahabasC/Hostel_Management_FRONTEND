@@ -1,14 +1,15 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { allMealPlans, updateMealPlan } from "../../apiRoutes/staff";
+import {
+  allMealPlans,
+  changeAvailabilityMealPlan,
+} from "../../apiRoutes/staff";
 import Table, { TableColumn, Media } from "../../components/Table";
 import { errorToast } from "../../helpers/toasts";
 import Modal from "../../components/UI/Modal";
-import Input from "../../components/Form/Input";
-import { Form, Formik } from "formik";
-import LoadingButton from "../../components/UI/LoadingButton";
 import Button from "../../components/UI/Button";
 import { toast } from "react-toastify";
-import { mealPlanSchema } from "../../schema/staff";
+import { disableIcon, tickIcon, viewIcon } from "../../assets/icons/icons";
+import MealPlanForm from "../../components/Form/MealPlan";
 
 interface TableRow {
   _id: string;
@@ -24,7 +25,7 @@ function MealsChef() {
   const [modalOpen, setModal] = useState<boolean>(false);
   const [allMeals, setAllMeals] = useState<any>([]);
   const [modalData, setModalData] = useState<any>(null);
-  const [message, setMessage] = useState<string | null>(null);
+  const [formRole, setFormRole] = useState<"new" | "edit">("edit");
 
   const fetchAllMeals = useCallback(() => {
     allMealPlans()
@@ -37,101 +38,6 @@ function MealsChef() {
     fetchAllMeals();
     // eslint-disable-next-line
   }, []);
-
-  const editForm = (
-    <>
-      <Formik
-        enableReinitialize
-        initialValues={{
-          title: modalData?.title,
-          price: modalData?.price,
-          breakfast: modalData?.breakfast,
-          lunch: modalData?.lunch,
-          evening: modalData?.evening,
-          dinner: modalData?.dinner,
-        }}
-        validationSchema={mealPlanSchema}
-        onSubmit={(formData, { setSubmitting }) => {
-          console.log(formData);
-          setSubmitting(true);
-          updateMealPlan(modalData._id, formData)
-            .then(async ({ data }) => {
-              console.log(data);
-              await fetchAllMeals();
-              toast.success(`${modalData.title} updated successfully`);
-              setModal(false);
-            })
-            .catch(
-              ({
-                response: {
-                  data: { message },
-                },
-              }) => setMessage(message)
-            )
-            .finally(() => setSubmitting(false));
-        }}
-      >
-        {({ isSubmitting }) => (
-          <Form className="flex flex-col justify-center gap-4 px-1 mb-3">
-            <Input
-              type="text"
-              placeholder="Title"
-              name="title"
-              id="title"
-              edit
-            />
-            <Input
-              type="number"
-              placeholder="Price"
-              name="price"
-              id="price"
-              edit
-            />
-            <Input
-              type="text"
-              placeholder="Breakfast"
-              name="breakfast"
-              id="breakfast"
-              edit
-            />
-            <Input
-              type="text"
-              placeholder="Lunch"
-              name="lunch"
-              id="lunch"
-              edit
-            />
-            <Input
-              type="text"
-              placeholder="Evening"
-              name="evening"
-              id="evening"
-              edit
-            />
-            <Input
-              type="text"
-              placeholder="Dinner"
-              name="dinner"
-              id="dinner"
-              edit
-            />
-            {isSubmitting ? (
-              <LoadingButton />
-            ) : (
-              <Button className="max-w-fit mx-auto" type="submit">
-                Update Meal Plan
-              </Button>
-            )}
-          </Form>
-        )}
-      </Formik>
-      {message && (
-        <span className="text-center text-md font-semibold text-red-700">
-          {message}
-        </span>
-      )}
-    </>
-  );
 
   const columns: TableColumn<TableRow>[] = useMemo(
     () => [
@@ -163,18 +69,42 @@ function MealsChef() {
         grow: 2,
         cell: (row) => {
           return (
-            <>
+            <div className="gap-2">
               <button
-                className="border"
                 onClick={() => {
                   setModalData(row);
                   setModal(true);
+                  setFormRole("edit");
                 }}
               >
-                View
+                <img
+                  className="image-button h-7"
+                  src={viewIcon}
+                  alt="view details"
+                />
               </button>
-              <button onClick={() => alert(row.active)}>Edit</button>
-            </>
+              <button
+                onClick={async () =>
+                  await changeAvailabilityMealPlan(row._id)
+                    .then(fetchAllMeals)
+                    .then(() => toast.success(`${row.title} plan updated`))
+                }
+              >
+                {row.active ? (
+                  <img
+                    className="image-button h-7"
+                    src={tickIcon}
+                    alt="active meal"
+                  />
+                ) : (
+                  <img
+                    className="image-button h-7"
+                    src={disableIcon}
+                    alt="disabled meal"
+                  />
+                )}
+              </button>
+            </div>
           );
         },
         ignoreRowClick: true,
@@ -182,18 +112,40 @@ function MealsChef() {
         button: true,
       },
     ],
+    // eslint-disable-next-line
     []
   );
+
+  const newMealPlanHandler = (): void => {
+    setFormRole("new");
+    setModalData([]);
+    setModal(true);
+  };
+
   return (
     <div className="parent-container ">
       <h2>Meals Plan</h2>
       <Table columns={columns} data={allMeals} pending={pending} />
+      <Button
+        className="max-w-max px-9 text-sm mx-auto mt-3"
+        type="button"
+        onClick={newMealPlanHandler}
+      >
+        New Meal Plan
+      </Button>
       <Modal
         isOpen={modalOpen}
-        heading="Edit Meal Plan"
+        heading="Meal Plan Details"
         closeHandler={setModal}
       >
-        {modalData && editForm}
+        {modalData && (
+          <MealPlanForm
+            fetchAllMeals={fetchAllMeals}
+            modalData={modalData}
+            role={formRole}
+            setModal={setModal}
+          />
+        )}
       </Modal>
     </div>
   );
