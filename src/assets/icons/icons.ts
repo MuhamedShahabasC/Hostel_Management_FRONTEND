@@ -13,3 +13,7 @@ export const tickIcon =
 // Disable icon
 export const disableIcon =
   "https://res.cloudinary.com/dqrnskj2b/image/upload/v1680849008/Hostel%20Management%20Project/UI/icons/forbidden_lqr8va.png";
+
+// Edit icon
+export const editIcon =
+  "https://res.cloudinary.com/dqrnskj2b/image/upload/q_95/v1681129645/Hostel%20Management%20Project/UI/icons/edit_naqx3k.png";

@@ -8,7 +8,7 @@ import ProtectedRoute from "../helpers/ProtectedRoute";
 function Staff() {
   return (
     <Routes>
-      <Route path="/" element={<StaffLayout />}>
+      <Route element={<StaffLayout />}>
         <Route path="login" element={<Login />} />
         <Route element={<ProtectedRoute role="staff" />}>
           <Route path="profile" element={<Profile />} />
@@ -17,6 +17,7 @@ function Staff() {
           </Route>
         </Route>
       </Route>
+      <Route path="*" element={`NOT FOUND`} />
     </Routes>
   );
 }

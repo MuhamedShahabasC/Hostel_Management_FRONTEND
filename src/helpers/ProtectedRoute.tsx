@@ -6,7 +6,7 @@ import { setApiHeader } from "./apiHeader";
 import { Navigate, Outlet } from "react-router-dom";
 
 // Protected route component for checking if the current user is valid, on every routes
-function ProtectedRoute({ role }: Props) {
+function ProtectedRoute({ role, department }: Props) {
   const [auth, setAuth] = useState<ILoginResponse | null | false>(null);
 
   const routeTo = (role: string): string | undefined => {
@@ -28,7 +28,11 @@ function ProtectedRoute({ role }: Props) {
       if (currentUser.role !== role) return setAuth(false);
       checkAuthAPI
         .get("", setApiHeader(currentUser?.token as string))
-        .then(() => setAuth(currentUser))
+        .then(() => {
+          // if (department && currentUser.data?.department === department) {
+          setAuth(currentUser);
+          // } else setAuth(false);
+        })
         .catch(() => {
           removeLocalData();
           setAuth(false);
@@ -43,6 +47,7 @@ function ProtectedRoute({ role }: Props) {
 
 interface Props {
   role: "chiefWarden" | "staff" | "student";
+  department?: "maintenance" | "warden" | "chef";
 }
 
 export default ProtectedRoute;

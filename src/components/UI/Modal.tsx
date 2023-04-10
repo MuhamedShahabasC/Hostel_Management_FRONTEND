@@ -47,13 +47,18 @@ function Modal({ isOpen, children, heading, closeHandler }: any) {
       )}
       contentElement={(props, children) => <div {...props}>{children}</div>}
     >
-      <h1 className="text-lg underline underline-offset-4 mb-2">{heading}</h1>
+      <div className="flex w-full relative">
+        <h1 className="text-lg underline mx-auto underline-offset-4 mb-2">
+          {heading}
+        </h1>
+        <button
+          className=" absolute font-black right-1 top-0 bg-gray-100 rounded-sm px-1 text-lg text-primary"
+          onClick={() => closeHandler(false)}
+        >
+          X
+        </button>
+      </div>
       <div className="w-full overflow-y-auto">{children}</div>
-      <span className="text-sm">
-        <Button type="button" onClick={() => closeHandler(false)}>
-          Close
-        </Button>
-      </span>
     </ReactModal>
   );
 }

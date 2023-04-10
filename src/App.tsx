@@ -15,10 +15,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Header />} />
-          <Route path="/*" element={`NOT FOUND`} />
           <Route path="/students/*" element={<StudentRoutes />} />
           <Route path="/staffs/*" element={<StaffRoutes />} />
           <Route path="/chief-wardens/*" element={<ChiefWardenRoutes />} />
+          <Route path="/*" element={`NOT FOUND`} />
         </Routes>
       </BrowserRouter>
     </>

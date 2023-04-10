@@ -10,9 +10,10 @@ export interface ILoginResponse {
     email: string;
     name: string;
     mobile: string;
+    department?: "maintenance" | "warden" | "chef";
   };
   token: string;
-  role: 'staff' | 'chiefWarden' | 'student'
+  role: "staff" | "chiefWarden" | "student";
 }
 
 export interface IResetPassword {

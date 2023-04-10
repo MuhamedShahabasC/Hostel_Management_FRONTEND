@@ -10,11 +10,7 @@ function ChiefWardenRoutes() {
     <Routes>
       <Route path="/" element={<ChiefWarden />}>
         <Route path="login" element={<Login />} />
-        <Route
-          element={
-            <ProtectedRoute role="chiefWarden" />
-          }
-        >
+        <Route element={<ProtectedRoute role="chiefWarden" />}>
           <Route path="notices" element={<Notices />} />
           <Route path="profile" element={<Profile />} />
         </Route>
