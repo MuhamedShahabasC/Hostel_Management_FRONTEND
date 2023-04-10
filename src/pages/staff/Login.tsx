@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import LoginForm from "../../components/Form/LoginForm";
 import { login as loginAPI } from "../../apiRoutes/staff";
-import { saveToken } from "../../helpers/localStorage";
+import { saveLocally } from "../../helpers/localStorage";
 import { useDispatch } from "react-redux";
 import { currentUserActions } from "../../store/currentUser";
 
@@ -9,7 +9,7 @@ import { currentUserActions } from "../../store/currentUser";
 function Login() {
   const dispatch = useDispatch();
   const loginHandler = (token: string, data: any): void => {
-    saveToken(token);
+    saveLocally(token, data, "staff");
     dispatch(currentUserActions.login(data));
   };
 

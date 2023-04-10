@@ -6,12 +6,9 @@ import Header from "./components/Layout/Header";
 import ReactToastify from "./components/UI/ReactToastify";
 import StaffRoutes from "./routes/Staff";
 import { AppDispatch, RootState } from "./config/store";
-// import { getToken } from "./helpers/localStorage";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 function App() {
-  // const token = getToken();
-
   return (
     <>
       <ReactToastify />
