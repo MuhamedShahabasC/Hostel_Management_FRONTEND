@@ -22,15 +22,21 @@ function Header({ role }: Props) {
         </Link>
         <div className="flex gap-7 items-center">
           <div className="hidden lg:flex gap-7">
-            {currentUser?.currentUser && <HeaderLinks currentUser={currentUser} />}
+            {currentUser?.currentUser && (
+              <HeaderLinks currentUser={currentUser} />
+            )}
           </div>
           {!currentUser ? (
             <LoggedOutHeaderButton role={role} />
           ) : (
             <LoggedInHeaderButton
-              currentUser={currentUser}
+              currentUser={currentUser && currentUser}
               role={currentUser.role}
-            />
+            >
+              {currentUser?.currentUser && (
+                <HeaderLinks currentUser={currentUser} />
+              )}
+            </LoggedInHeaderButton>
           )}
         </div>
       </div>

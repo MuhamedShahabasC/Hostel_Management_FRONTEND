@@ -104,6 +104,14 @@ function HeaderLinks({ currentUser }: Props) {
             name: `Compliant`,
             link: `/chief-wardens/compliants`,
           },
+          {
+            name: `Notices`,
+            link: `/chief-wardens/notices`,
+          },
+          {
+            name: `Blocks`,
+            link: `/chief-wardens/blocks`,
+          },
         ];
         break;
     }

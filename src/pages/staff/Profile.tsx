@@ -22,7 +22,7 @@ function Profile() {
           src={staffData?.currentUser.profilePic}
           alt="staff avatar"
         />
-        <h1 className="normal-case">{staffData?.currentUser.name}</h1>
+        <h1 className="normal-case mt-4">{staffData?.currentUser.name}</h1>
         <h3>{staffData?.currentUser.department}</h3>
       </div>
       <div className="flex flex-col my-4 px-5 grow">

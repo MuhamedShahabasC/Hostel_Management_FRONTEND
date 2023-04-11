@@ -3,14 +3,15 @@ import { ICurrentUser } from "../../interfaces/auth";
 import { currentUserActions } from "../../store/currentUser";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import HeaderLinks from "../Layout/HeaderLinks";
+import { defaultAvatarImg } from "../../assets/icons/images";
 
 interface Props {
+  children?: any;
   currentUser: ICurrentUser;
   role: "staff" | "chiefWarden" | "student";
 }
 
-function LoggedInHeaderButton({ currentUser, role }: Props) {
+function LoggedInHeaderButton({ currentUser, children, role }: Props) {
   const dispatch = useDispatch();
   const [dropdown, setDropdown] = useState<boolean>(false);
 
@@ -42,11 +43,11 @@ function LoggedInHeaderButton({ currentUser, role }: Props) {
             <button className="header-btn">
               <img
                 className="h-7 mr-1"
-                src={currentUser?.currentUser.profilePic}
+                src={currentUser?.currentUser?.profilePic || defaultAvatarImg}
                 alt="Profile"
               />
               <span className="text-xs hidden lg:text-sm lg:block">
-                {currentUser?.currentUser.name.split(" ")[0]}
+                {currentUser?.currentUser?.name.split(" ")[0]}
               </span>
             </button>
           </div>
@@ -58,15 +59,15 @@ function LoggedInHeaderButton({ currentUser, role }: Props) {
       >
         <img
           className="shadow-md h-9 rounded-full"
-          src={currentUser?.currentUser.profilePic}
+          src={currentUser?.currentUser?.profilePic || defaultAvatarImg}
           alt="Profile"
         />
         <div
           className={`${
-            !dropdown && "hidden"
+            dropdown ? "hidden" : ""
           } flex flex-col gap-2 absolute top-8 right-2 shadow-xl border-1 z-10 bg-white p-3 text-sm text-primary font-black rounded-md `}
         >
-          <HeaderLinks currentUser={currentUser} />
+          {children}
           <Link
             to={`/${route}/login`}
             onClick={() => dispatch(currentUserActions.logout())}
