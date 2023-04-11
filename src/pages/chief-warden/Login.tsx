@@ -17,7 +17,7 @@ function Login() {
         loginHandler={loginHandler}
         navigateTo="/chief-wardens/notices"
       />
-      <div className="lg:ml-auto text-sm pt-1 px-2 ">
+      <div className="ml-auto text-sm pt-1 px-2 ">
         <Link to="/staffs/login">Staff Login →</Link>
       </div>
     </div>

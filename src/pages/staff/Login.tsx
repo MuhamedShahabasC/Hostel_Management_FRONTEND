@@ -19,10 +19,10 @@ function Login() {
         <h2 className="mb-6">Staff login</h2>
         <LoginForm
           loginHandler={loginHandler}
-          navigateTo="/staffs/chef/meals"
+          navigateTo="/staffs/meals"
           onSubmit={loginAPI}
         />
-        <div className="lg:ml-auto text-sm pt-1 px-2 ">
+        <div className="ml-auto text-sm pt-1 px-2 ">
           <Link to="/chief-wardens/login">Chief-Warden →</Link>
         </div>
       </div>

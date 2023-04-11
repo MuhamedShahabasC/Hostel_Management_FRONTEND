@@ -1,19 +1,15 @@
 import { Link } from "react-router-dom";
 import { staffIcon, studentIcon } from "../../assets/icons/icons";
-import { useDispatch } from "react-redux";
-import { currentUserActions } from "../../store/currentUser";
 
 interface Props {
-  role: "staff" | "student";
+  role: "staff" | "student" | "chiefWarden";
 }
 
 function LoggedOutHeaderButton({ role }: Props) {
-  const dispatch = useDispatch();
+  
   return (
     <Link
-    //   to={role === "staff" ? "/students/login" : "/staffs/login"}
-      to={role === "staff" ? "/staffs/login" : "/staffs/login"}
-      onClick={() => dispatch(currentUserActions.logout())} // remove
+      to={role === "student" ? "/staffs/login" : "/students/login"}
     >
       <div className="flex gap-6">
         <button className="header-btn">
