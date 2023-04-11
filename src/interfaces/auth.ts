@@ -16,6 +16,19 @@ export interface ILoginResponse {
   role: "staff" | "chiefWarden" | "student";
 }
 
+export interface ICurrentUser {
+  currentUser: {
+    _id: string;
+    email: string;
+    name: string;
+    mobile: string;
+    department?: "maintenance" | "warden" | "chef";
+    profilePic?: string
+  };
+  token: string;
+  role: "staff" | "chiefWarden" | "student";
+}
+
 export interface IResetPassword {
   currentPassword: string;
   newPassword: string;

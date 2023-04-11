@@ -1,4 +1,5 @@
 import { chiefWardenAPI } from "../config/api";
+import { getUserMail } from "../helpers/localStorage";
 import { ILogin, IResetPassword } from "../interfaces/auth";
 import { INotice } from "../interfaces/chiefWarden";
 
@@ -7,7 +8,7 @@ export const login = async (formData: ILogin) =>
   await chiefWardenAPI.post("/login", formData);
 
 export const resetPassword = async (passwordData: IResetPassword) =>
-  await chiefWardenAPI.patch("/auth/chiefwarden@college.com", passwordData);
+  await chiefWardenAPI.patch(`/auth/${getUserMail()}`, passwordData);
 
 // -- NOTICES --
 // Get all notices

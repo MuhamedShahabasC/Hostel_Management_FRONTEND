@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { getLocalData, removeLocalData } from "./localStorage";
+import { getLocalData} from "./localStorage";
 import { ILoginResponse } from "../interfaces/auth";
 import { checkAuthAPI } from "../config/api";
 import { setApiHeader } from "./apiHeader";
 import { Navigate, Outlet } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { currentUserActions } from "../store/currentUser";
+import { useAppDispatch } from "../App";
 
 // Protected route component for checking if the current user is valid, on every routes
 function ProtectedRoute({ role, department }: Props) {
   const [auth, setAuth] = useState<ILoginResponse | null | false>(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const routeTo = (role: string): string | undefined => {
     switch (role) {
@@ -28,20 +28,26 @@ function ProtectedRoute({ role, department }: Props) {
   useEffect(() => {
     const currentUser = getLocalData() as ILoginResponse | null;
     if (currentUser) {
-      if (currentUser.role !== role) return setAuth(false);
+      if (currentUser.role !== role) {
+        dispatch(currentUserActions.login(currentUser));
+        return setAuth(false);
+      }
       checkAuthAPI
         .get("", setApiHeader(currentUser?.token as string))
         .then(() => {
           // if (department && currentUser.data?.department === department) {
           dispatch(currentUserActions.login(currentUser));
-          setAuth(currentUser);
+          return setAuth(currentUser);
           // } else setAuth(false);
         })
         .catch(() => {
-          removeLocalData();
-          setAuth(false);
+          dispatch(currentUserActions.logout());
+          return setAuth(false);
         });
-    } else setAuth(false);
+    } else {
+      dispatch(currentUserActions.logout());
+      return setAuth(false);
+    }
     // eslint-disable-next-line
   }, []);
   if (auth === null) return null;

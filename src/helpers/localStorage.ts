@@ -1,4 +1,4 @@
-import { ILoginResponse, IRole } from "../interfaces/auth";
+import { ICurrentUser, ILoginResponse, IRole } from "../interfaces/auth";
 
 // Saving locally in the browser
 export const saveLocally = (
@@ -15,7 +15,7 @@ export const saveLocally = (
 };
 
 // Fetching from local storage
-export const getLocalData = (): string | null => {
+export const getLocalData = (): ICurrentUser | null => {
   const localData: string | null = localStorage.getItem(`Hostel Management`);
   if (!localData) return null;
   return JSON.parse(localData);
@@ -24,4 +24,10 @@ export const getLocalData = (): string | null => {
 // Remove from local Storage
 export const removeLocalData = (): void => {
   localStorage.removeItem("Hostel Management");
+};
+
+// Fetch email of current user
+export const getUserMail = (): string | undefined => {
+  const currentUserData = getLocalData();
+  return currentUserData?.currentUser.email;
 };

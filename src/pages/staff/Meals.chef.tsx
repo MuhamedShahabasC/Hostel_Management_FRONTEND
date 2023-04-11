@@ -30,7 +30,15 @@ function MealsChef() {
   const fetchAllMeals = useCallback(() => {
     allMealPlans()
       .then(({ data: { data } }) => setAllMeals(data))
-      .catch((err) => errorToast(err.message))
+      .catch(
+        ({
+          response: {
+            data: { message },
+          },
+        }) => {
+          errorToast(message);
+        }
+      )
       .finally(() => setPending(false));
   }, []);
 
