@@ -15,7 +15,7 @@ function Chef() {
       }}
       className="flex flex-col "
     >
-      <Header />
+      {/* <Header /> */}
       <div className="flex justify-center items-center grow">
         <Outlet />
       </div>

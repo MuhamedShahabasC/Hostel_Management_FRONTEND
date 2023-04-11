@@ -14,7 +14,7 @@ function App() {
       <ReactToastify />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Header />} />
+          <Route path="/" element={<Header role="student" />} />
           <Route path="/students/*" element={<StudentRoutes />} />
           <Route path="/staffs/*" element={<StaffRoutes />} />
           <Route path="/chief-wardens/*" element={<ChiefWardenRoutes />} />

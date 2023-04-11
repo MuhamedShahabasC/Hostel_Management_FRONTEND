@@ -25,3 +25,7 @@ export const newNotice = async (formData: INotice) =>
 // Edit a notice
 export const editNotice = async (_id: string, formData: INotice) =>
   await chiefWardenAPI.put(`notices/${_id}`, formData);
+
+// Delete a notice
+export const deleteNotice = async (_id: string) =>
+  await chiefWardenAPI.delete(`notices/${_id}`);

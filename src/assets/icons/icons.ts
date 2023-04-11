@@ -17,3 +17,20 @@ export const disableIcon =
 // Edit icon
 export const editIcon =
   "https://res.cloudinary.com/dqrnskj2b/image/upload/q_95/v1681129645/Hostel%20Management%20Project/UI/icons/edit_naqx3k.png";
+
+// Delete icon
+export const deleteIcon =
+  "https://res.cloudinary.com/dqrnskj2b/image/upload/v1681195036/Hostel%20Management%20Project/UI/icons/delete_hmpket.png";
+
+// --- LAYOUT ---
+// Header Icon
+export const headerIcon =
+  "https://res.cloudinary.com/dqrnskj2b/image/upload/c_scale,q_90,w_256/v1681184142/Hostel%20Management%20Project/UI/icons/favicon-med_daecz7.webp";
+
+// Staff Icon
+export const staffIcon =
+  "https://res.cloudinary.com/dqrnskj2b/image/upload/c_scale,h_52,q_90/v1681189723/Hostel%20Management%20Project/UI/icons/warden-white_zd1cly.png";
+
+// Student Icon
+export const studentIcon =
+  "https://res.cloudinary.com/dqrnskj2b/image/upload/v1680516698/Hostel%20Management%20Project/UI/icons/d9dkiufrkmbvmanofd0f_poanvw.png";

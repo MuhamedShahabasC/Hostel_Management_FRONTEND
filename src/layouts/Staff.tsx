@@ -1,6 +1,6 @@
-import Header from '../components/Layout/Header'
-import { Outlet } from 'react-router-dom'
-import Footer from '../components/Layout/Footer'
+import Header from "../components/Layout/Header";
+import { Outlet } from "react-router-dom";
+import Footer from "../components/Layout/Footer";
 
 function Staff() {
   return (
@@ -15,13 +15,13 @@ function Staff() {
       }}
       className="flex flex-col "
     >
-      <Header />
+      <Header role="staff" />
       <div className="flex justify-center items-center grow">
         <Outlet />
       </div>
       <Footer />
     </div>
-  )
+  );
 }
 
-export default Staff
+export default Staff;

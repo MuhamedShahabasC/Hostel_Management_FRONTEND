@@ -5,6 +5,8 @@ import MealsChef from "../pages/staff/Meals.chef";
 import Profile from "../pages/staff/Profile";
 import ProtectedRoute from "../helpers/ProtectedRoute";
 
+// Staff routes
+// check department of staff also
 function Staff() {
   return (
     <Routes>

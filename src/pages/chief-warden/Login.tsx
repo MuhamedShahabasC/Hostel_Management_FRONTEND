@@ -1,16 +1,12 @@
 import { Link } from "react-router-dom";
 import LoginForm from "../../components/Form/LoginForm";
 import { login } from "../../apiRoutes/chiefWarden";
-import { useDispatch } from "react-redux";
 import { saveLocally } from "../../helpers/localStorage";
-import { currentUserActions } from "../../store/currentUser";
 
 // Login Page - Chief warden
 function Login() {
-  const dispatch = useDispatch();
   const loginHandler = (token: string, data: any): void => {
-    dispatch(currentUserActions.login(data));
-    saveLocally(token, data, 'chiefWarden');
+    saveLocally(token, data, "chiefWarden");
   };
 
   return (

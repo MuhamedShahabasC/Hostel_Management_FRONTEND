@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { removeLocalData } from "../helpers/localStorage";
 
 // Current slice
 export const currentUserSlice = createSlice({
@@ -9,6 +10,7 @@ export const currentUserSlice = createSlice({
       return action.payload;
     },
     logout(): null {
+      removeLocalData();
       return null;
     },
   },

@@ -4,10 +4,13 @@ import { ILoginResponse } from "../interfaces/auth";
 import { checkAuthAPI } from "../config/api";
 import { setApiHeader } from "./apiHeader";
 import { Navigate, Outlet } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { currentUserActions } from "../store/currentUser";
 
 // Protected route component for checking if the current user is valid, on every routes
 function ProtectedRoute({ role, department }: Props) {
   const [auth, setAuth] = useState<ILoginResponse | null | false>(null);
+  const dispatch = useDispatch();
 
   const routeTo = (role: string): string | undefined => {
     switch (role) {
@@ -30,6 +33,7 @@ function ProtectedRoute({ role, department }: Props) {
         .get("", setApiHeader(currentUser?.token as string))
         .then(() => {
           // if (department && currentUser.data?.department === department) {
+          dispatch(currentUserActions.login(currentUser));
           setAuth(currentUser);
           // } else setAuth(false);
         })

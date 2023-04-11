@@ -3,12 +3,14 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Table from "../../components/Table";
 import {
   changeNoticeVisibility,
+  deleteNotice,
   getAllNotices,
 } from "../../apiRoutes/chiefWarden";
 import { errorToast } from "../../helpers/toasts";
 import Modal from "../../components/UI/Modal";
 import { toast } from "react-toastify";
 import {
+  deleteIcon,
   disableIcon,
   editIcon,
   tickIcon,
@@ -16,6 +18,7 @@ import {
 } from "../../assets/icons/icons";
 import NoticeForm from "../../components/Form/Notice";
 import Button from "../../components/UI/Button";
+import { customPopup } from "../../helpers/popup";
 
 interface TableRow {
   _id: string;
@@ -58,6 +61,23 @@ function Notices() {
         <span className="w-1/4 left-0">Date: </span>
         <span className="w-2/3">{new Date(modalData?.date).toString()}</span>
       </div>
+      <div className="text-center mt-5">
+        <button
+          title="Edit Notice"
+          className="image-button"
+          onClick={() => {
+            setView(false);
+            setModalData(modalData);
+            setModalOpen(true);
+            setFormRole("edit");
+          }}
+        >
+          <div className="flex items-center gap-2 px-3 py-2 rounded-md bg-slate-100 border-1">
+            <h4>Edit Notice</h4>
+            <img className="h-7" src={editIcon} alt="edit details" />
+          </div>
+        </button>
+      </div>
     </div>
   );
 
@@ -79,25 +99,9 @@ function Notices() {
         grow: 2,
         cell: (row) => {
           return (
-            <>
-              <button
-                title="Edit Notice"
-                onClick={() => {
-                  setView(false);
-                  setModalData(row);
-                  setModalOpen(true);
-                  setFormRole("edit");
-                }}
-              >
-                <img
-                  className="image-button h-7"
-                  src={editIcon}
-                  alt="edit details"
-                />
-              </button>
+            <div className="flex gap-1">
               <button
                 title="View Notice"
-                className="mx-2"
                 onClick={() => {
                   setView(true);
                   setModalData(row);
@@ -132,7 +136,17 @@ function Notices() {
                   />
                 )}
               </button>
-            </>
+              <button
+                title="Delete Notice"
+                onClick={async () => deleteNoticeHandler(row._id)}
+              >
+                <img
+                  className="image-button h-7"
+                  src={deleteIcon}
+                  alt="delete notice"
+                />
+              </button>
+            </div>
           );
         },
         ignoreRowClick: true,
@@ -150,6 +164,24 @@ function Notices() {
     setModalOpen(true);
   };
 
+  const deleteNoticeHandler = (_id: string): void => {
+    customPopup
+      .fire({
+        title: "Confirm delete?",
+        showDenyButton: true,
+        showCancelButton: true,
+        denyButtonText: `Delete`,
+        showConfirmButton: false,
+      })
+      .then((result) => {
+        if (result.isDenied)
+          return deleteNotice(_id).then(({ data }) => {
+            fetchNotices();
+            toast.success(data?.message);
+          });
+      });
+  };
+
   return (
     <div className="parent-container ">
       <h2>Notices</h2>
@@ -163,7 +195,7 @@ function Notices() {
       </Button>
       <Modal
         isOpen={modalOpen}
-        heading={modalData?.title || 'New Notice'}
+        heading={modalData?.title || "New Notice"}
         closeHandler={setModalOpen}
       >
         {modalData && view && modalElement}

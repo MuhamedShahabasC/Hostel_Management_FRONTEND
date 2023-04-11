@@ -1,5 +1,4 @@
 import ReactModal from "react-modal";
-import Button from "./Button";
 
 function Modal({ isOpen, children, heading, closeHandler }: any) {
   ReactModal.setAppElement("#root");
