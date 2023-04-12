@@ -1,3 +1,5 @@
+// Icons
+
 // View details icon
 export const viewIcon =
   "https://res.cloudinary.com/dqrnskj2b/image/upload/c_scale,h_50,q_100/v1680845575/Hostel%20Management%20Project/UI/icons/view-details_krifrj.webp";
@@ -21,6 +23,14 @@ export const editIcon =
 // Delete icon
 export const deleteIcon =
   "https://res.cloudinary.com/dqrnskj2b/image/upload/v1681195036/Hostel%20Management%20Project/UI/icons/delete_hmpket.png";
+
+// Email icon
+export const emailIcon =
+  "https://res.cloudinary.com/dqrnskj2b/image/upload/q_100/v1681278151/Hostel%20Management%20Project/UI/icons/email_taeq4n.webp";
+
+// Mobile icon
+export const mobileIcon =
+  "https://res.cloudinary.com/dqrnskj2b/image/upload/q_100/v1681278151/Hostel%20Management%20Project/UI/icons/mobile_vf7sbz.webp";
 
 // --- LAYOUT ---
 // Header Icon

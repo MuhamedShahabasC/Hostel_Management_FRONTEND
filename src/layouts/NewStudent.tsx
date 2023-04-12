@@ -1,21 +1,21 @@
 import { Outlet } from "react-router-dom";
 import Header from "../components/Layout/Header";
 import Footer from "../components/Layout/Footer";
-import { chiefWardenBgImg } from "../assets/icons/images";
+import { studentBgImg } from "../assets/icons/images";
 
-function ChiefWarden() {
+// Layout for all student admission pages
+function NewStudent() {
   return (
     <div
       style={{
-        backgroundImage: `url(${chiefWardenBgImg})`,
-        height: "100vh",
-        backgroundPosition: "center",
+        backgroundImage: `url(${studentBgImg})`,
+        minHeight: "100vh",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
       }}
-      className="flex flex-col"
+      className="flex flex-col bg-[top_right_-20rem] md:bg-center bg-fixed"
     >
-      <Header role="staff" />
+      <Header role="student" newAdmission />
       <div className="flex justify-center items-center grow">
         <Outlet />
       </div>
@@ -24,4 +24,4 @@ function ChiefWarden() {
   );
 }
 
-export default ChiefWarden;
+export default NewStudent;

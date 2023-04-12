@@ -1,11 +1,10 @@
 import { ErrorMessage, Field } from "formik";
 import { useState } from "react";
 
-interface props {
+interface Props {
   id: string;
   name: string;
   placeholder: string;
-  type: string;
 }
 
 const hide =
@@ -13,14 +12,15 @@ const hide =
 const show =
   "https://res.cloudinary.com/dqrnskj2b/image/upload/v1680583256/Hostel%20Management%20Project/UI/icons/hidePassword_yrbwks.png";
 
-function PasswordInput({ id, name, placeholder }: props) {
+function PasswordInput({ id, name, placeholder }: Props) {
   const [toggle, setToggle] = useState<"shown" | "hidden">("hidden");
 
   return (
-    <div className="flex flex-col">
-      <div className="flex justify-between items-center border-1 rounded-md px-4 py-2 shadow w-full">
+    <div className="flex flex-col w-full">
+      <div className="flex justify-between relative items-center rounded-md px-4 py-2 shadow w-full">
         <Field
-          className="focus:outline-none grow"
+          className="outline-none w-4/5"
+          // className="focus:outline-none grow"
           id={id}
           name={name}
           placeholder={placeholder}

@@ -62,14 +62,8 @@ function LoginForm({ loginHandler, navigateTo, onSubmit }: Props) {
       >
         {({ isSubmitting }) => (
           <Form className="flex flex-col justify-center gap-4 px-1 mb-3">
-            <Input
-              type="email"
-              placeholder="College mail"
-              name="email"
-              id="email"
-            />
+            <Input type="email" placeholder="College mail" name="email" />
             <PasswordInput
-              type="password"
               placeholder="Password"
               name="password"
               id="password"

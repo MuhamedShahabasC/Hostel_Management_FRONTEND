@@ -1,24 +1,27 @@
 import { Field, ErrorMessage } from "formik";
 
 interface props {
-  id: string;
   name: string;
   placeholder: string;
   type: string;
   edit?: boolean;
+  className?: string;
 }
 
-function Input({ id, name, placeholder, type, edit }: props) {
+function Input({ name, placeholder, type, edit, className }: props) {
   return (
-    <div className="flex flex-col">
+    <div className={`${className} flex flex-col`}>
       {edit && (
-        <label htmlFor={id} className="text-sm font-semibold mb-1 ml-1 tracking-widest text-primary">
+        <label
+          htmlFor={name}
+          className="text-sm font-semibold mb-1 ml-1 tracking-widest text-primary"
+        >
           {placeholder}
         </label>
       )}
       <Field
-        className="border-1 rounded-md px-4 py-2 shadow w-full focus:outline-none"
-        id={id}
+        className='rounded-md px-4 py-2 shadow focus:outline-none w-full'
+        id={name}
         name={name}
         placeholder={placeholder}
         type={type}

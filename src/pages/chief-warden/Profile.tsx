@@ -64,19 +64,16 @@ function Profile() {
             {({ isSubmitting }) => (
               <Form className="flex flex-col justify-center gap-2 px-1 mb-3 text-sm mt-5">
                 <PasswordInput
-                  type="password"
                   placeholder="Current Password"
                   name="currentPassword"
                   id="currentPassword"
                 />
                 <PasswordInput
-                  type="password"
                   placeholder="New Password"
                   name="newPassword"
                   id="newPassword"
                 />
                 <PasswordInput
-                  type="password"
                   placeholder="Confirm Password"
                   name="confirmNewPassword"
                   id="confirmNewPassword"

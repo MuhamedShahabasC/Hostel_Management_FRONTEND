@@ -65,14 +65,12 @@ function NoticeForm({ modalData, role, fetchAllNotices, setModal }: FormRole) {
               type="text"
               placeholder="Title"
               name="title"
-              id="title"
               edit
             />
             <Input
               type="text"
               placeholder="Message"
               name="message"
-              id="message"
               edit
             />
             <div className="pb-4 border-b-2">

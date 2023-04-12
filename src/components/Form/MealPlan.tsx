@@ -56,42 +56,36 @@ function MealPlanForm({ modalData, role, fetchAllMeals, setModal }: FormRole) {
               type="text"
               placeholder="Title"
               name="title"
-              id="title"
               edit
             />
             <Input
               type="number"
               placeholder="Price"
               name="price"
-              id="price"
               edit
             />
             <Input
               type="text"
               placeholder="Breakfast"
               name="breakfast"
-              id="breakfast"
               edit
             />
             <Input
               type="text"
               placeholder="Lunch"
               name="lunch"
-              id="lunch"
               edit
             />
             <Input
               type="text"
               placeholder="Evening"
               name="evening"
-              id="evening"
               edit
             />
             <Input
               type="text"
               placeholder="Dinner"
               name="dinner"
-              id="dinner"
               edit
             />
             {isSubmitting ? (
