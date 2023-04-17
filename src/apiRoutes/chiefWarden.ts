@@ -30,3 +30,9 @@ export const editNotice = async (_id: string, formData: INotice) =>
 // Delete a notice
 export const deleteNotice = async (_id: string) =>
   await chiefWardenAPI.delete(`notices/${_id}`);
+
+// -- BLOCKS AND ROOMS --
+// Fetch all blocks
+export const fetchAllBlocks = async () => await chiefWardenAPI.get("blocks");
+
+

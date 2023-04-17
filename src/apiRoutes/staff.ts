@@ -14,6 +14,12 @@ export const resetPassword = async (passwordData: IResetPassword) =>
 export const allMealPlans = async () =>
   await staffAPI.get(`/${getUserMail()}/meals/all`);
 
+export const fetchActiveMealPlans = async () =>
+  staffAPI.get(`/${getUserMail()}/meals/activePlans`);
+
+export const fetchmealPlansAdmission = async () =>
+  staffAPI.get(`/meals/activePlans`);
+
 export const updateMealPlan = async (_id: string, data: any) =>
   await staffAPI.put(`/${getUserMail()}/meals/${_id}`, data);
 

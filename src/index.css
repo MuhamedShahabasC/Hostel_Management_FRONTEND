@@ -35,6 +35,10 @@
   @apply bg-white w-full lg:w-fit p-2 rounded-lg lg:p-8 shadow-xl mx-2 my-8 flex flex-col;
 }
 
+.mealPlans-container {
+  @apply bg-white w-full lg:w-2/3 p-2 rounded-lg lg:p-8 shadow-xl mx-2 my-8 flex flex-col;
+}
+
 .profile-container {
   @apply bg-white w-full md:max-w-xl lg:max-w-2xl p-2 rounded-lg lg:p-8 shadow-xl m-2 flex flex-wrap mx-auto;
 }

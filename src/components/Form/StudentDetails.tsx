@@ -6,9 +6,15 @@ import Input from "./Input";
 import SelectInput from "./SelectInput";
 import PasswordInput from "./PasswordInput";
 import { studentAdmissionSchema } from "../../schema/student";
+import { admissionActions } from "../../store/admission";
+import { useAppDispatch } from "../../App";
+import { useNavigate } from "react-router-dom";
 
-function StudentDetails({ studentData }: any) {
+function StudentDetails({ studentData, navigateTo }: any) {
+  // eslint-disable-next-line
   const [message, setMessage] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const departmentOptions = useMemo(
     () => [
@@ -79,47 +85,48 @@ function StudentDetails({ studentData }: any) {
     ],
     []
   );
-  
+
   return (
     <>
       <Formik
         enableReinitialize
         initialValues={{
-          email: studentData?.email,
-          name: studentData?.name,
-          department: studentData?.department,
-          gender: studentData?.gender,
-          password: studentData?.password,
-          confirmPassword: studentData?.confirmPassword,
-          mobile: studentData?.mobile,
-          guardianName: studentData?.guardianName,
-          guardianMobile: studentData?.guardianMobile,
-          building: studentData?.building,
-          city: studentData?.city,
-          pincode: studentData?.pincode,
-          state: studentData?.state,
-          country: studentData?.country,
-          bloodGroup: studentData?.bloodGroup,
-          remarks: studentData?.remarks,
+          email: studentData?.email || "",
+          name: studentData?.name || "",
+          department: studentData?.department || "",
+          gender: studentData?.gender || "",
+          password: studentData?.password || "",
+          confirmPassword: studentData?.confirmPassword || "",
+          mobile: studentData?.mobile || "",
+          guardianName: studentData?.guardianName || "",
+          guardianMobile: studentData?.guardianMobile || "",
+          building: studentData?.building || "",
+          city: studentData?.city || "",
+          pincode: studentData?.pincode || "",
+          state: studentData?.state || "",
+          country: studentData?.country || "",
+          bloodGroup: studentData?.bloodGroup || "",
+          remarks: studentData?.remarks || "",
         }}
         validationSchema={studentAdmissionSchema}
         onSubmit={(formData, { setSubmitting }) => {
           setSubmitting(true);
-          console.log(formData);
-          setMessage("123");
-          //   submitHandler(formData, studentData._id)
-          //     .then(({ data: { message } }: any) => {
-          //       fetchAllMeals();
-          //       toast.success(message);
-          //     })
-          //     .catch(
-          //       ({
-          //         response: {
-          //           data: { message },
-          //         },
-          //       }) => setMessage(message)
-          //     )
-          //     .finally(() => setSubmitting(false));
+          dispatch(admissionActions.studentDetails(formData));
+          setSubmitting(false);
+          navigate(navigateTo);
+          // submitHandler(formData, studentData._id)
+          //   .then(({ data: { message } }: any) => {
+          //     fetchAllMeals();
+          //     toast.success(message);
+          //   })
+          //   .catch(
+          //     ({
+          //       response: {
+          //         data: { message },
+          //       },
+          //     }) => setMessage(message)
+          //   )
+          //   .finally(() => setSubmitting(false));
         }}
       >
         {({ isSubmitting }) => (

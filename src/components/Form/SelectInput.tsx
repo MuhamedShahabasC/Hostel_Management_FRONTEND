@@ -1,4 +1,4 @@
-import { Field } from "formik";
+import { ErrorMessage, Field } from "formik";
 
 function SelectInput({ name, options, className, label, edit }: Props) {
   return (
@@ -32,6 +32,9 @@ function SelectInput({ name, options, className, label, edit }: Props) {
           ))}
           ]
         </Field>
+        <span className="m-1 text-sm text-red-800">
+          <ErrorMessage name={name} />
+        </span>
       </div>
     </div>
   );
