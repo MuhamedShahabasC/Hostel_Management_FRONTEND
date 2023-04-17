@@ -1,9 +1,19 @@
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../../App";
 import StudentDetailsForm from "../../../components/Form/StudentDetails";
+import { admissionActions } from "../../../store/admission";
+import { addHistory } from "../../../store/history";
 
 // Admission form for filling student details
 function DetailsForm() {
-  const admissionFromHandler = (data: any) => {
-    console.log(data);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const admissionFromHandler = (formData: any) => {
+    dispatch(admissionActions.studentDetails(formData));
+    navigate("/students/admission/mealPlans");
+    dispatch(addHistory(pathname));
   };
 
   return (

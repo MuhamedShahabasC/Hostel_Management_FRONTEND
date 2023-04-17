@@ -6,15 +6,11 @@ import Input from "./Input";
 import SelectInput from "./SelectInput";
 import PasswordInput from "./PasswordInput";
 import { studentAdmissionSchema } from "../../schema/student";
-import { admissionActions } from "../../store/admission";
-import { useAppDispatch } from "../../App";
-import { useNavigate } from "react-router-dom";
 
-function StudentDetails({ studentData, navigateTo }: any) {
+function StudentDetails({ studentData, submitHandler }: any) {
   // eslint-disable-next-line
   const [message, setMessage] = useState<string | null>(null);
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+ 
 
   const departmentOptions = useMemo(
     () => [
@@ -111,9 +107,8 @@ function StudentDetails({ studentData, navigateTo }: any) {
         validationSchema={studentAdmissionSchema}
         onSubmit={(formData, { setSubmitting }) => {
           setSubmitting(true);
-          dispatch(admissionActions.studentDetails(formData));
+          submitHandler(formData);
           setSubmitting(false);
-          navigate(navigateTo);
           // submitHandler(formData, studentData._id)
           //   .then(({ data: { message } }: any) => {
           //     fetchAllMeals();

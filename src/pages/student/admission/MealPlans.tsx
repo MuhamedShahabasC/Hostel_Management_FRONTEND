@@ -5,17 +5,15 @@ import {
   admissionActions,
   fetchActiveMealPlans,
 } from "../../../store/admission";
-import { useEffect, useState } from "react";
-import { fetchmealPlansAdmission } from "../../../apiRoutes/staff";
+import { useEffect } from "react";
 import { Form, Formik } from "formik";
 import SelectInput from "../../../components/Form/SelectInput";
 import LoadingButton from "../../../components/UI/LoadingButton";
 import Button from "../../../components/UI/Button";
 import { changeMealPlanSchema } from "../../../schema/student";
-import { customPopup } from "../../../helpers/popup";
 
 function MealPlans() {
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const activePlans = useAppSelector(
@@ -23,41 +21,30 @@ function MealPlans() {
   );
 
   useEffect(() => {
-    dispatch(fetchmealPlansAdmission);
-  }, [dispatch]);
-
-  useEffect(() => {
     dispatch(fetchActiveMealPlans());
   }, [dispatch]);
 
   const submitHandler = (formData: { mealPlan: string }) => {
+    // For admission
     dispatch(admissionActions.addMealPlan(formData.mealPlan));
-    customPopup
-      .fire({
-        title: `Confirm admission ?`,
-        icon: "question",
-        showCancelButton: true,
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes",
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          customPopup
-            .fire({
-              title: `Applied Successfully`,
-              icon: "success",
-              text: "Once admitted, the chief warden will contact you through your school email.",
-              confirmButtonText: "Sure!",
-              confirmButtonColor: "#00A300",
-            })
-            .then((result) => {
-              if (result.isConfirmed) {
-                dispatch(admissionActions.addMealPlan(formData.mealPlan));
-                navigate("/staffs/login");
-              }
-            });
-        }
-      });
+    navigate("/students/admission/blocks");
+    // dispatch(addHistory(pathname));
+    // Logged in user
+
+    //   onSubmit(formData)
+    //     .then(({ data: { token, data } }) => {
+    //       loginHandler(token, data);
+    //       toast.success(`Welcome ${data.name}`);
+    //       navigate(navigateTo);
+    //     })
+    //     .catch(
+    //       ({
+    //         response: {
+    //           data: { message },
+    //         },
+    //       }) => setMessage(message)
+    //     )
+    //     .finally(() => setSubmitting(false));
   };
 
   const options = activePlans?.map((el: any) => {
@@ -79,24 +66,8 @@ function MealPlans() {
         validationSchema={changeMealPlanSchema}
         onSubmit={(formData, { setSubmitting }) => {
           setSubmitting(true);
-          // For admission
           submitHandler(formData);
           setSubmitting(false);
-
-          //   onSubmit(formData)
-          //     .then(({ data: { token, data } }) => {
-          //       loginHandler(token, data);
-          //       toast.success(`Welcome ${data.name}`);
-          //       navigate(navigateTo);
-          //     })
-          //     .catch(
-          //       ({
-          //         response: {
-          //           data: { message },
-          //         },
-          //       }) => setMessage(message)
-          //     )
-          //     .finally(() => setSubmitting(false));
         }}
       >
         {({ isSubmitting }) => (
@@ -119,16 +90,16 @@ function MealPlans() {
           </Form>
         )}
       </Formik>
-      {message && (
+      {/* {message && (
         <span className="text-center text-md font-semibold text-red-700">
           {message}
         </span>
-      )}
+      )} */}
       <button
         className="text-primary text-sm font-bold mt-5 mb-2 max-w-fit mx-auto hover:brightness-150"
         type="button"
         onClick={() => {
-          navigate("/students/admission/blocks");
+          navigate("/students/admission/details");
         }}
       >
         ← Back

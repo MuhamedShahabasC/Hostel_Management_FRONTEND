@@ -22,7 +22,30 @@ function Rooms() {
       .then((result) => {
         if (result.isConfirmed) {
           dispatch(admissionActions.addRoom(_id));
-          navigate("/students/admission/mealplans");
+          return customPopup.fire({
+            title: `Confirm admission ?`,
+            icon: "question",
+            showCancelButton: true,
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes",
+          });
+        }
+      })
+      .then((result) => {
+        if (result?.isConfirmed) {
+          // Send data to backend
+          return customPopup.fire({
+            title: `Applied Successfully`,
+            icon: "success",
+            text: "Once admitted, the chief warden will contact you through your school email.",
+            confirmButtonText: "Sure!",
+            confirmButtonColor: "#00A300",
+          });
+        }
+      })
+      .then((result) => {
+        if (result?.isConfirmed) {
+          navigate("/staffs/login");
         }
       });
   };
@@ -52,7 +75,7 @@ function Rooms() {
         className="text-primary text-sm font-bold mt-5 mb-2 max-w-fit mx-auto hover:brightness-150"
         type="button"
         onClick={() => {
-          navigate("/students/admission/blocks");
+          navigate("/students/admission/mealplans");
         }}
       >
         ← Back
