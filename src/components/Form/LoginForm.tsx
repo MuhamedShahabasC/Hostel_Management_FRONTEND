@@ -31,9 +31,8 @@ function LoginForm({ loginHandler, navigateTo, onSubmit }: Props) {
             .string()
             .trim()
             .required("Required")
-            .matches(
-              /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-              "Invalid e-Mail"
+            .test("isvalidEmail", "Invalid e-Mail", (arg) =>
+              /[a-z0-9]+@floreat.edu.com/i.test(arg)
             ),
           password: yup
             .string()
@@ -62,7 +61,7 @@ function LoginForm({ loginHandler, navigateTo, onSubmit }: Props) {
       >
         {({ isSubmitting }) => (
           <Form className="flex flex-col justify-center gap-4 px-1 mb-3">
-            <Input type="email" placeholder="College mail" name="email" />
+            <Input type="email" placeholder="School mail" name="email" />
             <PasswordInput
               placeholder="Password"
               name="password"
