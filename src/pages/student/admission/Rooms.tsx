@@ -12,7 +12,7 @@ function Rooms() {
   const dispatch = useAppDispatch();
   const studentData = useAppSelector((state) => state.newAdmission?.student);
 
-  const selectRoomHandler = (_id: string, code: string) => {
+  const selectRoomHandler = (code: string) => {
     customPopup
       .fire({
         html: `Confirm room <h1>${code}</h1>`,
@@ -38,7 +38,7 @@ function Rooms() {
           const formattedData = {
             ...studentData,
             address: { building, city, pin, state, country },
-            room: _id,
+            room: code,
           };
           await newAdmissionAPI(formattedData);
           dispatch(admissionActions.complete());
@@ -66,7 +66,7 @@ function Rooms() {
           <div
             onClick={() => {
               if (!el.code.includes("1")) {
-                selectRoomHandler(el._id, el.code);
+                selectRoomHandler(el.code);
               }
             }}
             key={el.code}
