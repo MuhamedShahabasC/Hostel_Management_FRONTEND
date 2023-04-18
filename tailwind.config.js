@@ -8,11 +8,9 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: '#00255F'
+        primary: "#00255F",
       },
-      extend: {
-        visibility: ["group-hover"],
-      },
+      visibility: ["group-hover"],
     },
   },
   plugins: [],

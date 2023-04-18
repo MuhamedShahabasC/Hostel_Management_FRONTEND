@@ -38,7 +38,7 @@ function PasswordInput({ id, name, placeholder }: Props) {
           }}
         />
       </div>
-      <span className="m-1 text-sm text-red-800">
+      <span className=" m-1 text-sm text-red-800">
         <ErrorMessage name={name} />
       </span>
     </div>

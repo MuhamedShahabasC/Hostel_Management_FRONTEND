@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import DetailsForm from "../pages/student/admission/DetailsForm";
 import NewStudent from "../layouts/NewStudent";
 import Blocks from "../pages/student/admission/Blocks";
@@ -9,11 +9,12 @@ import MealPlans from "../pages/student/admission/MealPlans";
 function StudentRoutes() {
   return (
     <Routes>
+      <Route path="login" element={<Navigate to="/" />} />
       <Route path="admission" element={<NewStudent />}>
         <Route path="details" element={<DetailsForm />} />
         <Route path="blocks" element={<Blocks />} />
-        <Route path="rooms" element={<Rooms/>} />
-        <Route path="mealplans" element={<MealPlans/>} />
+        <Route path="rooms" element={<Rooms />} />
+        <Route path="mealplans" element={<MealPlans />} />
       </Route>
     </Routes>
   );

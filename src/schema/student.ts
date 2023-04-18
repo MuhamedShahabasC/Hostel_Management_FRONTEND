@@ -60,7 +60,7 @@ export const studentAdmissionSchema = yup.object().shape({
     .trim()
     .min(4, "Invalid city")
     .max(16, "Invalid city"),
-  pincode: yup
+  pin: yup
     .string()
     .trim()
     .required()

@@ -21,17 +21,13 @@ export const admissionSlice = createSlice({
       state.student = action.payload;
     },
     addBlock(state, action) {
-      state.student.blockId = action.payload._id;
+      state.student.block = action.payload._id;
       state.hostel.selectedBlock = action.payload;
-    },
-    addRoom(state, action) {
-      state.student.room = action.payload;
     },
     addMealPlan(state, action) {
       state.student.mealPlan = action.payload;
     },
     complete() {
-      // removeLocalData();
       return initialState;
     },
   },

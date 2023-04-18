@@ -67,7 +67,6 @@ function LoginForm({ loginHandler, navigateTo, onSubmit }: Props) {
               name="password"
               id="password"
             />
-
             {isSubmitting ? (
               <LoadingButton />
             ) : (

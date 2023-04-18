@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { login } from "../../apiRoutes/chiefWarden";
 import { studentBgImg } from "../../assets/icons/images";
 import LoginForm from "../../components/Form/LoginForm";
@@ -28,6 +29,9 @@ function Login() {
             navigateTo="/students/dashboard"
             onSubmit={login}
           />
+          <div className="ml-auto text-sm pt-1 px-2 ">
+            <Link to="/students/admission/details">New Admission →</Link>
+          </div>
         </div>
       </div>
       <Footer />

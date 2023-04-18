@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../App";
 import { customPopup } from "../../../helpers/popup";
 import { admissionActions } from "../../../store/admission";
+import { newAdmissionAPI } from "../../../apiRoutes/student";
 
 function Rooms() {
   const currentBlock = useAppSelector(
@@ -9,6 +10,7 @@ function Rooms() {
   );
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const studentData = useAppSelector((state) => state.newAdmission?.student);
 
   const selectRoomHandler = (_id: string, code: string) => {
     customPopup
@@ -21,7 +23,6 @@ function Rooms() {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          dispatch(admissionActions.addRoom(_id));
           return customPopup.fire({
             title: `Confirm admission ?`,
             icon: "question",
@@ -31,9 +32,16 @@ function Rooms() {
           });
         }
       })
-      .then((result) => {
+      .then(async (result) => {
         if (result?.isConfirmed) {
-          // Send data to backend
+          const { building, city, pin, state, country } = studentData;
+          const formattedData = {
+            ...studentData,
+            address: { building, city, pin, state, country },
+            room: _id,
+          };
+          await newAdmissionAPI(formattedData);
+          dispatch(admissionActions.complete());
           return customPopup.fire({
             title: `Applied Successfully`,
             icon: "success",

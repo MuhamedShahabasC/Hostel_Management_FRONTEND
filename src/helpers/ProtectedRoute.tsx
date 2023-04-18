@@ -33,7 +33,7 @@ function ProtectedRoute({ role, department }: Props) {
         return setAuth(false);
       }
       checkAuthAPI
-        .get("", setApiHeader(currentUser?.token as string))
+        .get("", setApiHeader(currentUser.token as string))
         .then(() => {
           // if (department && currentUser.data?.department === department) {
           dispatch(currentUserActions.login(currentUser));

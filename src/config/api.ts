@@ -1,16 +1,21 @@
 import axios from "axios";
 
+// Student API
+export const studentAPI = axios.create({
+  baseURL: `${process.env.REACT_APP_BACKEND}students`,
+});
+
 // Chief Warden API
 export const chiefWardenAPI = axios.create({
-  baseURL: `http://localhost:8000/api/v1/chief-warden`,
+  baseURL: `${process.env.REACT_APP_BACKEND}chief-warden`,
 });
 
 // Staff API
 export const staffAPI = axios.create({
-  baseURL: `http://localhost:8000/api/v1/staffs`,
+  baseURL: `${process.env.REACT_APP_BACKEND}staffs`,
 });
 
 // Check Authorization API
 export const checkAuthAPI = axios.create({
-  baseURL: `http://localhost:8000/api/v1/checkAuth`,
+  baseURL: `${process.env.REACT_APP_BACKEND}checkAuth`,
 });

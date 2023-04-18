@@ -6,11 +6,8 @@ interface Props {
 }
 
 function LoggedOutHeaderButton({ role }: Props) {
-  
   return (
-    <Link
-      to={role === "student" ? "/staffs/login" : "/students/login"}
-    >
+    <Link to={role === "student" ? "/staffs/login" : "/"}>
       <div className="flex gap-6">
         <button className="header-btn">
           <img

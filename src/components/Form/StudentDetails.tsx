@@ -98,7 +98,7 @@ function StudentDetails({ studentData, submitHandler }: any) {
           guardianMobile: studentData?.guardianMobile || "",
           building: studentData?.building || "",
           city: studentData?.city || "",
-          pincode: studentData?.pincode || "",
+          pin: studentData?.pincode || "",
           state: studentData?.state || "",
           country: studentData?.country || "",
           bloodGroup: studentData?.bloodGroup || "",
@@ -166,7 +166,7 @@ function StudentDetails({ studentData, submitHandler }: any) {
               name="building"
             />
             <Input type="text" placeholder="City" name="city" />
-            <Input type="number" placeholder="Pin Code" name="pincode" />
+            <Input type="number" placeholder="Pin Code" name="pin" />
             <Input type="text" placeholder="State" name="state" />
             <Input type="text" placeholder="Country" name="country" />
             <SelectInput
