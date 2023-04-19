@@ -4,6 +4,8 @@ import ChiefWarden from "../layouts/ChiefWarden";
 import Notices from "../pages/chief-warden/Notices";
 import Profile from "../pages/chief-warden/Profile";
 import ProtectedRoute from "../helpers/ProtectedRoute";
+import Students from "../pages/chief-warden/Students";
+import MealPlans from "../pages/chief-warden/MealPlans";
 
 function ChiefWardenRoutes() {
   return (
@@ -12,6 +14,8 @@ function ChiefWardenRoutes() {
         <Route path="login" element={<Login />} />
         <Route element={<ProtectedRoute role="chiefWarden" />}>
           <Route path="notices" element={<Notices />} />
+          <Route path="students" element={<Students />} />
+          <Route path="mealPlans" element={<MealPlans />} />
           <Route path="profile" element={<Profile />} />
         </Route>
       </Route>

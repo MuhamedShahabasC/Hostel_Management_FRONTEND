@@ -7,6 +7,7 @@ export interface INotice {
     student: boolean;
     staff: boolean;
   };
+  date?: string
 }
 // New notice schema interface
 export interface INewNotice {

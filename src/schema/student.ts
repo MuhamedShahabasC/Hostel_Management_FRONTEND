@@ -7,9 +7,7 @@ export const studentAdmissionSchema = yup.object().shape({
     .trim()
     .lowercase()
     .required()
-    .test("isvalidEmail", "Invalid e-Mail", (arg) =>
-      /[a-z0-9]+@floreat.edu.com/i.test(arg)
-    ),
+    .test("isvalidEmail", "Invalid e-Mail", (arg) => /[a-z0-9]+@floreat.edu.com/i.test(arg)),
   name: yup
     .string()
     .required()
@@ -48,42 +46,19 @@ export const studentAdmissionSchema = yup.object().shape({
     .required()
     .trim()
     .matches(/^[0-9]{10}$/, "Invalid mobile number"),
-  building: yup
-    .string()
-    .required()
-    .trim()
-    .min(4, "Invalid building")
-    .max(16, "Invalid building"),
-  city: yup
-    .string()
-    .required()
-    .trim()
-    .min(4, "Invalid city")
-    .max(16, "Invalid city"),
+  building: yup.string().required().trim().min(4, "Invalid building").max(16, "Invalid building"),
+  city: yup.string().required().trim().min(4, "Invalid city").max(16, "Invalid city"),
   pin: yup
     .string()
     .trim()
     .required()
     .matches(/^[0-9]{6}$/, "Invalid Pin Code"),
-  state: yup
-    .string()
-    .required()
-    .trim()
-    .min(4, "Invalid state")
-    .max(16, "Invalid state"),
-  country: yup
-    .string()
-    .required()
-    .trim()
-    .min(4, "Invalid country")
-    .max(16, "Invalid country"),
+  state: yup.string().required().trim().min(4, "Invalid state").max(16, "Invalid state"),
+  country: yup.string().required().trim().min(4, "Invalid country").max(16, "Invalid country"),
   bloodGroup: yup
     .string()
     .required()
-    .oneOf(
-      ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
-      "Invalid Blood Group"
-    ),
+    .oneOf(["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"], "Invalid Blood Group"),
   remarks: yup
     .string()
     .trim()

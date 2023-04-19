@@ -10,7 +10,6 @@ import { studentAdmissionSchema } from "../../schema/student";
 function StudentDetails({ studentData, submitHandler }: any) {
   // eslint-disable-next-line
   const [message, setMessage] = useState<string | null>(null);
- 
 
   const departmentOptions = useMemo(
     () => [
@@ -96,11 +95,11 @@ function StudentDetails({ studentData, submitHandler }: any) {
           mobile: studentData?.mobile || "",
           guardianName: studentData?.guardianName || "",
           guardianMobile: studentData?.guardianMobile || "",
-          building: studentData?.building || "",
-          city: studentData?.city || "",
-          pin: studentData?.pincode || "",
-          state: studentData?.state || "",
-          country: studentData?.country || "",
+          building: studentData?.address?.building || "",
+          city: studentData?.address?.city || "",
+          pin: studentData?.address?.pin || "",
+          state: studentData?.address?.state || "",
+          country: studentData?.address?.country || "",
           bloodGroup: studentData?.bloodGroup || "",
           remarks: studentData?.remarks || "",
         }}
@@ -133,53 +132,24 @@ function StudentDetails({ studentData, submitHandler }: any) {
               name="email"
             />
             <Input type="text" placeholder="Name" name="name" />
-            <SelectInput
-              name="department"
-              label="Department"
-              options={departmentOptions}
-            />
+            <SelectInput name="department" label="Department" options={departmentOptions} />
             <SelectInput name="gender" label="Gender" options={genderOptions} />
-            <PasswordInput
-              placeholder="Password"
-              name="password"
-              id="password"
-            />
+            <PasswordInput placeholder="Password" name="password" id="password" />
             <PasswordInput
               placeholder="Confirm Password"
               name="confirmPassword"
               id="confirmPassword"
             />
             <Input type="number" placeholder="Mobile" name="mobile" />
-            <Input
-              type="text"
-              placeholder="Guardian Name"
-              name="guardianName"
-            />
-            <Input
-              type="number"
-              placeholder="Guardian Mobile"
-              name="guardianMobile"
-            />
-            <Input
-              type="text"
-              placeholder="Building Name/No."
-              name="building"
-            />
+            <Input type="text" placeholder="Guardian Name" name="guardianName" />
+            <Input type="number" placeholder="Guardian Mobile" name="guardianMobile" />
+            <Input type="text" placeholder="Building Name/No." name="building" />
             <Input type="text" placeholder="City" name="city" />
             <Input type="number" placeholder="Pin Code" name="pin" />
             <Input type="text" placeholder="State" name="state" />
             <Input type="text" placeholder="Country" name="country" />
-            <SelectInput
-              label="Blood Group"
-              name="bloodGroup"
-              options={bloodGroupOptions}
-            />
-            <Input
-              className="col-span-full"
-              type="text"
-              placeholder="Remarks"
-              name="remarks"
-            />
+            <SelectInput label="Blood Group" name="bloodGroup" options={bloodGroupOptions} />
+            <Input className="col-span-full" type="text" placeholder="Remarks" name="remarks" />
             <div className="col-span-full flex justify-center">
               {isSubmitting ? (
                 <LoadingButton className="w-1/3" />
@@ -193,9 +163,7 @@ function StudentDetails({ studentData, submitHandler }: any) {
         )}
       </Formik>
       {message && (
-        <span className="text-center text-md mt-2 font-semibold text-red-700">
-          {message}
-        </span>
+        <span className="text-center text-md mt-2 font-semibold text-red-700">{message}</span>
       )}
     </>
   );

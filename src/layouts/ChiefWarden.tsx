@@ -15,7 +15,7 @@ function ChiefWarden() {
       }}
       className="flex flex-col"
     >
-      <Header role="staff" />
+      <Header role="chiefWarden" />
       <div className="flex justify-center items-center grow">
         <Outlet />
       </div>

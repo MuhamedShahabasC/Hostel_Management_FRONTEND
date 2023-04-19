@@ -32,6 +32,10 @@ export const emailIcon =
 export const mobileIcon =
   "https://res.cloudinary.com/dqrnskj2b/image/upload/q_100/v1681278151/Hostel%20Management%20Project/UI/icons/mobile_vf7sbz.webp";
 
+// Search icon
+export const searchIcon =
+  "https://res.cloudinary.com/dqrnskj2b/image/upload/c_scale,q_100,w_50/v1681905695/Hostel%20Management%20Project/UI/icons/search_wld7if.webp";
+
 // --- LAYOUT ---
 // Header Icon
 export const headerIcon =

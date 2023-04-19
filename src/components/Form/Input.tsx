@@ -20,7 +20,7 @@ function Input({ name, placeholder, type, edit, className }: props) {
         </label>
       )}
       <Field
-        className='rounded-md px-4 py-2 shadow focus:outline-none w-full'
+        className="rounded-md px-4 py-2 shadow focus:outline-none w-full"
         id={name}
         name={name}
         placeholder={placeholder}

@@ -101,6 +101,14 @@ function HeaderLinks({ currentUser }: Props) {
             link: `/chief-wardens/dashboard`,
           },
           {
+            name: `Students`,
+            link: `/chief-wardens/students`,
+          },
+          {
+            name: `Meal Plans`,
+            link: `/chief-wardens/mealPlans`,
+          },
+          {
             name: `Compliant`,
             link: `/chief-wardens/compliants`,
           },
@@ -123,7 +131,12 @@ function HeaderLinks({ currentUser }: Props) {
     currentLinks &&
     currentLinks.map((el: { name: string; link: string }) => (
       <NavLink
-        className="text-sm text-primary font-black"
+        className={"text-sm text-primary font-black"}
+        style={({ isActive }) => ({
+          textDecoration: isActive ? "underline" : "",
+          textUnderlineOffset: isActive ? "0.4rem" : "",
+          color: isActive ? "#05419e" : "#00255F",
+        })}
         to={el?.link}
         key={el?.name}
       >

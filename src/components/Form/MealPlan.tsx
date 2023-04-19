@@ -7,14 +7,17 @@ import Button from "../../components/UI/Button";
 import { toast } from "react-toastify";
 import { mealPlanSchema } from "../../schema/staff";
 import { IMealPlan } from "../../interfaces/chef";
+import { addNewMealPlanCW, updateMealPlanCW } from "../../apiRoutes/chiefWarden";
 
-function MealPlanForm({ modalData, role, fetchAllMeals, setModal }: FormRole) {
+function MealPlanForm({ modalData, role, fetchAllMeals, setModal, user }: FormRole) {
   const [message, setMessage] = useState<string | null>(null);
 
   const submitHandler = async (formData: IMealPlan, _id?: string) => {
     if (role === "edit" && _id) {
+      if (user === "chief-warden") return updateMealPlanCW(_id, formData);
       return await updateMealPlan(_id, formData);
     } else if (role === "new") {
+      if (user === "chief-warden") return addNewMealPlanCW(formData);
       return await addNewPlan(formData);
     }
   };
@@ -52,42 +55,12 @@ function MealPlanForm({ modalData, role, fetchAllMeals, setModal }: FormRole) {
       >
         {({ isSubmitting }) => (
           <Form className="flex flex-col justify-center gap-4 px-1 mb-3">
-            <Input
-              type="text"
-              placeholder="Title"
-              name="title"
-              edit
-            />
-            <Input
-              type="number"
-              placeholder="Price"
-              name="price"
-              edit
-            />
-            <Input
-              type="text"
-              placeholder="Breakfast"
-              name="breakfast"
-              edit
-            />
-            <Input
-              type="text"
-              placeholder="Lunch"
-              name="lunch"
-              edit
-            />
-            <Input
-              type="text"
-              placeholder="Evening"
-              name="evening"
-              edit
-            />
-            <Input
-              type="text"
-              placeholder="Dinner"
-              name="dinner"
-              edit
-            />
+            <Input type="text" placeholder="Title" name="title" edit />
+            <Input type="number" placeholder="Price" name="price" edit />
+            <Input type="text" placeholder="Breakfast" name="breakfast" edit />
+            <Input type="text" placeholder="Lunch" name="lunch" edit />
+            <Input type="text" placeholder="Evening" name="evening" edit />
+            <Input type="text" placeholder="Dinner" name="dinner" edit />
             {isSubmitting ? (
               <LoadingButton />
             ) : (
@@ -98,11 +71,7 @@ function MealPlanForm({ modalData, role, fetchAllMeals, setModal }: FormRole) {
           </Form>
         )}
       </Formik>
-      {message && (
-        <span className="text-center text-md font-semibold text-red-700">
-          {message}
-        </span>
-      )}
+      {message && <span className="text-center text-md font-semibold text-red-700">{message}</span>}
     </>
   );
 }
@@ -114,4 +83,5 @@ interface FormRole {
   role: "edit" | "new";
   fetchAllMeals: () => any;
   setModal: (state: boolean) => void;
+  user?: "chief-warden" | "chef";
 }

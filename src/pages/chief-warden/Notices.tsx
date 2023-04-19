@@ -1,38 +1,23 @@
 import { Media, TableColumn } from "react-data-table-component";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Table from "../../components/Table";
-import {
-  changeNoticeVisibility,
-  deleteNotice,
-  getAllNotices,
-} from "../../apiRoutes/chiefWarden";
+import { changeNoticeVisibility, deleteNotice, getAllNotices } from "../../apiRoutes/chiefWarden";
 import { errorToast } from "../../helpers/toasts";
 import Modal from "../../components/UI/Modal";
 import { toast } from "react-toastify";
-import {
-  deleteIcon,
-  disableIcon,
-  editIcon,
-  tickIcon,
-  viewIcon,
-} from "../../assets/icons/icons";
+import { deleteIcon, disableIcon, editIcon, tickIcon, viewIcon } from "../../assets/icons/icons";
 import NoticeForm from "../../components/Form/Notice";
 import Button from "../../components/UI/Button";
 import { customPopup } from "../../helpers/popup";
+import { INotice } from "../../interfaces/chiefWarden";
 
-interface TableRow {
-  _id: string;
-  title: string;
-  message: string;
-  visibility: boolean;
-}
-
+// Notices Page - Chief Warden
 function Notices() {
+  const [allNotices, setAllNotices] = useState<INotice[] | []>([]);
   const [pending, setPending] = useState<boolean>(true);
-  const [allNotices, setAllNotices] = useState<any>([]);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [modalData, setModalData] = useState<any>(null);
   const [view, setView] = useState<boolean>(true);
+  const [modalData, setModalData] = useState<any>(null);
   const [formRole, setFormRole] = useState<"new" | "edit">("edit");
 
   const fetchNotices = useCallback(() => {
@@ -59,7 +44,7 @@ function Notices() {
       </div>
       <div className="flex justify-between ">
         <span className="w-1/4 left-0">Date: </span>
-        <span className="w-2/3">{new Date(modalData?.date).toString()}</span>
+        <span className="w-2/3">{new Date(modalData?.date!).toString()}</span>
       </div>
       <div className="text-center mt-5">
         <button
@@ -108,11 +93,7 @@ function Notices() {
                   setModalOpen(true);
                 }}
               >
-                <img
-                  className="image-button h-7"
-                  src={viewIcon}
-                  alt="view details"
-                />
+                <img className="image-button h-7" src={viewIcon} alt="view details" />
               </button>
               <button
                 title="Change Visibility"
@@ -123,28 +104,13 @@ function Notices() {
                 }
               >
                 {row.visibility ? (
-                  <img
-                    className="image-button h-7"
-                    src={tickIcon}
-                    alt="active notice"
-                  />
+                  <img className="image-button h-7" src={tickIcon} alt="active notice" />
                 ) : (
-                  <img
-                    className="image-button h-7"
-                    src={disableIcon}
-                    alt="disabled notice"
-                  />
+                  <img className="image-button h-7" src={disableIcon} alt="disabled notice" />
                 )}
               </button>
-              <button
-                title="Delete Notice"
-                onClick={async () => deleteNoticeHandler(row._id)}
-              >
-                <img
-                  className="image-button h-7"
-                  src={deleteIcon}
-                  alt="delete notice"
-                />
+              <button title="Delete Notice" onClick={async () => deleteNoticeHandler(row._id)}>
+                <img className="image-button h-7" src={deleteIcon} alt="delete notice" />
               </button>
             </div>
           );
@@ -210,6 +176,13 @@ function Notices() {
       </Modal>
     </div>
   );
+}
+
+interface TableRow {
+  _id: string;
+  title: string;
+  message: string;
+  visibility: boolean;
 }
 
 export default Notices;

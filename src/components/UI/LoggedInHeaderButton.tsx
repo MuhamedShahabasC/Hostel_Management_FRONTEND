@@ -68,11 +68,7 @@ function LoggedInHeaderButton({ currentUser, children, role }: Props) {
           } flex flex-col gap-2 absolute top-8 right-2 shadow-xl border-1 z-10 bg-white p-3 text-sm text-primary font-black rounded-md `}
         >
           {children}
-          <Link
-            to={`/${route}/profile`}
-          >
-            Profile
-          </Link>
+          <Link to={`/${route}/profile`}>Profile</Link>
           <Link
             to={`/${route}/login`}
             onClick={() => dispatch(currentUserActions.logout())}
