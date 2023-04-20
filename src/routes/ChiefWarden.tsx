@@ -7,6 +7,7 @@ import ProtectedRoute from "../helpers/ProtectedRoute";
 import Students from "../pages/chief-warden/Students";
 import MealPlans from "../pages/chief-warden/MealPlans";
 import Chat from "../pages/chief-warden/Chat";
+import Dashboard from "../pages/chief-warden/Dashboard";
 
 function ChiefWardenRoutes() {
   return (
@@ -18,6 +19,7 @@ function ChiefWardenRoutes() {
           <Route path="students" element={<Students />} />
           <Route path="mealPlans" element={<MealPlans />} />
           <Route path="chat" element={<Chat />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="profile" element={<Profile />} />
         </Route>
       </Route>

@@ -50,6 +50,9 @@ export const updateMealPlanCW = async (_id: string, formData: IMealPlan) =>
   await chiefWardenAPI.put(`mealPlans/${_id}`, formData);
 
 // Change availability of Meal plan
-
 export const changeAvailabilityMealPlanCW = async (_id: string) =>
   await chiefWardenAPI.patch(`mealPlans/${_id}`);
+
+// -- NOTICES --
+// Fetch all notices
+export const fetchAllNotices = async () => await chiefWardenAPI.get("notices/all");
