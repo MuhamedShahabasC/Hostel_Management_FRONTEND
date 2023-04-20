@@ -4,6 +4,7 @@ import Login from "../pages/staff/Login";
 import MealsChef from "../pages/staff/Meals.chef";
 import Profile from "../pages/staff/Profile";
 import ProtectedRoute from "../helpers/ProtectedRoute";
+import Chat from "../pages/staff/Chat";
 
 // Staff routes
 // check department of staff also
@@ -14,6 +15,7 @@ function Staff() {
         <Route path="login" element={<Login />} />
         <Route element={<ProtectedRoute role="staff" />}>
           <Route path="profile" element={<Profile />} />
+          <Route path="chat" element={<Chat />} />
           <Route>
             <Route path="meals" element={<MealsChef />} />
           </Route>

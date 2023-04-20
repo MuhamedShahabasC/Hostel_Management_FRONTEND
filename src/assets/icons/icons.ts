@@ -48,3 +48,7 @@ export const staffIcon =
 // Student Icon
 export const studentIcon =
   "https://res.cloudinary.com/dqrnskj2b/image/upload/v1680516698/Hostel%20Management%20Project/UI/icons/d9dkiufrkmbvmanofd0f_poanvw.png";
+
+// Send Icon
+export const sendIcon =
+  "https://res.cloudinary.com/dqrnskj2b/image/upload/c_scale,q_100,w_256/v1681976328/Hostel%20Management%20Project/UI/icons/send_mdtk6m.webp";
