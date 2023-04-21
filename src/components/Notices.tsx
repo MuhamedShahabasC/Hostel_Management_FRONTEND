@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { fetchAllNotices } from "../apiRoutes/chiefWarden";
+import { getAllNotices } from "../apiRoutes/chiefWarden";
 import { toast } from "react-toastify";
 import moment from "moment";
 
@@ -8,7 +8,7 @@ function Notices() {
   const [allNotices, setAllNotices] = useState<any>([]);
 
   const fetchNotices = useCallback(() => {
-    fetchAllNotices()
+    getAllNotices()
       .then(({ data: { data } }) => setAllNotices(data))
       .catch(({ response: { data: messsage } }) => {
         toast.error(messsage);

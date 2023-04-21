@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getLocalData} from "./localStorage";
+import { getLocalData } from "./localStorage";
 import { ILoginResponse } from "../interfaces/auth";
 import { checkAuthAPI } from "../config/api";
 import { setApiHeader } from "./apiHeader";
@@ -33,7 +33,7 @@ function ProtectedRoute({ role, department }: Props) {
         return setAuth(false);
       }
       checkAuthAPI
-        .get("", setApiHeader(currentUser.token as string))
+        .get("", setApiHeader(currentUser.token))
         .then(() => {
           // if (department && currentUser.data?.department === department) {
           dispatch(currentUserActions.login(currentUser));

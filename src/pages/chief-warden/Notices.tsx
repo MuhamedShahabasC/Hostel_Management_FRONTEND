@@ -10,6 +10,7 @@ import NoticeForm from "../../components/Form/Notice";
 import Button from "../../components/UI/Button";
 import { customPopup } from "../../helpers/popup";
 import { INotice } from "../../interfaces/chiefWarden";
+import moment from "moment";
 
 // Notices Page - Chief Warden
 function Notices() {
@@ -23,7 +24,15 @@ function Notices() {
   const fetchNotices = useCallback(() => {
     getAllNotices()
       .then(({ data: { data } }) => setAllNotices(data))
-      .catch((err) => errorToast(err.message))
+      .catch(
+        ({
+          response: {
+            data: { message },
+          },
+        }) => {
+          errorToast(message);
+        }
+      )
       .finally(() => setPending(false));
   }, []);
 
@@ -44,7 +53,7 @@ function Notices() {
       </div>
       <div className="flex justify-between ">
         <span className="w-1/4 left-0">Date: </span>
-        <span className="w-2/3">{new Date(modalData?.date!).toString()}</span>
+        <span className="w-2/3">{moment(modalData?.date!).format("lll")}</span>
       </div>
       <div className="text-center mt-5">
         <button

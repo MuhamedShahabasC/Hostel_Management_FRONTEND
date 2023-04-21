@@ -47,7 +47,6 @@ function Students() {
       },
       {
         name: "Actions",
-        grow: 2,
         cell: (row) => {
           return (
             <div className="flex gap-1">

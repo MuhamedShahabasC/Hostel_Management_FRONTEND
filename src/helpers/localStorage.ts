@@ -1,11 +1,7 @@
 import { ICurrentUser, ILoginResponse, IRole } from "../interfaces/auth";
 
 // Saving locally in the browser
-export const saveLocally = (
-  token: string,
-  data: ILoginResponse,
-  role: IRole
-): void => {
+export const saveLocally = (token: string, data: ILoginResponse, role: IRole): void => {
   const saveData = {
     token: token,
     currentUser: data,
@@ -31,3 +27,6 @@ export const getUserMail = (): string | undefined => {
   const currentUserData = getLocalData();
   return currentUserData?.currentUser.email;
 };
+
+// Fetch token of current user
+export const getToken = (): string | undefined => getLocalData()?.token;

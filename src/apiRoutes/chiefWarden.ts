@@ -1,14 +1,14 @@
-import { chiefWardenAPI } from "../config/api";
-import { getUserMail } from "../helpers/localStorage";
+import { chiefWardenAPI, unauthorizedChiefWardenAPI } from "../config/api";
 import { ILogin, IResetPassword } from "../interfaces/auth";
 import { IMealPlan } from "../interfaces/chef";
 import { INotice } from "../interfaces/chiefWarden";
 
 // Login chief warden
-export const login = async (formData: ILogin) => await chiefWardenAPI.post("/login", formData);
+export const login = async (formData: ILogin) =>
+  await unauthorizedChiefWardenAPI.post("/login", formData);
 
 export const resetPassword = async (passwordData: IResetPassword) =>
-  await chiefWardenAPI.patch(`/auth/${getUserMail()}`, passwordData);
+  await chiefWardenAPI.patch("auth", passwordData);
 
 // -- NOTICES --
 // Get all notices
@@ -52,7 +52,3 @@ export const updateMealPlanCW = async (_id: string, formData: IMealPlan) =>
 // Change availability of Meal plan
 export const changeAvailabilityMealPlanCW = async (_id: string) =>
   await chiefWardenAPI.patch(`mealPlans/${_id}`);
-
-// -- NOTICES --
-// Fetch all notices
-export const fetchAllNotices = async () => await chiefWardenAPI.get("notices/all");

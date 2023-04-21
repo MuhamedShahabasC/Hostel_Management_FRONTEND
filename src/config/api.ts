@@ -1,17 +1,39 @@
 import axios from "axios";
+import { getToken } from "../helpers/localStorage";
 
-// Student API
+// --- Student API ---
+// Authorized
 export const studentAPI = axios.create({
   baseURL: `${process.env.REACT_APP_BACKEND}/students`,
 });
+// Unuthorized
+export const unauthorizedStudentAPI = axios.create({
+  baseURL: `${process.env.REACT_APP_BACKEND}/students`,
+});
 
-// Chief Warden API
+// --- Chief Warden API ---
+// Authorized
 export const chiefWardenAPI = axios.create({
+  baseURL: `${process.env.REACT_APP_BACKEND}/chief-warden`,
+  headers: {  
+    Authorization: `Bearer ${getToken()}`,
+  },
+});
+// Unauthorized
+export const unauthorizedChiefWardenAPI = axios.create({
   baseURL: `${process.env.REACT_APP_BACKEND}/chief-warden`,
 });
 
-// Staff API
+// --- Staff API ---
+// Authorized
 export const staffAPI = axios.create({
+  baseURL: `${process.env.REACT_APP_BACKEND}/staffs`,
+  headers: {
+    Authorization: `Bearer ${getToken()}`,
+  },
+});
+// Unauthorized
+export const unathorizedStaffAPI = axios.create({
   baseURL: `${process.env.REACT_APP_BACKEND}/staffs`,
 });
 
