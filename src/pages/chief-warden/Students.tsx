@@ -27,6 +27,7 @@ function Students() {
     null
   );
   const [availableRooms, setAvailableRooms] = useState<any>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const fetchAllStudents = useCallback(() => {
     fetchAllStudentsAPI()
@@ -288,9 +289,13 @@ function Students() {
                   }}
                   validationSchema={updateStudentSchema}
                   onSubmit={(formData, { setSubmitting }) => {
+                    setErrorMessage(null);
                     setSubmitting(true);
-                    formData.oldRoom = studentData?.room;
-                    updateSingleStudentAPI(studentData?._id, formData)
+                    const student = {
+                      email: studentData?.email,
+                      name: studentData?.name,
+                    };
+                    updateSingleStudentAPI(studentData?._id, { ...formData, student })
                       .then(() => {
                         fetchAllStudents();
                         setModalOpen(false);
@@ -302,50 +307,57 @@ function Students() {
                             data: { message },
                           },
                         }) => {
-                          toast.error(message);
+                          setErrorMessage(message);
                         }
                       )
                       .finally(() => setSubmitting(false));
                   }}
                 >
                   {({ isSubmitting }) => (
-                    <Form className="text-sm">
-                      <div className="flex flex-col md:flex-row justify-center gap-4 px-1 mb-3">
-                        <SelectInput
-                          label="Select Room"
-                          name="room"
-                          options={availableRooms}
-                          defaultValue={studentData?.room}
-                          edit
-                        />
-                        <SelectInput
-                          label="Select Status"
-                          name="status"
-                          options={studentStatusOptions.filter(({ value }) => {
-                            if (studentData?.status === "pending") {
-                              if (value === "rejected" || value === "resident") return true;
-                              else return false;
-                            } else {
-                              if (studentData?.status === "resident") {
-                                if (value === "departed") return true;
+                    <>
+                      <Form className="text-sm">
+                        <div className="flex flex-col md:flex-row justify-center gap-4 px-1 mb-3">
+                          <SelectInput
+                            label="Select Room"
+                            name="room"
+                            options={availableRooms}
+                            defaultValue={studentData?.room}
+                            edit
+                          />
+                          <SelectInput
+                            label="Select Status"
+                            name="status"
+                            options={studentStatusOptions.filter(({ value }) => {
+                              if (studentData?.status === "pending") {
+                                if (value === "rejected" || value === "resident") return true;
                                 else return false;
                               } else {
-                                return false;
+                                if (studentData?.status === "resident") {
+                                  if (value === "departed") return true;
+                                  else return false;
+                                } else {
+                                  return false;
+                                }
                               }
-                            }
-                          })}
-                          defaultValue={studentData?.status.toUpperCase()}
-                          edit
-                        />
-                      </div>
-                      {isSubmitting ? (
-                        <LoadingButton className="mx-auto" />
-                      ) : (
-                        <Button className="mx-auto" type="submit">
-                          Update changes
-                        </Button>
+                            })}
+                            defaultValue={studentData?.status.toUpperCase()}
+                            edit
+                          />
+                        </div>
+                        {isSubmitting ? (
+                          <LoadingButton className="mx-auto" />
+                        ) : (
+                          <Button className="mx-auto" type="submit">
+                            Update changes
+                          </Button>
+                        )}
+                      </Form>
+                      {errorMessage && (
+                        <span className="text-center text-md font-semibold text-red-700">
+                          {errorMessage}
+                        </span>
                       )}
-                    </Form>
+                    </>
                   )}
                 </Formik>
               </span>

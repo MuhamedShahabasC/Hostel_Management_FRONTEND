@@ -4,7 +4,7 @@ import {
   changeAvailabilityMealPlan,
 } from "../../apiRoutes/staff";
 import Table, { TableColumn, Media } from "../../components/Table";
-import { errorToast } from "../../helpers/toasts";
+import { errorToast } from "../../utils/toasts";
 import Modal from "../../components/UI/Modal";
 import Button from "../../components/UI/Button";
 import { toast } from "react-toastify";

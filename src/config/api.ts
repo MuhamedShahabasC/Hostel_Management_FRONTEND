@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken } from "../helpers/localStorage";
+import { getToken } from "../utils/localStorage";
 
 // --- Student API ---
 // Authorized

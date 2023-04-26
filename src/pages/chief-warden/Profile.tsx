@@ -10,16 +10,30 @@ import { useAppSelector } from "../../App";
 import { ICurrentUser } from "../../interfaces/auth";
 import { defaultAvatarImg } from "../../assets/icons/images";
 
+
+// Chief Warden Profile Page
 function Profile() {
   const [message, setMessage] = useState<string | null>(null);
-  const chiefWardenData = useAppSelector<ICurrentUser | null>(
-    (state) => state.currentUser
-  );
+  const chiefWardenData = useAppSelector<ICurrentUser | null>((state) => state.currentUser);
 
+ 
   return (
     <div className="profile-container">
       <div className="flex flex-col mx-auto md:mx-0 text-center justify-center p-5 border-b-2 border-b-gray-400 md:border-b-0 lg:border-r md:border-r-gray-400">
-        <img className="w-40 mb-5" src={defaultAvatarImg} alt="chief warden avatar" />
+        <div className="w-40 mb-5 rounded-full border-1">
+          <label className="relative" htmlFor="uploadImage">
+            <img src={defaultAvatarImg} alt="chief warden avatar" />
+            <span className="text-xs absolute bottom-3 rounded shadow-sm text-white bg-black bg-opacity-30 px-1 -left-7 max-w-max">
+              Change
+            </span>
+          </label>
+          <input
+            className="w-full hidden"
+            type="file"
+            name="uploadImage"
+            id="uploadImage"
+          />
+        </div>
         <h1 className="normal-case">{chiefWardenData?.currentUser.name}</h1>
         <h3>Chief Warden</h3>
       </div>
@@ -68,29 +82,19 @@ function Profile() {
                   name="currentPassword"
                   id="currentPassword"
                 />
-                <PasswordInput
-                  placeholder="New Password"
-                  name="newPassword"
-                  id="newPassword"
-                />
+                <PasswordInput placeholder="New Password" name="newPassword" id="newPassword" />
                 <PasswordInput
                   placeholder="Confirm Password"
                   name="confirmNewPassword"
                   id="confirmNewPassword"
                 />
 
-                {isSubmitting ? (
-                  <LoadingButton />
-                ) : (
-                  <Button type="submit">Reset Password</Button>
-                )}
+                {isSubmitting ? <LoadingButton /> : <Button type="submit">Reset Password</Button>}
               </Form>
             )}
           </Formik>
           {message && (
-            <span className="text-center text-md font-semibold text-red-700">
-              {message}
-            </span>
+            <span className="text-center text-md font-semibold text-red-700">{message}</span>
           )}
         </div>
       </div>

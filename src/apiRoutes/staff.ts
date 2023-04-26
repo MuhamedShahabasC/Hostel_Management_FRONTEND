@@ -7,6 +7,9 @@ export const login = async (formData: ILogin) => await unathorizedStaffAPI.post(
 export const resetPassword = async (passwordData: IResetPassword) =>
   await staffAPI.patch(`/auth`, passwordData);
 
+export const changeProfileImageAPI = async (imageAsBase64: string) =>
+  await staffAPI.patch("/profilePic", { profilePic: imageAsBase64 });
+
 // -- CHEF --
 
 export const allMealPlans = async () => await staffAPI.get(`/meals/all`);

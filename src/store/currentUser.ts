@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { removeLocalData } from "../helpers/localStorage";
+import { removeLocalData } from "../utils/localStorage";
 
 // Current slice
 export const currentUserSlice = createSlice({
@@ -9,7 +9,10 @@ export const currentUserSlice = createSlice({
     login(state, action) {
       return action.payload;
     },
-    logout(): null {
+    updateProfilePic(state: any, action) {
+      state.currentUser.profilePic = action.payload;
+    },
+    logout() {
       removeLocalData();
       return null;
     },

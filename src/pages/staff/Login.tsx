@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import LoginForm from "../../components/Form/LoginForm";
 import { login as loginAPI } from "../../apiRoutes/staff";
-import { saveLocally } from "../../helpers/localStorage";
+import { saveLocally } from "../../utils/localStorage";
 import { useDispatch } from "react-redux";
 import { currentUserActions } from "../../store/currentUser";
 

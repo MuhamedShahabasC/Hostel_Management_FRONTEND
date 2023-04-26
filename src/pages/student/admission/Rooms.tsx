@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../App";
-import { customPopup } from "../../../helpers/popup";
+import { customPopup } from "../../../utils/popup";
 import { admissionActions } from "../../../store/admission";
 import { newAdmissionAPI } from "../../../apiRoutes/student";
 

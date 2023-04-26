@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import LoginForm from "../../components/Form/LoginForm";
 import { login } from "../../apiRoutes/chiefWarden";
-import { saveLocally } from "../../helpers/localStorage";
+import { saveLocally } from "../../utils/localStorage";
 
 // Login Page - Chief warden
 function Login() {

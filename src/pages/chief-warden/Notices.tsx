@@ -2,13 +2,13 @@ import { Media, TableColumn } from "react-data-table-component";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Table from "../../components/Table";
 import { changeNoticeVisibility, deleteNotice, getAllNotices } from "../../apiRoutes/chiefWarden";
-import { errorToast } from "../../helpers/toasts";
+import { errorToast } from "../../utils/toasts";
 import Modal from "../../components/UI/Modal";
 import { toast } from "react-toastify";
 import { deleteIcon, disableIcon, editIcon, tickIcon, viewIcon } from "../../assets/icons/icons";
 import NoticeForm from "../../components/Form/Notice";
 import Button from "../../components/UI/Button";
-import { customPopup } from "../../helpers/popup";
+import { customPopup } from "../../utils/popup";
 import { INotice } from "../../interfaces/chiefWarden";
 import moment from "moment";
 

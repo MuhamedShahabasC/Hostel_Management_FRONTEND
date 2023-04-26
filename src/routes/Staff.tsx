@@ -3,7 +3,7 @@ import StaffLayout from "../layouts/Staff";
 import Login from "../pages/staff/Login";
 import MealsChef from "../pages/staff/Meals.chef";
 import Profile from "../pages/staff/Profile";
-import ProtectedRoute from "../helpers/ProtectedRoute";
+import ProtectedRoute from "../utils/ProtectedRoute";
 import Chat from "../pages/staff/Chat";
 
 // Staff routes

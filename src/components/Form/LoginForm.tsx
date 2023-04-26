@@ -32,7 +32,7 @@ function LoginForm({ loginHandler, navigateTo, onSubmit }: Props) {
             .trim()
             .required("Required")
             .test("isvalidEmail", "Invalid e-Mail", (arg) =>
-              /[a-z0-9]+@floreat.edu.com/i.test(arg)
+              /[a-z0-9]+@[a-z0-9]+/i.test(arg)
             ),
           password: yup
             .string()
