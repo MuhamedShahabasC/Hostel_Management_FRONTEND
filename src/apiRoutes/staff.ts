@@ -13,8 +13,6 @@ export const allMealPlans = async () => await staffAPI.get(`/meals/all`);
 
 export const fetchActiveMealPlans = async () => staffAPI.get(`/meals/activePlans`);
 
-export const fetchmealPlansAdmission = async () => staffAPI.get(`/meals/activePlans`);
-
 export const updateMealPlan = async (_id: string, data: any) =>
   await staffAPI.put(`/meals/${_id}`, data);
 

@@ -5,9 +5,7 @@ import { admissionActions } from "../../../store/admission";
 import { newAdmissionAPI } from "../../../apiRoutes/student";
 
 function Rooms() {
-  const currentBlock = useAppSelector(
-    (state) => state.newAdmission?.hostel?.selectedBlock?.rooms
-  );
+  const currentBlock = useAppSelector((state) => state.newAdmission?.hostel?.selectedBlock?.rooms);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const studentData = useAppSelector((state) => state.newAdmission?.student);
@@ -65,15 +63,12 @@ function Rooms() {
         {currentBlock?.map((el: any) => (
           <div
             onClick={() => {
-              if (!el.code.includes("1")) {
-                selectRoomHandler(el.code);
-              }
+              if (el.availability) selectRoomHandler(el.code);
             }}
             key={el.code}
-            className={`${
-              el.code.includes("1") &&
-              "bg-red-300 text-white hover:cursor-not-allowed"
-            } font-semibold tracking-wider text-center m-3 shadow rounded py-3 hover:shadow-lg active:brightness-125 hover:cursor-pointer text-primary`}
+            className={`${!el.availability && "bg-red-300 text-white"} ${
+              !el.availability ? "hover:cursor-not-allowed" : "hover:cursor-pointer"
+            } font-semibold tracking-wider text-center m-3 shadow rounded py-3 hover:shadow-lg active:brightness-125 text-primary`}
           >
             <span>{el.code}</span>
           </div>

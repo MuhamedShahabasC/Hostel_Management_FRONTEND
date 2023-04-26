@@ -7,7 +7,7 @@ export const studentAdmissionSchema = yup.object().shape({
     .trim()
     .lowercase()
     .required()
-    .test("isvalidEmail", "Invalid e-Mail", (arg) => /[a-z0-9]+@floreat.edu.com/i.test(arg)),
+    .test("isvalidEmail", "Invalid e-Mail", (arg) => /[a-z0-9]+@[a-z0-9]+.com/i.test(arg)),
   name: yup
     .string()
     .required()

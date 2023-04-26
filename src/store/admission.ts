@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchAllBlocks } from "../apiRoutes/chiefWarden";
-import { fetchmealPlansAdmission } from "../apiRoutes/staff";
+import { fetchmealPlansAdmission } from "../apiRoutes/student";
 
 const initialState = {
   student: {},
@@ -46,15 +46,12 @@ export const admissionActions = admissionSlice.actions;
 
 // Redux Thunks
 // Fetching blocks and rooms
-export const fetchBlocksData = createAsyncThunk(
-  "AdmissionSlice/fetchBlocksData",
-  async () => {
-    const {
-      data: { data },
-    } = await fetchAllBlocks();
-    return data;
-  }
-);
+export const fetchBlocksData = createAsyncThunk("AdmissionSlice/fetchBlocksData", async () => {
+  const {
+    data: { data },
+  } = await fetchAllBlocks();
+  return data;
+});
 
 // Fetching active meal plans
 export const fetchActiveMealPlans = createAsyncThunk(

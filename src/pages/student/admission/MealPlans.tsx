@@ -13,7 +13,6 @@ import Button from "../../../components/UI/Button";
 import { changeMealPlanSchema } from "../../../schema/student";
 
 function MealPlans() {
-  // const [message, setMessage] = useState("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const activePlans = useAppSelector(
