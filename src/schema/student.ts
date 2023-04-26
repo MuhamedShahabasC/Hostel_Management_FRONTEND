@@ -70,3 +70,27 @@ export const studentAdmissionSchema = yup.object().shape({
 export const changeMealPlanSchema = yup.object().shape({
   mealPlan: yup.string().required("Meal Plan is required").trim().min(1),
 });
+
+// Update student data
+export const updateStudentSchema = yup.object().shape({
+  room: yup
+    .string()
+    .required("Room is required")
+    .trim()
+    .test("roomCode", "Must be exactly 3 characters", (roomCode) => roomCode.length === 3),
+  oldRoom: yup
+    .string()
+    .required("Room is required")
+    .trim()
+    .test("roomCode", "Must be exactly 3 characters", (roomCode) => roomCode.length === 3),
+  status: yup
+    .string()
+    .trim()
+    .required("Student status is required")
+    .oneOf(["resident", "rejected", "departed"], "Invalid student status"),
+  oldStatus: yup
+    .string()
+    .trim()
+    .required("Student status is required")
+    .oneOf(["pending", "resident"], "Invalid student status"),
+});

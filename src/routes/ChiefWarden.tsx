@@ -9,6 +9,7 @@ import MealPlans from "../pages/chief-warden/MealPlans";
 import Chat from "../pages/chief-warden/Chat";
 import Dashboard from "../pages/chief-warden/Dashboard";
 
+// Chief warden routes
 function ChiefWardenRoutes() {
   return (
     <Routes>

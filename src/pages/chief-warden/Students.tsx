@@ -1,30 +1,53 @@
-import { useMemo, useEffect, useState } from "react";
+import { useMemo, useEffect, useState, useCallback } from "react";
 import Table, { Media, TableColumn } from "../../components/Table";
-import { editIcon, searchIcon } from "../../assets/icons/icons";
-import { fetchAllStudents } from "../../apiRoutes/chiefWarden";
+import { disableOutineIcon, editIcon, searchIcon, tickIcon } from "../../assets/icons/icons";
+import {
+  checkRoomAvailability,
+  fetchAllStudentsAPI,
+  fetchAvailableRooms,
+  updateSingleStudentAPI,
+} from "../../apiRoutes/chiefWarden";
 import Modal from "../../components/UI/Modal";
-import StudentDetails from "../../components/Form/StudentDetails";
-
-interface TableRow {
-  name: string;
-  status: "pending" | "resident" | "suspended" | "departed";
-  room: string;
-  email: string;
-}
+import { IRoom } from "../../interfaces/block";
+import { Form, Formik } from "formik";
+import SelectInput from "../../components/Form/SelectInput";
+import LoadingButton from "../../components/UI/LoadingButton";
+import Button from "../../components/UI/Button";
+import { toast } from "react-toastify";
+import { IStudent } from "../../interfaces/student";
+import { updateStudentSchema } from "../../schema/student";
 
 // Students page of Chief warden
 function Students() {
-  const [studentsData, setStudentsData] = useState<any[]>([]);
+  const [studentsData, setStudentsData] = useState<IStudent[]>([]);
   const [pending, setPending] = useState<boolean>(true);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [studentData, setStudentData] = useState<any>(null);
+  const [roomAvailability, setRoomAvailability] = useState<"available" | "unavailable" | null>(
+    null
+  );
+  const [availableRooms, setAvailableRooms] = useState<any>(null);
+
+  const fetchAllStudents = useCallback(() => {
+    fetchAllStudentsAPI()
+      .then(({ data: { data } }) => {
+        setStudentsData(data);
+      })
+      .catch(
+        ({
+          response: {
+            data: { message },
+          },
+        }) => {
+          toast.error(message);
+        }
+      )
+      .finally(() => setPending(false));
+  }, []);
 
   useEffect(() => {
-    setPending(true);
-    fetchAllStudents()
-      .then(({ data: { data } }) => setStudentsData(data))
-      .catch(({ response: { message } }) => alert(message))
-      .finally(() => setPending(false));
+    fetchAllStudents();
+    // eslint-disable-next-line
   }, []);
 
   const columns: TableColumn<TableRow>[] = useMemo(
@@ -54,25 +77,35 @@ function Students() {
                 title="View Student"
                 onClick={() => {
                   setStudentData(row);
-                  setModalOpen(true);
+                  checkRoomAvailability(row.room)
+                    .then(({ data: { message } }) => {
+                      setRoomAvailability(message);
+                    })
+                    .catch(
+                      ({
+                        response: {
+                          data: { message },
+                        },
+                      }) => {
+                        setRoomAvailability(message);
+                      }
+                    )
+                    .finally(() => {
+                      fetchAvailableRooms(row.block._id)
+                        .then(({ data: { data } }) => {
+                          setAvailableRooms(
+                            data.map((room: IRoom) => {
+                              return { value: room.code, text: room.code };
+                            })
+                          );
+                        })
+                        .catch(({ response: { data: message } }) => toast.error(message))
+                        .finally(() => setModalOpen(true));
+                    });
                 }}
               >
                 <img className="image-button h-7" src={editIcon} alt="view details" />
               </button>
-              {/* <button
-                title="Change Visibility"
-                onClick={
-                  async () => console.log(row.email)
-                  // await changeNoticeVisibility(row.email, row)
-                  //   .then(() => toast.success(`Notice updated`))
-                  //   .then(fetchNotices)
-                }
-              >
-                <img className="image-button h-7" src={tickIcon} alt="active notice" />
-              </button>
-              <button title="Delete Notice" onClick={async () => alert(row.email)}>
-                <img className="image-button h-7" src={deleteIcon} alt="delete notice" />
-              </button> */}
             </div>
           );
         },
@@ -105,6 +138,7 @@ function Students() {
       <option value="pending">Pending</option>
       <option value="resident">Resident</option>
       <option value="suspended">Suspended</option>
+      <option value="rejected">Rejected</option>
       <option value="departed">Departed</option>
     </select>
   );
@@ -129,6 +163,28 @@ function Students() {
     </div>
   );
 
+  const studentStatusOptions = useMemo(
+    () => [
+      {
+        text: "PENDING",
+        value: "pending",
+      },
+      {
+        text: "RESIDENT",
+        value: "resident",
+      },
+      {
+        text: "REJECTED",
+        value: "rejected",
+      },
+      {
+        text: "DEPARTED",
+        value: "departed",
+      },
+    ],
+    []
+  );
+
   return (
     <div className="parent-container">
       <h2>Students</h2>
@@ -138,10 +194,178 @@ function Students() {
       </div>
       <Table columns={columns} data={studentsData} pending={pending} />
       <Modal isOpen={modalOpen} heading="Student Details" closeHandler={setModalOpen}>
-        {studentData && <StudentDetails studentData={studentData} />}
+        <div className="flex flex-col md:px-4">
+          <span className="flex">
+            <span className="w-1/3 md:w-1/4 left-0">Name: </span>
+            <span>{studentData?.name}</span>
+          </span>
+          <span className="flex">
+            <span className="w-1/3 md:w-1/4 left-0">Status: </span>
+            <span className="font-black">{studentData?.status.toUpperCase()}</span>
+          </span>
+          <span className="flex">
+            <span className="w-1/3 md:w-1/4 left-0">School Mail: </span>
+            <span>{studentData?.email}</span>
+          </span>
+          <span className="flex">
+            <span className="w-1/3 md:w-1/4 left-0">Mobile: </span>
+            <span>{studentData?.mobile}</span>
+          </span>
+          <span className="flex">
+            <span className="w-1/3 md:w-1/4 left-0">Department: </span>
+            <span className="capitalize">{studentData?.department}</span>
+          </span>
+          <span className="flex">
+            <span className="w-1/3 md:w-1/4 left-0">Gender: </span>
+            <span className="capitalize">{studentData?.gender}</span>
+          </span>
+          <span className="flex">
+            <span className="w-1/3 md:w-1/4 left-0">Guardian: </span>
+            <span>
+              {studentData?.guardianName} , {studentData?.guardianMobile}
+            </span>
+          </span>
+          <span className="flex">
+            <span className="w-1/3 md:w-1/4 left-0">Address: </span>
+            <span className="flex flex-col">
+              <span>{studentData?.address?.building}</span>
+              <span>{studentData?.address?.city}</span>
+              <span>{studentData?.address?.pin}</span>
+              <span>{studentData?.address?.state}</span>
+              <span>{studentData?.address?.country}</span>
+            </span>
+          </span>
+          <span className="flex">
+            <span className="w-1/3 md:w-1/4 left-0">Blood Group: </span>
+            <span>{studentData?.bloodGroup}</span>
+          </span>
+          <span className="flex">
+            <span className="w-1/3 md:w-1/4 left-0">Remarks: </span>
+            <span>{studentData?.remarks}</span>
+          </span>
+          <span className="flex">
+            <span className="w-1/3 md:w-1/4 left-0">Meal Plan: </span>
+            <span>{studentData?.mealPlan?.title}</span>
+          </span>
+          <span className="border-b mx-10 my-3 "></span>
+          <span className="flex">
+            <span className="w-1/3 md:w-1/4 left-0">Block: </span>
+            <span>{studentData?.block?.name}</span>
+          </span>
+          <span className="flex">
+            <span className="w-1/3 md:w-1/4 left-0">Room: </span>
+            <div className="flex">
+              <span>{studentData?.room}</span>
+              {studentData?.status === "pending" && (
+                <div className="ml-3 flex items-center">
+                  <span
+                    className={` ${
+                      roomAvailability === `available` ? "text-green-800" : "text-red-800"
+                    }`}
+                  >
+                    Room is {roomAvailability}
+                  </span>
+                  {roomAvailability === `available` ? (
+                    <img className="ml-1 w-5" src={tickIcon} alt="room is available" />
+                  ) : (
+                    <img className="ml-1 w-5" src={disableOutineIcon} alt="room is unavailable" />
+                  )}
+                </div>
+              )}
+            </div>
+          </span>
+          {(studentData?.status === "pending" || studentData?.status === "resident") && (
+            <>
+              <span className="border-b mx-10 my-3 "></span>
+              <span className="flex">
+                <span className="w-1/3 md:w-1/4 left-0">Update: </span>
+                <Formik
+                  initialValues={{
+                    room: studentData?.room,
+                    status: studentData?.status,
+                    oldRoom: studentData?.room,
+                    oldStatus: studentData?.status,
+                  }}
+                  validationSchema={updateStudentSchema}
+                  onSubmit={(formData, { setSubmitting }) => {
+                    setSubmitting(true);
+                    formData.oldRoom = studentData?.room;
+                    updateSingleStudentAPI(studentData?._id, formData)
+                      .then(() => {
+                        fetchAllStudents();
+                        setModalOpen(false);
+                        toast.success(`${studentData?.name} updated`);
+                      })
+                      .catch(
+                        ({
+                          response: {
+                            data: { message },
+                          },
+                        }) => {
+                          toast.error(message);
+                        }
+                      )
+                      .finally(() => setSubmitting(false));
+                  }}
+                >
+                  {({ isSubmitting }) => (
+                    <Form className="text-sm">
+                      <div className="flex flex-col md:flex-row justify-center gap-4 px-1 mb-3">
+                        <SelectInput
+                          label="Select Room"
+                          name="room"
+                          options={availableRooms}
+                          defaultValue={studentData?.room}
+                          edit
+                        />
+                        <SelectInput
+                          label="Select Status"
+                          name="status"
+                          options={studentStatusOptions.filter(({ value }) => {
+                            if (studentData?.status === "pending") {
+                              if (value === "rejected" || value === "resident") return true;
+                              else return false;
+                            } else {
+                              if (studentData?.status === "resident") {
+                                if (value === "departed") return true;
+                                else return false;
+                              } else {
+                                return false;
+                              }
+                            }
+                          })}
+                          defaultValue={studentData?.status.toUpperCase()}
+                          edit
+                        />
+                      </div>
+                      {isSubmitting ? (
+                        <LoadingButton className="mx-auto" />
+                      ) : (
+                        <Button className="mx-auto" type="submit">
+                          Update changes
+                        </Button>
+                      )}
+                    </Form>
+                  )}
+                </Formik>
+              </span>
+            </>
+          )}
+        </div>
       </Modal>
     </div>
   );
+}
+
+interface TableRow {
+  name: string;
+  status: "pending" | "resident" | "suspended" | "departed";
+  room: string;
+  email: string;
+  block: {
+    _id: string;
+    name: string;
+  };
 }
 
 export default Students;

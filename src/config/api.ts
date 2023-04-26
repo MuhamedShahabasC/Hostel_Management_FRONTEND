@@ -5,6 +5,9 @@ import { getToken } from "../helpers/localStorage";
 // Authorized
 export const studentAPI = axios.create({
   baseURL: `${process.env.REACT_APP_BACKEND}/students`,
+  headers: {
+    Authorization: `Bearer ${getToken()}`,
+  },
 });
 // Unuthorized
 export const unauthorizedStudentAPI = axios.create({
@@ -15,7 +18,7 @@ export const unauthorizedStudentAPI = axios.create({
 // Authorized
 export const chiefWardenAPI = axios.create({
   baseURL: `${process.env.REACT_APP_BACKEND}/chief-warden`,
-  headers: {  
+  headers: {
     Authorization: `Bearer ${getToken()}`,
   },
 });

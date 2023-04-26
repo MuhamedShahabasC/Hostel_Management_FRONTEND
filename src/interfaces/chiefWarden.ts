@@ -7,7 +7,7 @@ export interface INotice {
     student: boolean;
     staff: boolean;
   };
-  date?: string
+  date?: string;
 }
 // New notice schema interface
 export interface INewNotice {
@@ -17,3 +17,4 @@ export interface INewNotice {
   student: boolean | undefined;
   staff: boolean | undefined;
 }
+

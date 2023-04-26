@@ -46,8 +46,8 @@ function LoginForm({ loginHandler, navigateTo, onSubmit }: Props) {
           onSubmit(formData)
             .then(({ data: { token, data } }) => {
               loginHandler(token, data);
-              toast.success(`Welcome ${data.name}`);
               navigate(navigateTo);
+              toast.success(`Welcome ${data.name}`);
             })
             .catch(
               ({

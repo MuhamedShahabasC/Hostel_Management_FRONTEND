@@ -29,15 +29,33 @@ export const editNotice = async (_id: string, formData: INotice) =>
 // Delete a notice
 export const deleteNotice = async (_id: string) => await chiefWardenAPI.delete(`notices/${_id}`);
 
+//
 // -- BLOCKS AND ROOMS --
+//
 // Fetch all blocks
 export const fetchAllBlocks = async () => await chiefWardenAPI.get("blocks");
 
-// -- STUDENTS --
-// Fetch all students
-export const fetchAllStudents = async () => chiefWardenAPI.get("students");
+// Check room availability
+export const checkRoomAvailability = async (roomCode: string) =>
+  await chiefWardenAPI.get(`/blocks/rooms/availability/${roomCode}`);
 
+// Fetch available rooms
+export const fetchAvailableRooms = async (blockId: string) =>
+  await chiefWardenAPI.get(`/blocks/rooms/availableRooms/${blockId}`);
+
+//
+// -- STUDENTS --
+//
+// Fetch all students
+export const fetchAllStudentsAPI = async () => chiefWardenAPI.get("students/all");
+
+// Update single student
+export const updateSingleStudentAPI = async (_id: string, data: any) =>
+  chiefWardenAPI.patch(`students/${_id}`, data);
+
+//
 // -- MEAL PLANS --
+//
 // Fetch all meal plans
 export const fetchAllMealPlans = async () => chiefWardenAPI.get("mealPlans");
 

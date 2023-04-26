@@ -1,6 +1,6 @@
 import { ErrorMessage, Field } from "formik";
 
-function SelectInput({ name, options, className, label, edit }: Props) {
+function SelectInput({ name, options, className, label, edit, defaultValue }: Props) {
   return (
     <div>
       {edit && label && (
@@ -20,8 +20,8 @@ function SelectInput({ name, options, className, label, edit }: Props) {
         >
           [
           {
-            <option key="default" value="">
-              {label}
+            <option key="default" value={defaultValue ? defaultValue : ""}>
+              {defaultValue ? defaultValue : label}
             </option>
           }
           , ...
@@ -46,6 +46,7 @@ interface Props {
   className?: string;
   label: string;
   edit?: boolean;
+  defaultValue?: string;
 }
 
 export default SelectInput;

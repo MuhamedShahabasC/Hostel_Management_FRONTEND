@@ -52,8 +52,15 @@ function Notices() {
         <span className="w-2/3">{modalData?.message}</span>
       </div>
       <div className="flex justify-between ">
+        <span className="w-1/4 left-0">Audience: </span>
+        <span className="w-2/3 flex flex-col">
+          <span>Student: {modalData?.audience?.student ? `Visible` : `Hidden`}</span>
+          <span>Staff: {modalData?.audience?.staff ? `Visible` : `Hidden`}</span>
+        </span>
+      </div>
+      <div className="flex justify-between ">
         <span className="w-1/4 left-0">Date: </span>
-        <span className="w-2/3">{moment(modalData?.date!).format("lll")}</span>
+        <span className="w-2/3">{moment(modalData?.date).format("L")}</span>
       </div>
       <div className="text-center mt-5">
         <button
@@ -86,6 +93,12 @@ function Notices() {
         name: "Active",
         sortable: true,
         selector: (row) => (row.visibility ? "Visible" : "Hidden"),
+        hide: Media.SM,
+      },
+      {
+        name: "Date",
+        sortable: true,
+        selector: (row) => moment(row.date).format("L"),
         hide: Media.SM,
       },
       {
@@ -192,6 +205,7 @@ interface TableRow {
   title: string;
   message: string;
   visibility: boolean;
+  date: string;
 }
 
 export default Notices;
