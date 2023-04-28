@@ -131,7 +131,7 @@ function HeaderLinks({ currentUser }: Props) {
     currentLinks &&
     currentLinks.map((el: { name: string; link: string }) => (
       <NavLink
-        className={"text-sm text-primary font-black"}
+        className="text-sm text-primary font-black"
         style={({ isActive }) => ({
           textDecoration: isActive ? "underline" : "",
           textUnderlineOffset: isActive ? "0.4rem" : "",

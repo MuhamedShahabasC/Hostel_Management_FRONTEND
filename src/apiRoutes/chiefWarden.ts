@@ -5,10 +5,10 @@ import { INotice } from "../interfaces/chiefWarden";
 
 // Login chief warden
 export const login = async (formData: ILogin) =>
-  await unauthorizedChiefWardenAPI.post("/login", formData);
+  await unauthorizedChiefWardenAPI.post("/auth", formData);
 
 export const resetPassword = async (passwordData: IResetPassword) =>
-  await chiefWardenAPI.patch("auth", passwordData);
+  await chiefWardenAPI.patch("/auth", passwordData);
 
 // -- NOTICES --
 // Get all notices
@@ -28,6 +28,9 @@ export const editNotice = async (_id: string, formData: INotice) =>
 
 // Delete a notice
 export const deleteNotice = async (_id: string) => await chiefWardenAPI.delete(`notices/${_id}`);
+
+// Notice statistics
+export const noticeStatisticsAPI = async () => await chiefWardenAPI.get("notices/statistics");
 
 //
 // -- BLOCKS AND ROOMS --

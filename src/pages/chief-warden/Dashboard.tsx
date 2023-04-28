@@ -1,8 +1,19 @@
+import { useEffect, useState } from "react";
 import { complaintImg, noticeBoardImg, studentRisingHandImg } from "../../assets/icons/images";
 import Notices from "../../components/Notices";
+import { noticeStatisticsAPI } from "../../apiRoutes/chiefWarden";
 
 // Dashboard - Chief Warden
 function Dashboard() {
+  const [noticeStatistics, setNoticeStatistics] = useState<[number, number] | null>(null);
+
+  useEffect(() => {
+    noticeStatisticsAPI().then(({ data: { data } }) => {
+      console.log(data);
+      setNoticeStatistics(data);
+    });
+  }, []);
+
   return (
     <div className="dashboard-container">
       <div className="flex flex-col md:flex-row gap-2 md:gap-10 text-white tracking-wider mb-10">
@@ -30,8 +41,8 @@ function Dashboard() {
           <div className="flex flex-col">
             <span className="text-lg font-black">Notices</span>
             <div className="flex items-end">
-              <span className="text-2xl font-black">3</span>
-              <span className="text-sm m-1">/ 7</span>
+              <span className="text-2xl font-black">{noticeStatistics?.[0]}</span>
+              <span className="text-sm m-1">/ {noticeStatistics?.[1]}</span>
             </div>
           </div>
           <img className="h-16" src={noticeBoardImg} alt="notices" />

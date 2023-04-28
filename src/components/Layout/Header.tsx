@@ -37,7 +37,7 @@ function Header({ role, newAdmission }: Props) {
             <h1 className="text-sm lg:text-base">Hostel Management</h1>
           </span>
         </Link>
-        <div className="flex gap-7 items-center">
+        <div className="flex gap-7 items-center z-10">
           <div className="hidden lg:flex gap-7">
             {newAdmission && !currentUser && newAdmissionLinks}
             {currentUser?.currentUser && (
