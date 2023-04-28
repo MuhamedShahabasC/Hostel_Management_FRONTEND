@@ -4,41 +4,41 @@ import { toast } from "react-toastify";
 import PasswordInput from "../../components/Form/PasswordInput";
 import LoadingButton from "../../components/UI/LoadingButton";
 import Button from "../../components/UI/Button";
-import { resetPasswordSchema } from "../../schema/staff";
+import { resetPasswordSchema } from "../../schema/auth";
 import { resetPassword } from "../../apiRoutes/chiefWarden";
 import { useAppSelector } from "../../App";
 import { ICurrentUser } from "../../interfaces/auth";
 import { defaultAvatarImg } from "../../assets/icons/images";
-
 
 // Chief Warden Profile Page
 function Profile() {
   const [message, setMessage] = useState<string | null>(null);
   const chiefWardenData = useAppSelector<ICurrentUser | null>((state) => state.currentUser);
 
- 
   return (
     <div className="profile-container">
       <div className="flex flex-col mx-auto md:mx-0 text-center justify-center p-5 border-b-2 border-b-gray-400 md:border-b-0 lg:border-r md:border-r-gray-400">
-        <div className="w-40 mb-5 rounded-full border-1">
+        <div className="w-40 mb-5 rounded-full border-1 mx-auto">
           <label className="relative" htmlFor="uploadImage">
             <img src={defaultAvatarImg} alt="chief warden avatar" />
             <span className="text-xs absolute bottom-3 rounded shadow-sm text-white bg-black bg-opacity-30 px-1 -left-7 max-w-max">
               Change
             </span>
           </label>
-          <input
-            className="w-full hidden"
-            type="file"
-            name="uploadImage"
-            id="uploadImage"
-          />
+          <input className="w-full hidden" type="file" name="uploadImage" id="uploadImage" />
         </div>
-        <h1 className="normal-case">{chiefWardenData?.currentUser.name}</h1>
+        <div className="hidden md:block">
+          {chiefWardenData?.currentUser?.name.split(" ").map((name) => (
+            <h1 key={name} className="normal-case">
+              {name}
+            </h1>
+          ))}
+        </div>
+        <h1 className="normal-case md:hidden">{chiefWardenData?.currentUser?.name}</h1>
         <h3>Chief Warden</h3>
       </div>
       <div className="flex flex-col my-4 px-5 grow">
-        <div className=" flex justify-between gap-2 pb-3 border-b border-b-gray-400">
+        <div className=" flex flex-col md:flex-row justify-between gap-2 pb-3 border-b border-b-gray-400">
           <div>
             <h4>Mail</h4>
             <p className="text-sm">{chiefWardenData?.currentUser.email}</p>

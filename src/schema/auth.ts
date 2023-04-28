@@ -1,5 +1,6 @@
 import * as yup from "yup";
 
+// Login Request
 export const loginSchema = yup.object().shape({
   email: yup
     .string()
@@ -13,3 +14,24 @@ export const loginSchema = yup.object().shape({
     .min(8, "Invalid Password")
     .max(16, "Invalid Password"),
 });
+
+// Reset password 
+export const resetPasswordSchema = yup.object().shape({
+  currentPassword: yup
+    .string()
+    .trim()
+    .required("Required")
+    .min(8, "Invalid Password")
+    .max(16, "Invalid Password"),
+  newPassword: yup
+    .string()
+    .trim()
+    .required("Required")
+    .min(8, "Invalid Password")
+    .max(16, "Invalid Password"),
+  confirmNewPassword: yup
+    .string()
+    .trim()
+    .required("Required")
+    .oneOf([yup.ref("newPassword")], "Passwords must match"),
+})

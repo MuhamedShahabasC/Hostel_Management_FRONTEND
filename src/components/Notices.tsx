@@ -1,19 +1,21 @@
 import { useEffect, useState, useCallback } from "react";
-import { getAllNotices } from "../apiRoutes/chiefWarden";
 import { toast } from "react-toastify";
 import moment from "moment";
+import { AxiosResponse } from "axios";
+import MetroSpinner from "./UI/MetroSpinner";
 
 // Notices for all Users
-function Notices() {
-  const [allNotices, setAllNotices] = useState<any>([]);
+function Notices({ fetchHandler }: Props) {
+  const [allNotices, setAllNotices] = useState<any>(null);
 
   const fetchNotices = useCallback(() => {
-    getAllNotices()
+    fetchHandler()
       .then(({ data: { data } }) => setAllNotices(data))
       .catch(({ response: { data: messsage } }) => {
         toast.error(messsage);
         setAllNotices([]);
       });
+    // eslint-disable-next-line
   }, []);
 
   useEffect(
@@ -26,18 +28,31 @@ function Notices() {
     <div className="flex flex-col w-full md:px-5">
       <h4 className="pb-1 pl-2 border-b border-[#B1B1B1]">Notice Board</h4>
       <div className="flex flex-col divide-y pl-2 pt-2">
-        {allNotices
-          ?.slice(0, 3)
-          .map(({ title, date, message }: { title: string; date: string; message: string }) => (
-            <div key={title} className="flex flex-col pt-1">
-              <p className="text-primary text-sm">{title}</p>
-              <p className="text-gray-800 text-xs">{message.substring(0, 50).concat("...")}</p>
-              <span className="font-medium ml-auto my-1 text-xs">{moment(date).format("ll")}</span>
-            </div>
-          ))}
+        {allNotices ? (
+          allNotices
+            ?.slice(0, 3)
+            .map(({ title, date, message }: { title: string; date: string; message: string }) => (
+              <div key={title} className="flex flex-col pt-1">
+                <p className="text-primary text-sm">{title}</p>
+                <p className="text-gray-800 text-xs">
+                  {/* {message.length < 150 ? message : message.substring(0, 150).concat("...")} */}
+                  {message}
+                </p>
+                <span className="font-medium ml-auto my-1 text-xs">
+                  {moment(date).format("ll")}
+                </span>
+              </div>
+            ))
+        ) : (
+          <MetroSpinner />
+        )}
       </div>
     </div>
   );
+}
+
+interface Props {
+  fetchHandler(): Promise<AxiosResponse<any, any>>;
 }
 
 export default Notices;

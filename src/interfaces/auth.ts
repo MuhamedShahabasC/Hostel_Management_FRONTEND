@@ -17,16 +17,18 @@ export interface ILoginResponse {
 }
 
 export interface ICurrentUser {
-  currentUser: {
-    _id: string;
-    email: string;
-    name: string;
-    mobile: string;
-    department?: "maintenance" | "warden" | "chef";
-    profilePic?: string
-  };
+  currentUser: ICurrentUserDetails;
   token: string;
   role: "staff" | "chiefWarden" | "student";
+}
+
+export interface ICurrentUserDetails {
+  _id: string;
+  email: string;
+  name: string;
+  mobile: string;
+  department?: "maintenance" | "warden" | "chef";
+  profilePic?: string;
 }
 
 export interface IResetPassword {

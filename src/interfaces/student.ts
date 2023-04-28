@@ -1,4 +1,3 @@
-
 export interface IStudent {
   _id?: string;
   name: string;
@@ -24,4 +23,19 @@ export interface IStudent {
   state?: string;
   bloodGroup: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
   remarks?: string;
+}
+
+export interface IMealPlanResponse {
+  _id: string;
+  title: string;
+  price: number;
+  breakfast: string;
+  lunch: string;
+  evening: string;
+  dinner: string;
+  active: true;
+  subscribers: number;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
 }

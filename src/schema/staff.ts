@@ -41,24 +41,3 @@ export const mealPlanSchema = yup.object().shape({
   active: yup.bool().oneOf([true, false], "Must be true or false"),
   subscribers: yup.number().positive().integer(),
 });
-
-// Reset password 
-export const resetPasswordSchema = yup.object().shape({
-  currentPassword: yup
-    .string()
-    .trim()
-    .required("Required")
-    .min(8, "Invalid Password")
-    .max(16, "Invalid Password"),
-  newPassword: yup
-    .string()
-    .trim()
-    .required("Required")
-    .min(8, "Invalid Password")
-    .max(16, "Invalid Password"),
-  confirmNewPassword: yup
-    .string()
-    .trim()
-    .required("Required")
-    .oneOf([yup.ref("newPassword")], "Passwords must match"),
-})

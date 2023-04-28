@@ -14,8 +14,8 @@ function App() {
       <ReactToastify />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<StudentLogin />} />
           <Route path="/students/*" element={<StudentRoutes />} />
+          <Route path="/" element={<StudentLogin />} />
           <Route path="/staffs/*" element={<StaffRoutes />} />
           <Route path="/chief-wardens/*" element={<ChiefWardenRoutes />} />
           <Route path="/*" element={`NOT FOUND`} />

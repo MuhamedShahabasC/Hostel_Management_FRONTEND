@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchAllBlocks } from "../apiRoutes/chiefWarden";
-import { fetchmealPlansAdmission } from "../apiRoutes/student";
+import { fetchActiveMealPlans as fetchmealPlansAdmission } from "../apiRoutes/student";
 
 const initialState = {
   student: {},

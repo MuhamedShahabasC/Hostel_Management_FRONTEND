@@ -14,12 +14,12 @@ function Login() {
   const navigate = useNavigate();
 
   const loginHandler = (token: string, data: ILoginResponse) => {
-    saveLocally(token, data, "staff");
+    saveLocally(token, data, "student");
     dispatch(
       currentUserActions.login({
         token,
         currentUser: data,
-        role: "staff",
+        role: "student",
       })
     );
     navigate("/students/dashboard");

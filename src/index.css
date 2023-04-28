@@ -47,6 +47,10 @@
   @apply bg-white w-full lg:w-2/3 p-2 rounded-lg lg:p-10 shadow-xl mx-2 my-8 flex flex-col;
 }
 
+.student-dashboard-container {
+  @apply bg-white w-full lg:w-2/3 p-2 rounded-lg lg:p-10 shadow-xl mx-2 my-8 flex flex-col md:flex-row justify-between;
+}
+
 .parent-container h2 {
   font-weight: bolder;
   font-size: larger;

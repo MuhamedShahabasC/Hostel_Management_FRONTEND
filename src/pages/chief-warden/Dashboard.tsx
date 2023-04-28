@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { complaintImg, noticeBoardImg, studentRisingHandImg } from "../../assets/icons/images";
 import Notices from "../../components/Notices";
-import { noticeStatisticsAPI } from "../../apiRoutes/chiefWarden";
+import { getAllNotices, noticeStatisticsAPI } from "../../apiRoutes/chiefWarden";
 
 // Dashboard - Chief Warden
 function Dashboard() {
@@ -49,7 +49,7 @@ function Dashboard() {
         </div>
       </div>
       <div className="h-72 w-1/3 flex">
-        <Notices />
+        <Notices fetchHandler={getAllNotices}/>
       </div>
     </div>
   );

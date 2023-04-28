@@ -8,7 +8,7 @@ export const resetPassword = async (passwordData: IResetPassword) =>
   await staffAPI.patch(`/auth`, passwordData);
 
 export const changeProfileImageAPI = async (imageAsBase64: string) =>
-  await staffAPI.patch("/profilePic", { profilePic: imageAsBase64 });
+  await staffAPI.patch("/", { profilePic: imageAsBase64 });
 
 // -- CHEF --
 

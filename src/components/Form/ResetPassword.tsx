@@ -1,5 +1,5 @@
 import { Formik } from "formik";
-import { resetPasswordSchema } from "../../schema/staff";
+import { resetPasswordSchema } from "../../schema/auth";
 import { resetPassword } from "../../apiRoutes/staff";
 import { toast } from "react-toastify";
 import { useState } from "react";

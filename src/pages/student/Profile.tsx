@@ -5,23 +5,23 @@ import PasswordInput from "../../components/Form/PasswordInput";
 import LoadingButton from "../../components/UI/LoadingButton";
 import Button from "../../components/UI/Button";
 import { resetPasswordSchema } from "../../schema/auth";
-import { changeProfileImageAPI, resetPassword } from "../../apiRoutes/staff";
+import { changeProfileImageAPI, resetPassword } from "../../apiRoutes/student";
 import { useAppDispatch, useAppSelector } from "../../App";
 import { ICurrentUser } from "../../interfaces/auth";
 import { getBase64 } from "../../utils/getBase64";
 import { currentUserActions } from "../../store/currentUser";
 
-// Staff Profile Page
+// Student Profile Page
 function Profile() {
   const [message, setMessage] = useState<string | null>(null);
-  const staffData = useAppSelector<ICurrentUser | null>((state) => state.currentUser);
+  const student = useAppSelector<ICurrentUser | null>((state) => state.currentUser);
   const dispatch = useAppDispatch();
 
   const uploadImageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     const image = files && files[0];
     if (
-      !/(\.jpg|\.jpeg|\.png|\.webp)$/.exec(image?.name!) ||
+      !/(\.jpg|\.gif|\.jpeg|\.png|\.webp)$/.exec(image?.name!) ||
       image!["type"].split("/")[0] !== "image"
     )
       return toast.error("Only upload images");
@@ -56,7 +56,7 @@ function Profile() {
         <div className="w-40 mb-5 rounded-full border-1 mx-auto">
           <label className="relative" htmlFor="uploadImage">
             <img
-              src={staffData?.currentUser.profilePic}
+              src={student?.currentUser.profilePic}
               className="rounded-full p-1"
               alt="staff avatar"
             />
@@ -73,24 +73,24 @@ function Profile() {
           />
         </div>
         <div className="hidden md:block">
-          {staffData?.currentUser?.name.split(" ").map((name) => (
+          {student?.currentUser?.name.split(" ").map((name) => (
             <h1 key={name} className="normal-case">
               {name}
             </h1>
           ))}
         </div>
-        <h1 className="normal-case md:hidden">{staffData?.currentUser?.name}</h1>
-        <h3>{staffData?.currentUser.department}</h3>
+        <h1 className="normal-case md:hidden">{student?.currentUser?.name}</h1>
+        <h3>{student?.currentUser.department}</h3>
       </div>
       <div className="flex flex-col my-4 px-5 grow">
-        <div className="flex flex-col md:flex-row justify-between gap-2 pb-3 border-b border-b-gray-400">
+        <div className=" flex flex-col md:flex-row justify-between gap-2 pb-3 border-b border-b-gray-400">
           <div>
             <h4>Mail</h4>
-            <p className="text-sm">{staffData?.currentUser.email}</p>
+            <p className="text-sm">{student?.currentUser.email}</p>
           </div>
           <div>
             <h4>Mobile</h4>
-            <p className="text-sm">{staffData?.currentUser.mobile}</p>
+            <p className="text-sm">{student?.currentUser.mobile}</p>
           </div>
         </div>
         <div className="flex flex-col items-center">
