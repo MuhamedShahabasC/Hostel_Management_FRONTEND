@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchAllBlocks } from "../apiRoutes/chiefWarden";
-import { fetchActiveMealPlans as fetchmealPlansAdmission } from "../apiRoutes/student";
+import { blocksForAdmissionAPI, fetchActiveMealPlans as fetchmealPlansAdmission } from "../apiRoutes/student";
 
 const initialState = {
   student: {},
@@ -49,7 +48,7 @@ export const admissionActions = admissionSlice.actions;
 export const fetchBlocksData = createAsyncThunk("AdmissionSlice/fetchBlocksData", async () => {
   const {
     data: { data },
-  } = await fetchAllBlocks();
+  } = await blocksForAdmissionAPI();
   return data;
 });
 

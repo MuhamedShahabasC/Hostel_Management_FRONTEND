@@ -8,15 +8,7 @@ import { disableIcon, tickIcon, viewIcon } from "../../assets/icons/icons";
 import MealPlanForm from "../../components/Form/MealPlan";
 import { changeAvailabilityMealPlanCW, fetchAllMealPlans } from "../../apiRoutes/chiefWarden";
 
-interface TableRow {
-  _id: string;
-  title: string;
-  price: number;
-  subscribers: number;
-  active: number;
-  actions: string;
-}
-
+// Meals Plan - Chief warden
 function MealsPlan() {
   const [pending, setPending] = useState<boolean>(true);
   const [modalOpen, setModal] = useState<boolean>(false);
@@ -139,6 +131,15 @@ function MealsPlan() {
       </Modal>
     </div>
   );
+}
+
+interface TableRow {
+  _id: string;
+  title: string;
+  price: number;
+  subscribers: number;
+  active: number;
+  actions: string;
 }
 
 export default MealsPlan;

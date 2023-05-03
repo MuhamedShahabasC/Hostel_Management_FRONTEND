@@ -1,5 +1,5 @@
 import MealPlan from "../../components/MealPlan";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Form, Formik } from "formik";
 import SelectInput from "../../components/Form/SelectInput";
 import LoadingButton from "../../components/UI/LoadingButton";
@@ -17,6 +17,11 @@ function MealPlans() {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line
+  }, []);
+
+  const fetchData = useCallback(() => {
     fetchActiveMealPlans()
       .then(({ data: { data } }) => {
         setActivePlans(data);

@@ -6,6 +6,10 @@ import { IStudent } from "../interfaces/student";
 export const newAdmissionAPI = async (studentData: IStudent) =>
   await unauthorizedStudentAPI.post("/newAdmission", studentData);
 
+// Block details
+export const blocksForAdmissionAPI = async () =>
+  await unauthorizedStudentAPI.get("/newAdmission/blocks");
+
 // Login
 export const login = async (formData: ILogin) =>
   await unauthorizedStudentAPI.post("/auth", formData);
@@ -23,7 +27,7 @@ export const updateStudentAPI = async (data: object) => await studentAPI.post("/
 
 // Active meal plans
 export const fetchActiveMealPlans = async () =>
-  await unauthorizedStudentAPI.get("/newAdmisison/mealPlans");
+  await unauthorizedStudentAPI.get("/newAdmission/mealPlans");
 
 // Selected meal plan
 export const mealPlanAPI = async () => await studentAPI.get("/mealPlan");

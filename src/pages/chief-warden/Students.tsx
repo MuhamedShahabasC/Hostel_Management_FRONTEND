@@ -294,6 +294,7 @@ function Students() {
                     const student = {
                       email: studentData?.email,
                       name: studentData?.name,
+                      mealPlan: studentData?.mealPlan?._id,
                     };
                     updateSingleStudentAPI(studentData?._id, { ...formData, student })
                       .then(() => {

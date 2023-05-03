@@ -12,7 +12,6 @@ function Blocks() {
 
   useEffect(() => {
     dispatch(fetchBlocksData());
-
     // eslint-disable-next-line
   }, []);
 
