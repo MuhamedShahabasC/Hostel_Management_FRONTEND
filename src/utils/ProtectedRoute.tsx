@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { getLocalData } from "./localStorage";
-import { ILoginResponse } from "../interfaces/auth";
+import { ICurrentUser, ICurrentUserDetails, ILoginResponse } from "../interfaces/auth";
 import { checkAuthAPI } from "../config/api";
 import { setApiHeader } from "./apiHeader";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { currentUserActions } from "../store/currentUser";
 import { useAppDispatch } from "../App";
 
 // Protected route component for checking if the current user is valid, on every routes
 function ProtectedRoute({ role, department }: Props) {
-  const [auth, setAuth] = useState<ILoginResponse | null | false>(null);
+  const [auth, setAuth] = useState<ILoginResponse | ICurrentUser | null | false>(null);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const routeTo = (role: string): string | undefined => {
     switch (role) {
@@ -26,19 +27,27 @@ function ProtectedRoute({ role, department }: Props) {
   };
 
   useEffect(() => {
-    const currentUser = getLocalData() as ILoginResponse | null;
+    const localData = getLocalData() as ICurrentUser | null;
+    const currentUser = localData?.currentUser as ICurrentUserDetails;
     if (currentUser) {
-      if (currentUser.role !== role) {
-        dispatch(currentUserActions.login(currentUser));
+      if (localData?.role !== role) {
+        dispatch(currentUserActions.login(localData));
         return setAuth(false);
       }
       checkAuthAPI
-        .get("", setApiHeader(currentUser.token))
+        .get("", setApiHeader(localData?.token))
         .then(() => {
-          // if (department && currentUser.data?.department === department) {
-          dispatch(currentUserActions.login(currentUser));
-          return setAuth(currentUser);
-          // } else setAuth(false);
+          if (!department) {
+            dispatch(currentUserActions.login(localData));
+            return setAuth(localData);
+          }
+          if (department !== currentUser?.department) {
+            dispatch(currentUserActions.login(currentUser));
+            setAuth(localData);
+            return navigate("/staffs/dashboard");
+          }
+          dispatch(currentUserActions.login(localData));
+          return setAuth(localData);
         })
         .catch(() => {
           dispatch(currentUserActions.logout());

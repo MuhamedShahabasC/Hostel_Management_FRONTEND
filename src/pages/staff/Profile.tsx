@@ -56,7 +56,7 @@ function Profile() {
         <div className="w-40 mb-5 rounded-full border-1 mx-auto">
           <label className="relative" htmlFor="uploadImage">
             <img
-              src={staffData?.currentUser.profilePic}
+              src={staffData?.currentUser?.profilePic}
               className="rounded-full p-1"
               alt="staff avatar"
             />
@@ -80,17 +80,17 @@ function Profile() {
           ))}
         </div>
         <h1 className="normal-case md:hidden">{staffData?.currentUser?.name}</h1>
-        <h3>{staffData?.currentUser.department}</h3>
+        <h3>{staffData?.currentUser?.department}</h3>
       </div>
       <div className="flex flex-col my-4 px-5 grow">
         <div className="flex flex-col md:flex-row justify-between gap-2 pb-3 border-b border-b-gray-400">
           <div>
             <h4>Mail</h4>
-            <p className="text-sm">{staffData?.currentUser.email}</p>
+            <p className="text-sm">{staffData?.currentUser?.email}</p>
           </div>
           <div>
             <h4>Mobile</h4>
-            <p className="text-sm">{staffData?.currentUser.mobile}</p>
+            <p className="text-sm">{staffData?.currentUser?.mobile}</p>
           </div>
         </div>
         <div className="flex flex-col items-center">
