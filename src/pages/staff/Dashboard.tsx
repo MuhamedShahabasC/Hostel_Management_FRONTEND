@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { complaintImg, noticeBoardImg, studentRisingHandImg } from "../../assets/icons/images";
 import Notices from "../../components/Notices";
 import { fetchDashboardAPI, fetchNoticesAPI } from "../../apiRoutes/staff";
@@ -13,7 +13,7 @@ function Dashboard() {
   const [loadingCard, setLoadingCard] = useState<boolean>(true);
   const staff = useAppSelector<ICurrentUser | null>((state) => state?.currentUser);
 
-  useEffect(() => {
+  const fetchDashboard = useCallback(() => {
     fetchDashboardAPI()
       .then(({ data: { data } }) => {
         setdashboardCards(data);
@@ -28,16 +28,23 @@ function Dashboard() {
       .finally(() => setLoadingCard(false));
   }, []);
 
+  useEffect(() => {
+    fetchDashboard();
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <div className="dashboard-container">
       <div className="flex flex-col md:flex-row gap-2 md:gap-10 text-white tracking-wider mb-10">
         <div className="bg-[#9B4094] rounded p-4 flex justify-between w-3/4 mx-auto md:w-1/3">
           {!loadingCard ? (
             <div className="flex flex-col">
-              <span className="text-lg font-black">{dashboardCards?.[0].title}</span>
+              <span className="text-lg font-black">
+                {dashboardCards?.[0].title || "Attendance"}
+              </span>
               <div className="flex items-end">
-                <span className="text-2xl font-black">{dashboardCards?.[0].count}</span>
-                <span className="text-sm m-1">/ {dashboardCards?.[0].total}</span>
+                <span className="text-2xl font-black">{dashboardCards?.[0].count || "-"}</span>
+                <span className="text-sm m-1">/ {dashboardCards?.[0].total || "-"}</span>
               </div>
             </div>
           ) : (
@@ -48,10 +55,12 @@ function Dashboard() {
         <div className="bg-[#FFC88F] rounded p-4 flex justify-between w-3/4 mx-auto md:w-1/3">
           {!loadingCard ? (
             <div className="flex flex-col">
-              <span className="text-lg font-black">{dashboardCards?.[1].title}</span>
+              <span className="text-lg font-black">
+                {dashboardCards?.[1].title || "Complaints"}
+              </span>
               <div className="flex items-end">
-                <span className="text-2xl font-black">{dashboardCards?.[1].count}</span>
-                <span className="text-sm m-1">/ {dashboardCards?.[1].total}</span>
+                <span className="text-2xl font-black">{dashboardCards?.[1].count || "-"}</span>
+                <span className="text-sm m-1">/ {dashboardCards?.[1].total || "-"}</span>
               </div>
             </div>
           ) : (
@@ -62,10 +71,10 @@ function Dashboard() {
         <div className="bg-[#FC485B] rounded p-4 flex justify-between w-3/4 mx-auto md:w-1/3">
           {!loadingCard ? (
             <div className="flex flex-col">
-              <span className="text-lg font-black">{dashboardCards?.[2].title}</span>
+              <span className="text-lg font-black">{dashboardCards?.[2].title || "Notices"}</span>
               <div className="flex items-end">
-                <span className="text-2xl font-black">{dashboardCards?.[2].count}</span>
-                <span className="text-sm m-1">/ {dashboardCards?.[2].total}</span>
+                <span className="text-2xl font-black">{dashboardCards?.[2].count || "-"}</span>
+                <span className="text-sm m-1">/ {dashboardCards?.[2].total || "-"}</span>
               </div>
             </div>
           ) : (

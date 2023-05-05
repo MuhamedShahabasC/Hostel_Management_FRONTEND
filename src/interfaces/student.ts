@@ -22,8 +22,20 @@ export interface IStudent {
   pin?: number;
   state?: string;
   bloodGroup: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
+  status: StudentStatus;
   remarks?: string;
+  mealPlan?: {
+    _id: string;
+    title: string
+  }
+  block?: {
+    _id: string;
+    name: string
+  }
+  room: string
 }
+
+export type StudentStatus = "pending" | "resident" | "rejected" | "departed";
 
 export interface IMealPlanResponse {
   _id: string;

@@ -20,16 +20,18 @@ import { updateStudentSchema } from "../../schema/student";
 // Students page of Chief warden
 function Students() {
   const [studentsData, setStudentsData] = useState<IStudent[]>([]);
+  const [studentData, setStudentData] = useState<IStudent | null>(null);
   const [pending, setPending] = useState<boolean>(true);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [studentData, setStudentData] = useState<any>(null);
-  const [roomAvailability, setRoomAvailability] = useState<"available" | "unavailable" | null>(
-    null
-  );
-  const [availableRooms, setAvailableRooms] = useState<any>(null);
+  const [availableRooms, setAvailableRooms] = useState<{ value: string; text: string }[]>([
+    { value: "", text: "" },
+  ]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [searchInput, setSearchInput] = useState<string>("");
   const [filterBy, setFilterBy] = useState<string>("");
+  const [roomAvailability, setRoomAvailability] = useState<"available" | "unavailable" | null>(
+    null
+  );
 
   const filterHandler = (value: string) => {
     setFilterBy(value);
@@ -41,34 +43,31 @@ function Students() {
     setSearchInput("");
   };
 
-  const fetchAllStudents = useCallback(
-    (filter?: string, search?: string) => {
-      setPending(true);
-      fetchAllStudentsAPI(filter, search)
-        .then(({ data: { data } }) => {
-          setStudentsData(data);
-        })
-        .catch(
-          ({
-            response: {
-              data: { message },
-            },
-          }) => {
-            toast.error(message);
-            setStudentsData([]);
-          }
-        )
-        .finally(() => setPending(false));
-    },
-    [filterBy, searchInput]
-  );
+  const fetchAllStudents = useCallback((filter?: string, search?: string) => {
+    setPending(true);
+    fetchAllStudentsAPI(filter, search)
+      .then(({ data: { data } }) => {
+        setStudentsData(data);
+      })
+      .catch(
+        ({
+          response: {
+            data: { message },
+          },
+        }) => {
+          toast.error(message);
+          setStudentsData([]);
+        }
+      )
+      .finally(() => setPending(false));
+  }, []);
 
   useEffect(() => {
     fetchAllStudents();
     // eslint-disable-next-line
   }, []);
 
-  const columns: TableColumn<TableRow>[] = useMemo(
+  const columns: TableColumn<IStudent>[] = useMemo(
     () => [
       {
         name: "Name",
@@ -109,7 +108,7 @@ function Students() {
                       }
                     )
                     .finally(() => {
-                      fetchAvailableRooms(row.block._id)
+                      fetchAvailableRooms(row?.block?._id!)
                         .then(({ data: { data } }) => {
                           setAvailableRooms(
                             data.map((room: IRoom) => {
@@ -301,7 +300,7 @@ function Students() {
                       name: studentData?.name,
                       mealPlan: studentData?.mealPlan?._id,
                     };
-                    updateSingleStudentAPI(studentData?._id, { ...formData, student })
+                    updateSingleStudentAPI(studentData?._id!, { ...formData, student })
                       .then(() => {
                         fetchAllStudents();
                         setModalOpen(false);
@@ -373,17 +372,6 @@ function Students() {
       </Modal>
     </div>
   );
-}
-
-interface TableRow {
-  name: string;
-  status: "pending" | "resident" | "suspended" | "departed";
-  room: string;
-  email: string;
-  block: {
-    _id: string;
-    name: string;
-  };
 }
 
 export default Students;
