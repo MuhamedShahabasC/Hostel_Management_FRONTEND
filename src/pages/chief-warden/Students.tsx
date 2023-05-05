@@ -28,23 +28,40 @@ function Students() {
   );
   const [availableRooms, setAvailableRooms] = useState<any>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [searchInput, setSearchInput] = useState<string>("");
+  const [filterBy, setFilterBy] = useState<string>("");
 
-  const fetchAllStudents = useCallback(() => {
-    fetchAllStudentsAPI()
-      .then(({ data: { data } }) => {
-        setStudentsData(data);
-      })
-      .catch(
-        ({
-          response: {
-            data: { message },
-          },
-        }) => {
-          toast.error(message);
-        }
-      )
-      .finally(() => setPending(false));
-  }, []);
+  const filterHandler = (value: string) => {
+    setFilterBy(value);
+    fetchAllStudents(value, searchInput);
+  };
+
+  const searchHandler = () => {
+    fetchAllStudents(filterBy, searchInput);
+    setSearchInput("");
+  };
+
+  const fetchAllStudents = useCallback(
+    (filter?: string, search?: string) => {
+      setPending(true);
+      fetchAllStudentsAPI(filter, search)
+        .then(({ data: { data } }) => {
+          setStudentsData(data);
+        })
+        .catch(
+          ({
+            response: {
+              data: { message },
+            },
+          }) => {
+            toast.error(message);
+            setStudentsData([]);
+          }
+        )
+        .finally(() => setPending(false));
+    },
+    [filterBy, searchInput]
+  );
 
   useEffect(() => {
     fetchAllStudents();
@@ -118,27 +135,15 @@ function Students() {
     []
   );
 
-  const [searchInput, setSearchInput] = useState<string>("");
-
-  const filterHandler = (filterBy: string) => {
-    // setFilter
-    console.log(filterBy);
-  };
-  const searchHandler = () => {
-    // setSearch
-    setSearchInput("");
-  };
-
   const filterElement = (
     <select
       onChange={(e) => filterHandler(e.target.value)}
       className="text-gray-400 text-sm rounded-md px-4 py-2 max-w-fit shadow focus:outline-none"
     >
-      <option value="noFilter">Filter by status</option>
+      <option value="">Filter by status</option>
       <option value="">All Students</option>
       <option value="pending">Pending</option>
       <option value="resident">Resident</option>
-      <option value="suspended">Suspended</option>
       <option value="rejected">Rejected</option>
       <option value="departed">Departed</option>
     </select>

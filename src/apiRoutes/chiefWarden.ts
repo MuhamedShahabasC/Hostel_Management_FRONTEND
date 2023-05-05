@@ -51,7 +51,8 @@ export const fetchAvailableRooms = async (blockId: string) =>
 // -- STUDENTS --
 //
 // Fetch all students
-export const fetchAllStudentsAPI = async () => chiefWardenAPI.get("students/all");
+export const fetchAllStudentsAPI = async (filterBy: string = "", searchInput: string = "") =>
+  chiefWardenAPI.get(`students/all?status=${filterBy}&name=${searchInput}`);
 
 // Update single student
 export const updateSingleStudentAPI = async (_id: string, data: any) =>
