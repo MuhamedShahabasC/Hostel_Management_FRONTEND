@@ -19,8 +19,8 @@ function HeaderLinks({ currentUser }: Props) {
             link: "/students/dashboard",
           },
           {
-            name: "Compliant",
-            link: "/students/compliants",
+            name: "Complaints",
+            link: "/students/complaints",
           },
           {
             name: "Meals",
@@ -41,8 +41,8 @@ function HeaderLinks({ currentUser }: Props) {
               link: `/staffs/dashboard`,
             },
             {
-              name: `Compliant`,
-              link: `/staffs/compliants`,
+              name: `Complaints`,
+              link: `/staffs/complaints`,
             },
             {
               name: `Meals`,
@@ -60,8 +60,8 @@ function HeaderLinks({ currentUser }: Props) {
               link: `/staffs/dashboard`,
             },
             {
-              name: `Compliant`,
-              link: `/staffs/compliants`,
+              name: `Complaints`,
+              link: `/staffs/complaints`,
             },
             {
               name: `Maintenance`,
@@ -79,8 +79,8 @@ function HeaderLinks({ currentUser }: Props) {
               link: `/staffs/dashboard`,
             },
             {
-              name: `Compliant`,
-              link: `/staffs/compliants`,
+              name: `Complaints`,
+              link: `/staffs/complaints`,
             },
             {
               name: `Warden`,
@@ -109,8 +109,8 @@ function HeaderLinks({ currentUser }: Props) {
             link: `/chief-wardens/mealPlans`,
           },
           {
-            name: `Compliant`,
-            link: `/chief-wardens/compliants`,
+            name: `Complaints`,
+            link: `/chief-wardens/complaints`,
           },
           {
             name: `Notices`,

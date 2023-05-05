@@ -6,7 +6,7 @@ import LoadingButton from "../../components/UI/LoadingButton";
 import Button from "../../components/UI/Button";
 import { toast } from "react-toastify";
 import { mealPlanSchema } from "../../schema/staff";
-import { IMealPlan } from "../../interfaces/chef";
+import { IMealPlan } from "../../interfaces/staff";
 import { addNewMealPlanCW, updateMealPlanCW } from "../../apiRoutes/chiefWarden";
 
 function MealPlanForm({ modalData, role, fetchAllMeals, setModal, user }: FormRole) {

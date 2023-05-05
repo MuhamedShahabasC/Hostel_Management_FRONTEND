@@ -9,7 +9,6 @@ function Dashboard() {
 
   useEffect(() => {
     noticeStatisticsAPI().then(({ data: { data } }) => {
-      console.log(data);
       setNoticeStatistics(data);
     });
   }, []);

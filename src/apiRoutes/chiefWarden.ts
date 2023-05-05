@@ -1,7 +1,8 @@
 import { chiefWardenAPI, unauthorizedChiefWardenAPI } from "../config/api";
 import { ILogin, IResetPassword } from "../interfaces/auth";
-import { IMealPlan } from "../interfaces/chef";
+import { IMealPlan } from "../interfaces/staff";
 import { INotice } from "../interfaces/chiefWarden";
+import { IComplaintUpdate, StaffDepartment } from "../interfaces/complaint";
 
 // Login chief warden
 export const login = async (formData: ILogin) =>
@@ -57,6 +58,13 @@ export const updateSingleStudentAPI = async (_id: string, data: any) =>
   chiefWardenAPI.patch(`students/${_id}`, data);
 
 //
+// -- STAFFS --
+//
+// Fetch staffs by department
+export const fetchStaffsByDeptAPI = async (department: StaffDepartment) =>
+  chiefWardenAPI.get(`staffs/department/${department}`);
+
+//
 // -- MEAL PLANS --
 //
 // Fetch all meal plans
@@ -73,3 +81,13 @@ export const updateMealPlanCW = async (_id: string, formData: IMealPlan) =>
 // Change availability of Meal plan
 export const changeAvailabilityMealPlanCW = async (_id: string) =>
   await chiefWardenAPI.patch(`mealPlans/${_id}`);
+
+//
+// -- COMPLAINTS --
+//
+// Fetch all complaints
+export const fetchAllComplaintsAPI = async () => chiefWardenAPI.get("complaints");
+
+// Update complaint
+export const updateComplaintAPI = async (_id: string, data: IComplaintUpdate) =>
+  chiefWardenAPI.patch(`complaints/${_id}`, data);
