@@ -22,11 +22,17 @@ function Complaints() {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const fetchComplaints = useCallback(() => {
-    complaintsByStaffAPI()
+  const fetchComplaints = useCallback((filterBy: string = "") => {
+    setPending(true);
+    complaintsByStaffAPI(filterBy)
       .then(({ data: { data } }) => setAllComplaints(data))
+      .catch(() => setAllComplaints([]))
       .finally(() => setPending(false));
   }, []);
+
+  const filterHandler = (value: string) => {
+    fetchComplaints(value);
+  };
 
   useEffect(() => {
     fetchComplaints();
@@ -75,8 +81,18 @@ function Complaints() {
   );
 
   return (
-    <div className="parent-container">
+    <div className="parent-container relative">
       <h2>Complaints</h2>
+      <select
+        onChange={(e) => filterHandler(e.target.value)}
+        className="text-gray-400 text-sm rounded-md px-4 py-2 max-w-fit mb-2 md:absolute md:top-10 mx-auto shadow focus:outline-none"
+      >
+        <option value="">All complaints</option>
+        <option value="issued">Issued</option>
+        <option value="approval">Approval</option>
+        <option value="resolved">Resolved</option>
+        <option value="rejected">Rejected</option>
+      </select>
       <Table columns={columns} data={allComplaints} pending={pending} />
       <Modal isOpen={modalOpen} heading={"Complaint"} closeHandler={setModalOpen}>
         <div className="flex flex-col justify-center md:px-4">

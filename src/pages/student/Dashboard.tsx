@@ -34,7 +34,7 @@ function Dashboard() {
       <div className="flex flex-col mx-auto md:mx-0 text-center items-center p-5">
         <div className="w-2/3 md:w-32 mb-5 rounded-full border-1">
           <img
-            className="rounded-full md:rounded-md"
+            className="rounded-full"
             src={student?.currentUser?.profilePic}
             alt="student avatar"
           />

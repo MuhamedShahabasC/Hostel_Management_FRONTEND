@@ -20,7 +20,7 @@ function Login() {
         role: "staff",
       })
     );
-    navigate("/staffs/meals");
+    navigate("/staffs/dashboard");
   };
 
   return (

@@ -30,7 +30,18 @@ export const addNewPlan = async (data: any) => await staffAPI.post(`/meals`, dat
 // -- COMPLAINTS
 //
 
-export const complaintsByStaffAPI = async () => await staffAPI.get("/complaints");
+export const complaintsByStaffAPI = async (filterBy: string = "") =>
+  await staffAPI.get(`/complaints/?status=${filterBy}`);
 
 export const updateComplaintAPI = async (_id: string, formData: IComplaintUpdateByStaff) =>
   await staffAPI.patch(`/complaints/${_id}`, formData);
+
+//
+// -- NOTICES --
+//
+export const fetchNoticesAPI = async () => await staffAPI.get("/notices");
+
+//
+// -- DASHBOARD --
+//
+export const fetchDashboardAPI = async () => await staffAPI.get("/dashboard");

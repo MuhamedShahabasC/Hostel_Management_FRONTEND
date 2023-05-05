@@ -5,7 +5,7 @@ import { AxiosResponse } from "axios";
 import MetroSpinner from "./UI/MetroSpinner";
 
 // Notices for all Users
-function Notices({ fetchHandler }: Props) {
+function Notices({ fetchHandler, className }: Props) {
   const [allNotices, setAllNotices] = useState<any>(null);
 
   const fetchNotices = useCallback(() => {
@@ -25,7 +25,7 @@ function Notices({ fetchHandler }: Props) {
   );
 
   return (
-    <div className="flex flex-col w-full md:px-5">
+    <div className={`flex flex-col w-full md:px-5 ${className}`}>
       <h4 className="pb-1 pl-2 border-b border-[#B1B1B1]">Notice Board</h4>
       <div className="flex flex-col divide-y pl-2 pt-2">
         {allNotices ? (
@@ -53,6 +53,7 @@ function Notices({ fetchHandler }: Props) {
 
 interface Props {
   fetchHandler(): Promise<AxiosResponse<any, any>>;
+  className?: string;
 }
 
 export default Notices;
