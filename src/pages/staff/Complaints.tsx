@@ -44,7 +44,7 @@ function Complaints() {
       {
         name: "Student",
         sortable: true,
-        selector: (row) => row.student.name,
+        selector: (row) => row.student?.name,
         grow: 2,
       },
       {
@@ -96,8 +96,8 @@ function Complaints() {
       <Table columns={columns} data={allComplaints} pending={pending} />
       <Modal isOpen={modalOpen} heading={"Complaint"} closeHandler={setModalOpen}>
         <div className="flex flex-col justify-center md:px-4">
-          <ModalRow value={modalData?.student.name} label="Student" />
-          <ModalRow value={modalData?.student.email} label="Email" />
+          <ModalRow value={modalData?.student?.name} label="Student" />
+          <ModalRow value={modalData?.student?.email} label="Email" />
           <ModalRow value={modalData?.message} label="Message" />
           <ModalRow value={moment(modalData?.createdAt).format("LLL")} label="Date" />
           <span className="border-b mx-10 my-3 "></span>
@@ -133,7 +133,7 @@ function Complaints() {
                 <Form>
                   <div className="flex flex-col justify-center mb-3">
                     <ModalRow value={modalData?.department.toUpperCase()} label="Department" />
-                    <ModalRow value={modalData?.staff.name} label="Staff" />
+                    <ModalRow value={modalData?.staff?.name} label="Staff" />
                     <span className="border-b mx-10 my-3 "></span>
                     <ModalRow value={modalData?.status.toUpperCase()} label="Status" />
                     <ModalRow value={moment(modalData?.updatedAt).format("LLL")} label="Date" />
