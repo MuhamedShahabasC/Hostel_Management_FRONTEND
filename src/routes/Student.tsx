@@ -10,6 +10,7 @@ import Student from "../layouts/Student";
 import Profile from "../pages/student/Profile";
 import Chat from "../pages/student/Chat";
 import MealPlans from "../pages/student/MealPlans";
+import Complaints from "../pages/student/Complaints";
 
 // Student routes
 function StudentRoutes() {
@@ -21,6 +22,7 @@ function StudentRoutes() {
           <Route path="profile" element={<Profile />} />
           <Route path="chat" element={<Chat />} />
           <Route path="meals" element={<MealPlans />} />
+          <Route path="complaints" element={<Complaints />} />
         </Route>
       </Route>
       <Route path="admission" element={<NewStudent />}>

@@ -30,3 +30,13 @@ export interface IComplaintUpdate {
   staff: string;
   status: string;
 }
+
+export interface IComplaintUpdateByStaff {
+  remarks: string;
+  status: string;
+}
+
+export interface IComplaintUpdateByStudent {
+  remarks: string;
+  status: string;
+}

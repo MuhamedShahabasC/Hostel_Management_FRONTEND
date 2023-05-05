@@ -1,5 +1,6 @@
 import { staffAPI, unathorizedStaffAPI } from "../config/api";
 import { ILogin, IResetPassword } from "../interfaces/auth";
+import { IComplaintUpdateByStaff } from "../interfaces/complaint";
 
 // Login staff
 export const login = async (formData: ILogin) => await unathorizedStaffAPI.post("/auth", formData);
@@ -10,8 +11,9 @@ export const resetPassword = async (passwordData: IResetPassword) =>
 export const changeProfileImageAPI = async (imageAsBase64: string) =>
   await staffAPI.patch("/", { profilePic: imageAsBase64 });
 
+//
 // -- CHEF --
-
+//
 export const allMealPlans = async () => await staffAPI.get(`/meals/all`);
 
 export const fetchActiveMealPlans = async () => staffAPI.get(`/meals/activePlans`);
@@ -23,3 +25,12 @@ export const changeAvailabilityMealPlan = async (_id: string) =>
   await staffAPI.patch(`/meals/${_id}`);
 
 export const addNewPlan = async (data: any) => await staffAPI.post(`/meals`, data);
+
+//
+// -- COMPLAINTS
+//
+
+export const complaintsByStaffAPI = async () => await staffAPI.get("/complaints");
+
+export const updateComplaintAPI = async (_id: string, formData: IComplaintUpdateByStaff) =>
+  await staffAPI.patch(`/complaints/${_id}`, formData);

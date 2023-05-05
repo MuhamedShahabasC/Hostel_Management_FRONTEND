@@ -23,7 +23,7 @@ function Modal({ isOpen, children, heading, closeHandler }: any) {
           padding: "25px",
           background: "white",
           maxHeight: "90%",
-          minHeight: "50%",
+          minHeight: "30%",
         },
       }}
       contentLabel={"Example Modal"}

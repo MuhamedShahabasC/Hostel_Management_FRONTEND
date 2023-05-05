@@ -1,35 +1,29 @@
 import moment from "moment";
 import { useMemo, useCallback, useEffect, useState } from "react";
 import Table, { Media, TableColumn } from "../../components/Table";
-import {
-  fetchAllComplaintsAPI,
-  fetchStaffsByDeptAPI,
-  updateComplaintAPI,
-} from "../../apiRoutes/chiefWarden";
-import { IComplaint, StaffDepartment } from "../../interfaces/complaint";
+
+import { IComplaint } from "../../interfaces/complaint";
 import { viewIcon } from "../../assets/icons/icons";
 import Modal from "../../components/UI/Modal";
 import ModalRow from "../../components/UI/ModalRow";
 import LoadingButton from "../../components/UI/LoadingButton";
 import Button from "../../components/UI/Button";
 import { Form, Formik } from "formik";
-import SelectInput from "../../components/Form/SelectInput";
-import { updateComplaintSchema } from "../../schema/complaint";
-import { IStaff } from "../../interfaces/staff";
+import { updateComplaintByStaff } from "../../schema/complaint";
 import { toast } from "react-toastify";
 import Input from "../../components/Form/Input";
+import { complaintsByStaffAPI, updateComplaintAPI } from "../../apiRoutes/staff";
 
-// Complaints Page - Chief warden
+// Complaints Page - Staff
 function Complaints() {
   const [allComplaints, setAllComplaints] = useState<IComplaint[] | []>([]);
   const [pending, setPending] = useState<boolean>(true);
   const [modalData, setModalData] = useState<IComplaint | null>(null);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [staffsByDept, setStaffsByDept] = useState<any>([]);
 
   const fetchComplaints = useCallback(() => {
-    fetchAllComplaintsAPI()
+    complaintsByStaffAPI()
       .then(({ data: { data } }) => setAllComplaints(data))
       .finally(() => setPending(false));
   }, []);
@@ -42,9 +36,9 @@ function Complaints() {
   const columns: TableColumn<IComplaint>[] = useMemo(
     () => [
       {
-        name: "Complaint ID",
+        name: "Student",
         sortable: true,
-        selector: (row) => row._id,
+        selector: (row) => row.student.name,
         grow: 2,
       },
       {
@@ -66,7 +60,6 @@ function Complaints() {
             title="View complaint"
             onClick={() => {
               setModalData(row);
-              if (!row.staff) fetchStaffsByDept(row.department).then(() => setModalOpen(true));
               setModalOpen(true);
             }}
           >
@@ -78,39 +71,6 @@ function Complaints() {
       },
     ],
     // eslint-disable-next-line
-    []
-  );
-
-  const fetchStaffsByDept = useCallback(async (department: StaffDepartment) => {
-    const {
-      data: { data },
-    } = await fetchStaffsByDeptAPI(department);
-    const staffOptions = data.map(({ _id, name }: IStaff) => {
-      return {
-        text: name,
-        value: _id,
-      };
-    });
-    return setStaffsByDept(staffOptions);
-
-    // eslint-disable-next-line
-  }, []);
-
-  const complaintStatusOptions = useMemo(
-    () => [
-      {
-        text: "REJECTED",
-        value: "rejected",
-      },
-      {
-        text: "ISSUED",
-        value: "issued",
-      },
-      {
-        text: "RESOLVED",
-        value: "resolved",
-      },
-    ],
     []
   );
 
@@ -127,12 +87,10 @@ function Complaints() {
           <span className="border-b mx-10 my-3 "></span>
           <Formik
             initialValues={{
-              staff: modalData?.staff?._id || "",
-              status: "",
-              oldStatus: modalData?.status || "",
+              status: "approval",
               remarks: modalData?.remarks || "",
             }}
-            validationSchema={updateComplaintSchema}
+            validationSchema={updateComplaintByStaff}
             onSubmit={(formData, { setSubmitting }) => {
               setErrorMessage(null);
               setSubmitting(true);
@@ -159,35 +117,10 @@ function Complaints() {
                 <Form>
                   <div className="flex flex-col justify-center mb-3">
                     <ModalRow value={modalData?.department.toUpperCase()} label="Department" />
-                    <ModalRow
-                      value={
-                        modalData?.staff ? (
-                          modalData?.staff.name
-                        ) : (
-                          <SelectInput label="Not assigned" name="staff" options={staffsByDept} />
-                        )
-                      }
-                      label="Staff"
-                    />
+                    <ModalRow value={modalData?.staff.name} label="Staff" />
                     <span className="border-b mx-10 my-3 "></span>
                     <ModalRow value={modalData?.status.toUpperCase()} label="Status" />
                     <ModalRow value={moment(modalData?.updatedAt).format("LLL")} label="Date" />
-                    {(modalData?.status === "initiated" ||
-                      modalData?.status === "issued" ||
-                      modalData?.status === "approval") && (
-                      <ModalRow
-                        value={
-                          <SelectInput
-                            label="Select Status"
-                            name="status"
-                            options={complaintStatusOptions.filter(
-                              (option) => option.value !== modalData?.status
-                            )}
-                          />
-                        }
-                        label="Update"
-                      />
-                    )}
                     {modalData?.status === "initiated" ||
                     modalData?.status === "issued" ||
                     modalData?.status === "approval" ? (
