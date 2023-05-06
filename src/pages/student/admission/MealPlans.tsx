@@ -8,6 +8,7 @@ import SelectInput from "../../../components/Form/SelectInput";
 import LoadingButton from "../../../components/UI/LoadingButton";
 import Button from "../../../components/UI/Button";
 import { changeMealPlanSchema } from "../../../schema/student";
+import MetroSpinner from "../../../components/UI/MetroSpinner";
 
 // Available meal plans for student admission
 function MealPlans() {
@@ -32,9 +33,13 @@ function MealPlans() {
     <div className="mealPlans-container lg:w-2/3">
       <h1 className="text-center my-3 text-lg">Select a meal plan</h1>
       <div className="flex flex-col md:flex-row lg:justify-around">
-        {activePlans?.map((mealPlan: any) => (
-          <MealPlan key={mealPlan._id} data={mealPlan} />
-        ))}
+        {activePlans ? (
+          activePlans.map((mealPlan: any, i: number) => (
+            <MealPlan key={mealPlan._id} data={{ ...mealPlan, i }} />
+          ))
+        ) : (
+          <MetroSpinner size={50} color="grey" className="my-36" />
+        )}
       </div>
       <Formik
         initialValues={{

@@ -78,7 +78,7 @@ function Rooms() {
         className="text-primary text-sm font-bold mt-5 mb-2 max-w-fit mx-auto hover:brightness-150"
         type="button"
         onClick={() => {
-          navigate("/students/admission/mealplans");
+          navigate("/students/admission/blocks");
         }}
       >
         ← Back

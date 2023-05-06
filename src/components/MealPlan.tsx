@@ -1,16 +1,20 @@
-import { viewIcon } from "../assets/icons/icons";
+import { nonVegMealPlanImg, vegMealPlanImg } from "../assets/icons/images";
 
 function MealPlan({
-  data: { breakfast, dinner, evening, lunch, price, title, selected },
+  data: { breakfast, dinner, evening, lunch, price, title, selected, i },
 }: Props) {
   return (
     <div className="md:mx-4 my-4 p-4 rounded shadow-lg flex flex-col w-full">
       <div className="flex">
-        <div className="text-center grow">
-          <h3 className="text-lg text-primary font-bold">{title}</h3>
-          <span className="text-md text-primary font-bold">₹ {price} / Month</span>
+        <div className="text-center flex items-center grow">
+          <h3 className="text-lg text-primary text-center grow font-bold">{title} Plan</h3>
+          {/* <span className="text-md text-primary font-bold">₹ {price} / Month</span> */}
         </div>
-        <img src={viewIcon} className="w-15 ml-4" alt="meal plan" />
+        <img
+          src={i === 0 ? nonVegMealPlanImg : vegMealPlanImg}
+          className="w-20 mx-4"
+          alt="meal plan"
+        />
       </div>
       <div className="flex flex-col bg-[#F7F7F7] rounded py-8 px-4 mt-6 shadow-md">
         <div className="mb-7">
@@ -60,6 +64,7 @@ interface Props {
     updatedAt: string;
     _id: string;
     selected?: boolean;
+    i: number;
   };
 }
 

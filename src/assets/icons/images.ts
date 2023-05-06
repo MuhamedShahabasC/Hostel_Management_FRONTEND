@@ -22,3 +22,19 @@ export const complaintImg =
 // Notices
 export const noticeBoardImg =
   "https://res.cloudinary.com/dqrnskj2b/image/upload/c_scale,q_100,w_256/v1681981431/Hostel%20Management%20Project/UI/images/noticeboard_kvwhhi.webp";
+
+// Hostel 1 Images
+export const hostel1Img =
+  "https://res.cloudinary.com/dqrnskj2b/image/upload/c_scale,q_100,w_400/v1683345652/Hostel%20Management%20Project/UI/images/a-hostel_mbnsnb.webp";
+
+// Hostel 2 Images
+export const hostel2Img =
+  "https://res.cloudinary.com/dqrnskj2b/image/upload/c_scale,q_100,w_400/v1683346347/Hostel%20Management%20Project/UI/images/c-hotel_ompn4w.webp";
+
+// Non veg Meal plan
+export const nonVegMealPlanImg =
+  "https://res.cloudinary.com/dqrnskj2b/image/upload/c_scale,q_85,w_300/v1683346776/Hostel%20Management%20Project/UI/images/premium-meal_x0xucu.webp";
+
+// Veg meal plan
+export const vegMealPlanImg =
+  "https://res.cloudinary.com/dqrnskj2b/image/upload/q_100/v1683347090/Hostel%20Management%20Project/UI/images/vegMealPlan_ll6l9c.webp";
