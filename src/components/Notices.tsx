@@ -44,7 +44,7 @@ function Notices({ fetchHandler, className }: Props) {
               </div>
             ))
         ) : (
-          <MetroSpinner />
+          <MetroSpinner className="my-16"/>
         )}
       </div>
     </div>

@@ -28,8 +28,9 @@ function Complaints() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [staffsByDept, setStaffsByDept] = useState<any>([]);
 
-  const fetchComplaints = useCallback(() => {
-    fetchAllComplaintsAPI()
+  const fetchComplaints = useCallback((filterBy?: string) => {
+    setPending(true);
+    fetchAllComplaintsAPI(filterBy)
       .then(({ data: { data } }) => setAllComplaints(data))
       .finally(() => setPending(false));
   }, []);
@@ -115,8 +116,20 @@ function Complaints() {
   );
 
   return (
-    <div className="parent-container">
+    <div className="parent-container md:relative">
       <h2>Complaints</h2>
+      <select
+        onChange={(e) => fetchComplaints(e.target.value)}
+        className="text-gray-400 text-sm rounded-md absolute top-10 px-4 py-2 max-w-fit shadow focus:outline-none"
+      >
+        <option value="">Filter by status</option>
+        <option value="">All Complaints</option>
+        <option value="resolved">Resolved</option>
+        <option value="initiated">Initiated</option>
+        <option value="issued">Issued</option>
+        <option value="approval">Approval</option>
+        <option value="rejected">Rejected</option>
+      </select>
       <Table columns={columns} data={allComplaints} pending={pending} />
       <Modal isOpen={modalOpen} heading={"Complaint"} closeHandler={setModalOpen}>
         <div className="flex flex-col justify-center md:px-4">

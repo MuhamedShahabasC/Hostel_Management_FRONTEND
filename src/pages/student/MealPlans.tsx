@@ -64,12 +64,12 @@ function MealPlans() {
       <h1 className="text-center my-3 text-lg">Select a meal plan</h1>
       {!loading ? (
         <div className="flex flex-col md:flex-row lg:justify-around">
-          {activePlans?.map((mealPlan: any) => (
-            <MealPlan key={mealPlan._id} data={mealPlan} />
+          {activePlans?.map((mealPlan: any, i: number) => (
+            <MealPlan key={mealPlan._id} data={{ ...mealPlan, i }} />
           ))}
         </div>
       ) : (
-        <MetroSpinner />
+        <MetroSpinner className="my-36" />
       )}
       <Formik
         initialValues={{

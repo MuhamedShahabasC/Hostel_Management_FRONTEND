@@ -87,7 +87,7 @@ function Dashboard() {
               </div>
             </>
           ) : (
-            <MetroSpinner />
+            <MetroSpinner className="my-28"/>
           )}
         </div>
       </div>

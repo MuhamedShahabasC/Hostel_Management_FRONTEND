@@ -36,7 +36,8 @@ export const mealPlanAPI = async () => await studentAPI.get("/mealPlan");
 export const fetchNoticesAPI = async () => await studentAPI.get("/notices");
 
 // Complaints
-export const fetchComplaintsAPI = async () => await studentAPI.get("/complaints");
+export const fetchComplaintsAPI = async (filterBy: string = "") =>
+  await studentAPI.get(`/complaints?status=${filterBy}`);
 export const postNewComplaintAPI = async (data: {
   department: "maintenance" | "chef" | "warden";
   message: string;

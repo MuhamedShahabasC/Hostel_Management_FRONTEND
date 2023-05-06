@@ -1,6 +1,6 @@
 import { MetroSpinner as Spinner } from "react-spinners-kit";
 
-function MetroSpinner({ className, color = "grey", size = 40 }: Props) {
+function MetroSpinner({ className = 'my-10', color = "grey", size = 40 }: Props) {
   return (
     <div className={`mx-auto ${className}`}>
       <Spinner color={color} size={size} />

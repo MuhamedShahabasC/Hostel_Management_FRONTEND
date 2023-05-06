@@ -87,7 +87,8 @@ export const changeAvailabilityMealPlanCW = async (_id: string) =>
 // -- COMPLAINTS --
 //
 // Fetch all complaints
-export const fetchAllComplaintsAPI = async () => chiefWardenAPI.get("complaints");
+export const fetchAllComplaintsAPI = async (filterBy: string = "") =>
+  chiefWardenAPI.get(`complaints?status=${filterBy}`);
 
 // Update complaint
 export const updateComplaintAPI = async (_id: string, data: IComplaintUpdate) =>
