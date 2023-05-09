@@ -15,9 +15,7 @@ function Dashboard() {
 
   const fetchDashboard = useCallback(() => {
     fetchDashboardAPI()
-      .then(({ data: { data } }) => {
-        setdashboardCards(data);
-      })
+      .then(({ data: { data } }) => setdashboardCards(data))
       .catch(
         ({
           response: {
@@ -39,12 +37,10 @@ function Dashboard() {
         <div className="bg-[#9B4094] rounded p-4 flex justify-between w-3/4 mx-auto md:w-1/3">
           {!loadingCard ? (
             <div className="flex flex-col">
-              <span className="text-lg font-black">
-                {dashboardCards?.[0].title || "Attendance"}
-              </span>
+              <span className="text-lg font-black">{dashboardCards?.[0].title}</span>
               <div className="flex items-end">
-                <span className="text-2xl font-black">{dashboardCards?.[0].count || "-"}</span>
-                <span className="text-sm m-1">/ {dashboardCards?.[0].total || "-"}</span>
+                <span className="text-2xl font-black">{dashboardCards?.[0].count}</span>
+                <span className="text-sm m-1">/ {dashboardCards?.[0].total}</span>
               </div>
             </div>
           ) : (
@@ -55,12 +51,10 @@ function Dashboard() {
         <div className="bg-[#FFC88F] rounded p-4 flex justify-between w-3/4 mx-auto md:w-1/3">
           {!loadingCard ? (
             <div className="flex flex-col">
-              <span className="text-lg font-black">
-                {dashboardCards?.[1].title || "Complaints"}
-              </span>
+              <span className="text-lg font-black">{dashboardCards?.[1].title}</span>
               <div className="flex items-end">
-                <span className="text-2xl font-black">{dashboardCards?.[1].count || "-"}</span>
-                <span className="text-sm m-1">/ {dashboardCards?.[1].total || "-"}</span>
+                <span className="text-2xl font-black">{dashboardCards?.[1].count}</span>
+                <span className="text-sm m-1">/ {dashboardCards?.[1].total}</span>
               </div>
             </div>
           ) : (
@@ -71,10 +65,10 @@ function Dashboard() {
         <div className="bg-[#FC485B] rounded p-4 flex justify-between w-3/4 mx-auto md:w-1/3">
           {!loadingCard ? (
             <div className="flex flex-col">
-              <span className="text-lg font-black">{dashboardCards?.[2].title || "Notices"}</span>
+              <span className="text-lg font-black">{dashboardCards?.[2].title}</span>
               <div className="flex items-end">
-                <span className="text-2xl font-black">{dashboardCards?.[2].count || "-"}</span>
-                <span className="text-sm m-1">/ {dashboardCards?.[2].total || "-"}</span>
+                <span className="text-2xl font-black">{dashboardCards?.[2].count}</span>
+                {/* <span className="text-sm m-1">/ {dashboardCards?.[2].total}</span> */}
               </div>
             </div>
           ) : (

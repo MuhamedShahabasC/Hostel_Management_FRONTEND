@@ -41,3 +41,12 @@ export const mealPlanSchema = yup.object().shape({
   active: yup.bool().oneOf([true, false], "Must be true or false"),
   subscribers: yup.number().positive().integer(),
 });
+
+// Payment Schema for warden
+export const monthlyPaymentSchema = yup.object().shape({
+  additionalAmount: yup
+    .number()
+    .required()
+    .integer("Invalid Number")
+    .moreThan(-1, "Invalid Number"),
+});

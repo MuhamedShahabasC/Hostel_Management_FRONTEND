@@ -1,7 +1,6 @@
 import moment from "moment";
 import { useMemo, useCallback, useEffect, useState } from "react";
 import Table, { Media, TableColumn } from "../../components/Table";
-
 import { IComplaint } from "../../interfaces/complaint";
 import { viewIcon } from "../../assets/icons/icons";
 import Modal from "../../components/UI/Modal";

@@ -83,8 +83,12 @@ function HeaderLinks({ currentUser }: Props) {
               link: `/staffs/complaints`,
             },
             {
-              name: `Warden`,
-              link: `/staffs/warden`,
+              name: `Students`,
+              link: `/staffs/students`,
+            },
+            {
+              name: `Payments`,
+              link: `/staffs/payments`,
             },
           ];
         }

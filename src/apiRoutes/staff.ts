@@ -12,6 +12,16 @@ export const changeProfileImageAPI = async (imageAsBase64: string) =>
   await staffAPI.patch("/", { profilePic: imageAsBase64 });
 
 //
+// -- WARDEN --
+//
+export const fetchAllStudentsAPI = (filterBy: string = "", searchInput: string = "") =>
+  staffAPI.get(`/students?status=${filterBy}&name=${searchInput}`);
+export const updateStudentPaymentAPI = (
+  studentId: string,
+  formData: { additionalAmount: number }
+) => staffAPI.patch(`/students/${studentId}`, formData);
+
+//
 // -- CHEF --
 //
 export const allMealPlans = async () => await staffAPI.get(`/meals/all`);

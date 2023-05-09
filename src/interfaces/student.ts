@@ -24,15 +24,19 @@ export interface IStudent {
   bloodGroup: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
   status: StudentStatus;
   remarks?: string;
-  mealPlan?: {
+  mealPlan: {
     _id: string;
-    title: string
-  }
+    title: string;
+    price: number;
+  };
   block?: {
     _id: string;
-    name: string
-  }
-  room: string
+    name: string;
+  };
+  room: string;
+  paidPayment: number;
+  balancePayment: number;
+  lastBilledMonth: string;
 }
 
 export type StudentStatus = "pending" | "resident" | "rejected" | "departed";

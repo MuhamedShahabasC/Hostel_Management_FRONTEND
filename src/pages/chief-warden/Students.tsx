@@ -49,16 +49,7 @@ function Students() {
       .then(({ data: { data } }) => {
         setStudentsData(data);
       })
-      .catch(
-        ({
-          response: {
-            data: { message },
-          },
-        }) => {
-          toast.error(message);
-          setStudentsData([]);
-        }
-      )
+      .catch(() => setStudentsData([]))
       .finally(() => setPending(false));
   }, []);
 
@@ -73,6 +64,7 @@ function Students() {
         name: "Name",
         sortable: true,
         selector: (row) => row.name,
+        grow: 2,
       },
       {
         name: "Status",
@@ -251,6 +243,15 @@ function Students() {
           <span className="flex">
             <span className="w-1/3 md:w-1/4 left-0">Meal Plan: </span>
             <span>{studentData?.mealPlan?.title}</span>
+          </span>
+          <span className="border-b mx-10 my-3 "></span>
+          <span className="flex">
+            <span className="w-1/3 md:w-1/4 left-0">Paid Payment: </span>
+            <span>₹ {studentData?.paidPayment}</span>
+          </span>
+          <span className="flex">
+            <span className="w-1/3 md:w-1/4 left-0">Balance Payment: </span>
+            <span>₹ {studentData?.balancePayment}</span>
           </span>
           <span className="border-b mx-10 my-3 "></span>
           <span className="flex">

@@ -62,6 +62,7 @@ export const studentAdmissionSchema = yup.object().shape({
   remarks: yup
     .string()
     .trim()
+    .required('Remarks is required')
     .min(4, "Remarks must be longer than 4 characters")
     .max(250, "Remarks must be shorter than 250 characters"),
 });
