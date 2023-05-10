@@ -16,6 +16,7 @@ function Chat() {
     socket.current.emit("join", {
       userName: student?.currentUser?.name,
       userId: student?.currentUser?._id,
+      profilePic: student?.currentUser.profilePic,
       role: "student",
     });
     // eslint-disable-next-line
@@ -25,6 +26,7 @@ function Chat() {
     socket.current?.emit("sendMessage", {
       userName: student?.currentUser?.name,
       userId: student?.currentUser?._id,
+      profilePic: student?.currentUser.profilePic,
       role: "student",
       message,
     });

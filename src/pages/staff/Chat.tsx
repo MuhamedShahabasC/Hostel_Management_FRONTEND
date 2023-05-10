@@ -8,24 +8,26 @@ import { ICurrentUser } from "../../interfaces/auth";
 function Chat() {
   const socket = useRef<Socket | null>();
   const [message, setMessage] = useState<string>("");
-  const student = useAppSelector<ICurrentUser | null>((state) => state.currentUser);
+  const staff = useAppSelector<ICurrentUser | null>((state) => state.currentUser);
 
   useEffect(() => {
     socket.current = io("http://localhost:8000");
     socket.current.emit("join", {
-      userName: student?.currentUser?.name,
-      userId: student?.currentUser?._id,
+      userName: staff?.currentUser?.name,
+      userId: staff?.currentUser?._id,
       role: "staff",
+      profilePic: staff?.currentUser?.profilePic,
     });
     // eslint-disable-next-line
   }, []);
 
   const chatMessageHandler = () => {
     socket.current?.emit("sendMessage", {
-      userName: student?.currentUser?.name,
-      userId: student?.currentUser?._id,
+      userName: staff?.currentUser?.name,
+      userId: staff?.currentUser?._id,
       role: "staff",
       message,
+      profilePic: staff?.currentUser?.profilePic,
     });
     return setMessage("");
   };
