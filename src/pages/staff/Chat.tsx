@@ -28,19 +28,20 @@ function Chat() {
       role: "staff",
       message,
       profilePic: staff?.currentUser?.profilePic,
+      date: Date.now()
     });
     return setMessage("");
   };
 
-  socket.current?.on("getMessage", ({ userId, userName, role, message }) => {
-    console.log(userId, userName, role, message);
+  socket.current?.on("getMessage", ({ userId, userName, role, message, profilePic, date }) => {
+    console.log(userId, userName, role, message, profilePic, date);
   });
 
   return (
     <div className="parent-container">
       <h2>Staff Chat Room</h2>
-      <div className="bg-[#F5F5F5] h-80 rounded shadow-sm mb-3">
-        <div className="h-64 flex flex-col justify-end">
+      <div className="bg-[#F5F5F5] h-80 rounded shadow-sm mb-3 py-2">
+        <div className="h-64 flex flex-col overflow-y-auto">
           <div className="flex mx-3 mb-3 w-3/4 md:w-1/2">
             <img src={defaultAvatarImg} className="mt-2 w-8 h-8" alt="chat avatar" />
             <div className="text-xs flex flex-col justify-between bg-white shadow-lg py-2 px-4 m-1 max-h-max rounded-md ">

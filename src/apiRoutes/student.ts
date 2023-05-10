@@ -56,3 +56,6 @@ export const initiatePaymentAPI = async (amount: number) =>
 
 export const successfulPaymentAPI = async (data: SuccessfulPayment) =>
   await studentAPI.post("/payments", data);
+
+// Chats
+export const fetchAllChatsAPI = async () => await studentAPI.get("/chats");

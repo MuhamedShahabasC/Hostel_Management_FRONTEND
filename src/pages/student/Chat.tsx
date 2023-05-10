@@ -4,14 +4,24 @@ import { io, Socket } from "socket.io-client";
 import { defaultAvatarImg } from "../../assets/icons/images";
 import { useAppSelector } from "../../App";
 import { ICurrentUser } from "../../interfaces/auth";
+import { IMessage } from "../../interfaces/chat";
+import { fetchAllChatsAPI } from "../../apiRoutes/student";
+import MessageChat from "../../components/MessageChat";
+import MetroSpinner from "../../components/UI/MetroSpinner";
+import moment from "moment";
 
 // Student Chat
 function Chat() {
   const socket = useRef<Socket | null>();
   const [message, setMessage] = useState<string>("");
   const student = useAppSelector<ICurrentUser | null>((state) => state.currentUser);
+  const [allMessages, setAllMessages] = useState<IMessage[] | null>(null);
 
   useEffect(() => {
+    fetchAllChatsAPI()
+      .then(({ data: { data } }) => setAllMessages(data))
+      .catch(() => setAllMessages(null));
+    // .finally(() => setLoading(false))
     socket.current = io("http://localhost:8000");
     socket.current.emit("join", {
       userName: student?.currentUser?.name,
@@ -29,6 +39,7 @@ function Chat() {
       profilePic: student?.currentUser.profilePic,
       role: "student",
       message,
+      date: Date.now(),
     });
     return setMessage("");
   };
@@ -40,24 +51,22 @@ function Chat() {
   return (
     <div className="parent-container">
       <h2>Student Chat Room</h2>
-      <div className="bg-[#F5F5F5] h-80 rounded shadow-sm mb-3">
-        <div className="h-64 flex flex-col justify-end">
-          <div className="flex mx-3 mb-3 w-3/4 md:w-1/2">
-            <img src={defaultAvatarImg} className="mt-2 w-8 h-8" alt="chat avatar" />
-            <div className="text-xs flex flex-col justify-between bg-white shadow-lg py-2 px-4 m-1 max-h-max rounded-md ">
-              <span className="font-semibold">Ayisha Mehak</span>
-              <p className="text-primary my-1">Hi all, How about a LUDO game now?</p>
-              <span className="font-medium ml-auto mt-1">16:00 2/2/2023</span>
-            </div>
-          </div>
-          <div className="flex mx-3 mb-3 w-3/4 md:w-1/2">
-            <img src={defaultAvatarImg} className="mt-2 w-8 h-8" alt="chat avatar" />
-            <div className="text-xs flex flex-col justify-between bg-white shadow-lg py-2 px-4 m-1 max-h-max rounded-md ">
-              <span className="font-semibold text-primary">Shahabas - Warden</span>
-              <p className="text-primary my-1">The food will be 20 mins late.</p>
-              <span className="font-medium ml-auto mt-1">16:00 2/2/2023</span>
-            </div>
-          </div>
+      <div className="bg-[#F5F5F5] h-96 rounded shadow-sm mb-3 py-2">
+        <div className="h-80 flex flex-col-reverse overflow-y-auto ">
+          {allMessages ? (
+            allMessages.map(({ date, message, profilePic, userName, userId }) => (
+              <MessageChat
+                key={date}
+                date={`${moment(date).format("LTS")} ${moment(date).format("L")}`}
+                message={message}
+                profilePic={profilePic}
+                userName={userName}
+                self={userId === student?.currentUser._id}
+              />
+            ))
+          ) : (
+            <MetroSpinner className="my-24" size={40} />
+          )}
         </div>
         <div className="px-5 py-2">
           <div className="border-t-2 ">

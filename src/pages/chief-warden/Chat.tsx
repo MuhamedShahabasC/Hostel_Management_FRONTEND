@@ -28,6 +28,7 @@ function Chat() {
       userName: "Chief Warden",
       role,
       message,
+      date: Date.now(),
       profilePic: chiefWarden?.currentUser.profilePic,
     });
     return setMessage("");
@@ -51,8 +52,16 @@ function Chat() {
         <option value="student">Student</option>
         <option value="staff">Staff</option>
       </select>
-      <div className="bg-[#F5F5F5] h-80 rounded shadow-sm mb-3">
-        <div className="h-64 flex flex-col justify-end">
+      <div className="bg-[#F5F5F5] h-80 rounded shadow-sm mb-3 py-2">
+        <div className="h-64 flex flex-col overflow-y-auto">
+          <div className="flex mx-3 mb-3 w-3/4 md:w-1/2">
+            <img src={defaultAvatarImg} className="mt-2 w-8 h-8" alt="chat avatar" />
+            <div className="text-xs flex flex-col justify-between bg-white shadow-lg py-2 px-4 m-1 max-h-max rounded-md ">
+              <span className="font-semibold">Ayisha Mehak</span>
+              <p className="text-primary my-1">Hi all, How about a LUDO game now?</p>
+              <span className="font-medium ml-auto mt-1">16:00 2/2/2023</span>
+            </div>
+          </div>
           <div className="flex mx-3 mb-3 w-3/4 md:w-1/2">
             <img src={defaultAvatarImg} className="mt-2 w-8 h-8" alt="chat avatar" />
             <div className="text-xs flex flex-col justify-between bg-white shadow-lg py-2 px-4 m-1 max-h-max rounded-md ">
