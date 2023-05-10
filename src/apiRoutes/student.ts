@@ -1,5 +1,6 @@
 import { studentAPI, unauthorizedStudentAPI } from "../config/api";
 import { ILogin, IResetPassword } from "../interfaces/auth";
+import { SuccessfulPayment } from "../interfaces/payment";
 import { IStudent } from "../interfaces/student";
 
 // New student admission API
@@ -13,6 +14,9 @@ export const blocksForAdmissionAPI = async () =>
 // Login
 export const login = async (formData: ILogin) =>
   await unauthorizedStudentAPI.post("/auth", formData);
+
+// Current student data
+export const currentStudentAPI = async () => await studentAPI.get("/");
 
 // Reset password
 export const resetPassword = async (passwordData: IResetPassword) =>
@@ -38,7 +42,17 @@ export const fetchNoticesAPI = async () => await studentAPI.get("/notices");
 // Complaints
 export const fetchComplaintsAPI = async (filterBy: string = "") =>
   await studentAPI.get(`/complaints?status=${filterBy}`);
+
 export const postNewComplaintAPI = async (data: {
   department: "maintenance" | "chef" | "warden";
   message: string;
 }) => await studentAPI.post("/complaints", data);
+
+// Payments
+export const fetchPaymentsAPI = async () => await studentAPI.get("/payments");
+
+export const initiatePaymentAPI = async (amount: number) =>
+  await studentAPI.patch(`/payments`, { amount });
+
+export const successfulPaymentAPI = async (data: SuccessfulPayment) =>
+  await studentAPI.post("/payments", data);

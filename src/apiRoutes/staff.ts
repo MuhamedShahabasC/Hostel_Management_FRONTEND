@@ -16,10 +16,14 @@ export const changeProfileImageAPI = async (imageAsBase64: string) =>
 //
 export const fetchAllStudentsAPI = (filterBy: string = "", searchInput: string = "") =>
   staffAPI.get(`/students?status=${filterBy}&name=${searchInput}`);
+
 export const updateStudentPaymentAPI = (
   studentId: string,
   formData: { additionalAmount: number }
 ) => staffAPI.patch(`/students/${studentId}`, formData);
+
+export const fetchPaymentsAPI = (searchInput: string = "") =>
+  staffAPI.get(`/payments?student=${searchInput}`);
 
 //
 // -- CHEF --

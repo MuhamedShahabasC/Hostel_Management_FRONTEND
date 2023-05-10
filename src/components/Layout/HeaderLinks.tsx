@@ -26,6 +26,10 @@ function HeaderLinks({ currentUser }: Props) {
             name: "Meals",
             link: "/students/meals",
           },
+          {
+            name: "Payments",
+            link: "/students/payments",
+          },
         ];
         break;
       }

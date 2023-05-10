@@ -11,6 +11,7 @@ import Profile from "../pages/student/Profile";
 import Chat from "../pages/student/Chat";
 import MealPlans from "../pages/student/MealPlans";
 import Complaints from "../pages/student/Complaints";
+import Payments from "../pages/student/Payments";
 
 // Student routes
 function StudentRoutes() {
@@ -23,6 +24,7 @@ function StudentRoutes() {
           <Route path="chat" element={<Chat />} />
           <Route path="meals" element={<MealPlans />} />
           <Route path="complaints" element={<Complaints />} />
+          <Route path="payments" element={<Payments />} />
         </Route>
       </Route>
       <Route path="admission" element={<NewStudent />}>

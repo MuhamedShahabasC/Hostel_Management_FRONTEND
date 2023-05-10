@@ -62,7 +62,7 @@ export const studentAdmissionSchema = yup.object().shape({
   remarks: yup
     .string()
     .trim()
-    .required('Remarks is required')
+    .required("Remarks is required")
     .min(4, "Remarks must be longer than 4 characters")
     .max(250, "Remarks must be shorter than 250 characters"),
 });
@@ -94,4 +94,9 @@ export const updateStudentSchema = yup.object().shape({
     .trim()
     .required("Student status is required")
     .oneOf(["pending", "resident"], "Invalid student status"),
+});
+
+// New payment Schema
+export const newPaymentSchema = yup.object().shape({
+  amount: yup.number().min(500, "Min. ₹500").required('Enter an amount').max(5000,'Max. ₹5000'),
 });

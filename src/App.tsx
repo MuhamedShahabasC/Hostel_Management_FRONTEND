@@ -15,9 +15,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/students/*" element={<StudentRoutes />} />
-          <Route path="/" element={<StudentLogin />} />
           <Route path="/staffs/*" element={<StaffRoutes />} />
           <Route path="/chief-wardens/*" element={<ChiefWardenRoutes />} />
+          <Route path="/" element={<StudentLogin />} />
           <Route path="/*" element={`NOT FOUND`} />
         </Routes>
       </BrowserRouter>

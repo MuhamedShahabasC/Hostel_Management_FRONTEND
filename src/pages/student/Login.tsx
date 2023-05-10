@@ -12,7 +12,6 @@ import { currentUserActions } from "../../store/currentUser";
 function Login() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
   const loginHandler = (token: string, data: ILoginResponse) => {
     saveLocally(token, data, "student");
     dispatch(
