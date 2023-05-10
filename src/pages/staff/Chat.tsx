@@ -1,22 +1,42 @@
 import { sendIcon } from "../../assets/icons/icons";
 import { defaultAvatarImg } from "../../assets/icons/images";
+import { useRef, useEffect, useState } from "react";
+import { io, Socket } from "socket.io-client";
+import { useAppSelector } from "../../App";
+import { ICurrentUser } from "../../interfaces/auth";
 
 function Chat() {
-  const filterHandler = (value: string) => {
-    alert(value);
+  const socket = useRef<Socket | null>();
+  const [message, setMessage] = useState<string>("");
+  const student = useAppSelector<ICurrentUser | null>((state) => state.currentUser);
+
+  useEffect(() => {
+    socket.current = io("http://localhost:8000");
+    socket.current.emit("join", {
+      userName: student?.currentUser?.name,
+      userId: student?.currentUser?._id,
+      role: "staff",
+    });
+    // eslint-disable-next-line
+  }, []);
+
+  const chatMessageHandler = () => {
+    socket.current?.emit("sendMessage", {
+      userName: student?.currentUser?.name,
+      userId: student?.currentUser?._id,
+      role: "staff",
+      message,
+    });
+    return setMessage("");
   };
 
+  socket.current?.on("getMessage", ({ userId, userName, role, message }) => {
+    console.log(userId, userName, role, message);
+  });
+
   return (
-    <div className="parent-container md:relative">
-      <h2>Chat Room</h2>
-      <select
-        onChange={(e) => filterHandler(e.target.value)}
-        className="text-gray-400 text-sm rounded-md px-4 py-2 max-w-fit mb-2 md:absolute md:top-10 mx-auto shadow focus:outline-none"
-      >
-        <option value="">Everyone</option>
-        <option value="staff">Staff</option>
-        <option value="student">Student</option>
-      </select>
+    <div className="parent-container">
+      <h2>Staff Chat Room</h2>
       <div className="bg-[#F5F5F5] h-80 rounded shadow-sm mb-3">
         <div className="h-64 flex flex-col justify-end">
           <div className="flex mx-3 mb-3 w-3/4 md:w-1/2">
@@ -43,8 +63,15 @@ function Chat() {
                 className="grow p-1 focus:outline-none text-sm"
                 placeholder="Send a message..."
                 type="text"
+                onChange={(e) => setMessage(e.target.value)}
+                value={message}
               />
-              <img className="h-5 m-1 active:animate-ping" src={sendIcon} alt="send message" />
+              <img
+                className="h-5 m-1 active:animate-ping"
+                src={sendIcon}
+                onClick={chatMessageHandler}
+                alt="send message"
+              />
             </div>
           </div>
         </div>
