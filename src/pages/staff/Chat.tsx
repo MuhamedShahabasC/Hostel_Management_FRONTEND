@@ -1,16 +1,24 @@
 import { sendIcon } from "../../assets/icons/icons";
-import { defaultAvatarImg } from "../../assets/icons/images";
 import { useRef, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { useAppSelector } from "../../App";
 import { ICurrentUser } from "../../interfaces/auth";
+import { IMessage } from "../../interfaces/chat";
+import MessageChat from "../../components/MessageChat";
+import MetroSpinner from "../../components/UI/MetroSpinner";
+import moment from "moment";
+import { fetchAllChatsAPI } from "../../apiRoutes/staff";
 
 function Chat() {
   const socket = useRef<Socket | null>();
   const [message, setMessage] = useState<string>("");
   const staff = useAppSelector<ICurrentUser | null>((state) => state.currentUser);
+  const [allMessages, setAllMessages] = useState<IMessage[]>([]);
 
   useEffect(() => {
+    fetchAllChatsAPI()
+      .then(({ data: { data } }) => setAllMessages(data))
+      .catch(() => setAllMessages([]));
     socket.current = io("http://localhost:8000");
     socket.current.emit("join", {
       userName: staff?.currentUser?.name,
@@ -18,48 +26,49 @@ function Chat() {
       role: "staff",
       profilePic: staff?.currentUser?.profilePic,
     });
+    socket.current.on("getMessage", ({ userId, userName, role, message, date, profilePic }) =>
+      setAllMessages((prevState) => [
+        { userId, userName, role, message, date, profilePic },
+        ...prevState,
+      ])
+    );
     // eslint-disable-next-line
   }, []);
 
   const chatMessageHandler = () => {
-    socket.current?.emit("sendMessage", {
-      userName: staff?.currentUser?.name,
-      userId: staff?.currentUser?._id,
-      role: "staff",
-      message,
-      profilePic: staff?.currentUser?.profilePic,
-      date: Date.now()
-    });
+    if (message.trim().length > 0)
+      socket.current?.emit("sendMessage", {
+        userName: staff?.currentUser?.name,
+        userId: staff?.currentUser?._id,
+        role: "staff",
+        message,
+        profilePic: staff?.currentUser?.profilePic,
+        date: Date.now(),
+      });
     return setMessage("");
   };
-
-  socket.current?.on("getMessage", ({ userId, userName, role, message, profilePic, date }) => {
-    console.log(userId, userName, role, message, profilePic, date);
-  });
 
   return (
     <div className="parent-container">
       <h2>Staff Chat Room</h2>
-      <div className="bg-[#F5F5F5] h-80 rounded shadow-sm mb-3 py-2">
-        <div className="h-64 flex flex-col overflow-y-auto">
-          <div className="flex mx-3 mb-3 w-3/4 md:w-1/2">
-            <img src={defaultAvatarImg} className="mt-2 w-8 h-8" alt="chat avatar" />
-            <div className="text-xs flex flex-col justify-between bg-white shadow-lg py-2 px-4 m-1 max-h-max rounded-md ">
-              <span className="font-semibold">Ayisha Mehak</span>
-              <p className="text-primary my-1">Hi all, How about a LUDO game now?</p>
-              <span className="font-medium ml-auto mt-1">16:00 2/2/2023</span>
-            </div>
-          </div>
-          <div className="flex mx-3 mb-3 w-3/4 md:w-1/2">
-            <img src={defaultAvatarImg} className="mt-2 w-8 h-8" alt="chat avatar" />
-            <div className="text-xs flex flex-col justify-between bg-white shadow-lg py-2 px-4 m-1 max-h-max rounded-md ">
-              <span className="font-semibold text-primary">Shahabas - Warden</span>
-              <p className="text-primary my-1">The food will be 20 mins late.</p>
-              <span className="font-medium ml-auto mt-1">16:00 2/2/2023</span>
-            </div>
-          </div>
+      <div className="bg-[#F5F5F5] h-96 rounded shadow-sm mb-3 py-2">
+        <div className="h-80 flex flex-col-reverse overflow-y-auto ">
+          {allMessages.length > 0 ? (
+            allMessages.map(({ date, message, profilePic, userName, userId }, i) => (
+              <MessageChat
+                key={`${date}${i}`}
+                date={`${moment(date).format("LTS")} ${moment(date).format("L")}`}
+                message={message}
+                profilePic={profilePic}
+                userName={userName}
+                self={userId === staff?.currentUser._id}
+              />
+            ))
+          ) : (
+            <MetroSpinner className="my-auto" size={40} color="skyblue" />
+          )}
         </div>
-        <div className="px-5 py-2">
+        <div className="px-5 py-1">
           <div className="border-t-2 ">
             <div className="flex items-center mt-3 mx-auto w-2/3 bg-white px-3 rounded-full shadow-md">
               <input

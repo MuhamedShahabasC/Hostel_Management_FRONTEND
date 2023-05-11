@@ -1,7 +1,6 @@
 import { sendIcon } from "../../assets/icons/icons";
 import { useRef, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
-import { defaultAvatarImg } from "../../assets/icons/images";
 import { useAppSelector } from "../../App";
 import { ICurrentUser } from "../../interfaces/auth";
 import { IMessage } from "../../interfaces/chat";
@@ -15,13 +14,12 @@ function Chat() {
   const socket = useRef<Socket | null>();
   const [message, setMessage] = useState<string>("");
   const student = useAppSelector<ICurrentUser | null>((state) => state.currentUser);
-  const [allMessages, setAllMessages] = useState<IMessage[] | null>(null);
+  const [allMessages, setAllMessages] = useState<IMessage[]>([]);
 
   useEffect(() => {
     fetchAllChatsAPI()
       .then(({ data: { data } }) => setAllMessages(data))
-      .catch(() => setAllMessages(null));
-    // .finally(() => setLoading(false))
+      .catch(() => setAllMessages([]));
     socket.current = io("http://localhost:8000");
     socket.current.emit("join", {
       userName: student?.currentUser?.name,
@@ -29,34 +27,37 @@ function Chat() {
       profilePic: student?.currentUser.profilePic,
       role: "student",
     });
+    socket.current.on("getMessage", ({ userId, userName, role, message, date, profilePic }) =>
+      setAllMessages((prevState) => [
+        { userId, userName, role, message, date, profilePic },
+        ...prevState,
+      ])
+    );
     // eslint-disable-next-line
   }, []);
 
   const chatMessageHandler = () => {
-    socket.current?.emit("sendMessage", {
-      userName: student?.currentUser?.name,
-      userId: student?.currentUser?._id,
-      profilePic: student?.currentUser.profilePic,
-      role: "student",
-      message,
-      date: Date.now(),
-    });
+    if (message.trim().length > 0)
+      socket.current?.emit("sendMessage", {
+        userName: student?.currentUser?.name,
+        userId: student?.currentUser?._id,
+        profilePic: student?.currentUser.profilePic,
+        role: "student",
+        message,
+        date: Date.now(),
+      });
     return setMessage("");
   };
-
-  socket.current?.on("getMessage", ({ userId, userName, role, message }) => {
-    console.log(userId, userName, role, message);
-  });
 
   return (
     <div className="parent-container">
       <h2>Student Chat Room</h2>
       <div className="bg-[#F5F5F5] h-96 rounded shadow-sm mb-3 py-2">
         <div className="h-80 flex flex-col-reverse overflow-y-auto ">
-          {allMessages ? (
-            allMessages.map(({ date, message, profilePic, userName, userId }) => (
+          {allMessages.length > 0 ? (
+            allMessages.map(({ date, message, profilePic, userName, userId }, i) => (
               <MessageChat
-                key={date}
+                key={`${date}${i}`}
                 date={`${moment(date).format("LTS")} ${moment(date).format("L")}`}
                 message={message}
                 profilePic={profilePic}
@@ -65,10 +66,10 @@ function Chat() {
               />
             ))
           ) : (
-            <MetroSpinner className="my-24" size={40} />
+            <MetroSpinner className="my-auto" size={40} />
           )}
         </div>
-        <div className="px-5 py-2">
+        <div className="px-5 py-1">
           <div className="border-t-2 ">
             <div className="flex items-center mt-3 mx-auto w-2/3 bg-white px-3 rounded-full shadow-md">
               <input

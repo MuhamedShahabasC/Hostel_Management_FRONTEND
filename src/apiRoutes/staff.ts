@@ -50,12 +50,11 @@ export const complaintsByStaffAPI = async (filterBy: string = "") =>
 export const updateComplaintAPI = async (_id: string, formData: IComplaintUpdateByStaff) =>
   await staffAPI.patch(`/complaints/${_id}`, formData);
 
-//
 // -- NOTICES --
-//
 export const fetchNoticesAPI = async () => await staffAPI.get("/notices");
 
-//
 // -- DASHBOARD --
-//
 export const fetchDashboardAPI = async () => await staffAPI.get("/dashboard");
+
+// -- CHAT --
+export const fetchAllChatsAPI = async () => await staffAPI.get("/chats");

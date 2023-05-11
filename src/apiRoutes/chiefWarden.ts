@@ -33,6 +33,10 @@ export const deleteNotice = async (_id: string) => await chiefWardenAPI.delete(`
 // Notice statistics
 export const noticeStatisticsAPI = async () => await chiefWardenAPI.get("notices/statistics");
 
+// Chat
+export const fetchAllChatsAPI = async (role: "student" | "staff" = "student") =>
+  await chiefWardenAPI.get(`/chats/${role}`);
+
 //
 // -- BLOCKS AND ROOMS --
 //

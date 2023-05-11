@@ -139,7 +139,7 @@ function HeaderLinks({ currentUser }: Props) {
     currentLinks &&
     currentLinks.map((el: { name: string; link: string }) => (
       <NavLink
-        className="text-sm text-primary font-black"
+        className={`text-sm text-primary font-black ${el?.name === "Chat" && "relative"}`}
         style={({ isActive }) => ({
           textDecoration: isActive ? "underline" : "",
           textUnderlineOffset: isActive ? "0.4rem" : "",
@@ -148,6 +148,9 @@ function HeaderLinks({ currentUser }: Props) {
         to={el?.link}
         key={el?.name}
       >
+        {/* {el?.name === "Chat" && (
+          <span className="animate-ping absolute inline-flex w-2 h-2 right-0 rounded-full bg-green-800 opacity-75"></span>
+        )} */}
         {el?.name}
       </NavLink>
     ));
