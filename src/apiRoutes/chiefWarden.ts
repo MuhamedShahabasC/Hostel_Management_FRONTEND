@@ -41,7 +41,7 @@ export const fetchAllChatsAPI = async (role: "student" | "staff" = "student") =>
 // -- BLOCKS AND ROOMS --
 //
 // Fetch all blocks
-export const fetchAllBlocks = async () => await chiefWardenAPI.get("blocks");
+export const fetchAllBlocksAPI = async () => await chiefWardenAPI.get("blocks");
 
 // Check room availability
 export const checkRoomAvailability = async (roomCode: string) =>

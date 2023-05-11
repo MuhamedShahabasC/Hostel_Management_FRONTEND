@@ -9,6 +9,7 @@ import Complaints from "../pages/staff/Complaints";
 import Dashboard from "../pages/staff/Dashboard";
 import Payments from "../pages/staff/Payments.warden";
 import Students from "../pages/staff/Students";
+import Maintenance from "../pages/staff/Maintenance";
 
 // Staff routes
 function Staff() {
@@ -23,6 +24,9 @@ function Staff() {
           <Route path="chat" element={<Chat />} />
           <Route element={<ProtectedRoute role="staff" department="chef" />}>
             <Route path="meals" element={<MealsChef />} />
+          </Route>
+          <Route element={<ProtectedRoute role="staff" department="maintenance" />}>
+            <Route path="maintenance" element={<Maintenance />} />
           </Route>
           <Route element={<ProtectedRoute role="staff" department="warden" />}>
             <Route path="payments" element={<Payments />} />

@@ -8,12 +8,11 @@ function Staff() {
       style={{
         backgroundImage:
           "url('https://res.cloudinary.com/dqrnskj2b/image/upload/q_95/v1680587492/Hostel%20Management%20Project/UI/backgroundImages/staff-bg_x2ywxi.webp')",
-        height: "100vh",
-        backgroundPosition: "center",
+        minHeight: "100vh",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
       }}
-      className="flex flex-col "
+      className="flex flex-col bg-[top_right_-20rem] md:bg-center bg-fixed"
     >
       <Header role="staff" />
       <div className="flex justify-center items-center grow">

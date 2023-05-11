@@ -8,12 +8,11 @@ function ChiefWarden() {
     <div
       style={{
         backgroundImage: `url(${chiefWardenBgImg})`,
-        height: "100vh",
-        backgroundPosition: "center",
+        minHeight: "100vh",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
       }}
-      className="flex flex-col"
+      className="flex flex-col bg-[top_right_-20rem] md:bg-center bg-fixed"
     >
       <Header role="chiefWarden" />
       <div className="flex justify-center items-center grow">

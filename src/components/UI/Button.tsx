@@ -2,7 +2,7 @@ interface props {
   type: "button" | "submit" | "reset" | undefined;
   className?: string;
   children?: string;
-  onClick?: () => void;
+  onClick?: () => any;
 }
 
 function Button({ type, className, children, onClick }: props) {

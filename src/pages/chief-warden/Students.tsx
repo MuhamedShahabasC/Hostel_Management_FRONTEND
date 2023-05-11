@@ -141,8 +141,8 @@ function Students() {
   );
 
   const searchElement = (
-    <div>
-      <div className="flex rounded-md h-full px-4 text-sm shadow focus:outline-none">
+    <div className="mx-1 my-2 md:m-0 ">
+      <div className="flex rounded-md py-2 md:py-0 h-full px-4 text-sm shadow focus:outline-none">
         <input
           className="grow focus:outline-none"
           value={searchInput}

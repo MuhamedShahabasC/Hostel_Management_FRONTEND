@@ -40,10 +40,7 @@ export const changeAvailabilityMealPlan = async (_id: string) =>
 
 export const addNewPlan = async (data: any) => await staffAPI.post(`/meals`, data);
 
-//
-// -- COMPLAINTS
-//
-
+// -- COMPLAINTS --
 export const complaintsByStaffAPI = async (filterBy: string = "") =>
   await staffAPI.get(`/complaints/?status=${filterBy}`);
 
@@ -58,3 +55,15 @@ export const fetchDashboardAPI = async () => await staffAPI.get("/dashboard");
 
 // -- CHAT --
 export const fetchAllChatsAPI = async () => await staffAPI.get("/chats");
+
+//
+// -- MAINTENANCE --
+//
+
+export const fetchAllBlocksAPI = async () => await staffAPI.get("/maintenance");
+
+export const fetchBlockAPI = async (blockName: string) =>
+  await staffAPI.get(`/maintenance/${blockName}`);
+
+export const changeRoomAvailabilityAPI = async (roomCode: string) =>
+  staffAPI.patch(`/maintenance/room/${roomCode}`);
