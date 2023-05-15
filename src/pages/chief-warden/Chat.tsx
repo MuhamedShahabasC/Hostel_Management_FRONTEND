@@ -25,7 +25,7 @@ function Chat() {
       .then(({ data: { data } }) => setAllMessages(data))
       .catch(() => setAllMessages([]))
       .finally(() => setLoading(false));
-    socket.current = io("http://localhost:8000");
+    socket.current = io(process.env.REACT_APP_BACKEND_CHAT as string);
     socket.current.emit("join", {
       userName: "Chief Warden",
       userId: chiefWarden?.currentUser?._id,
