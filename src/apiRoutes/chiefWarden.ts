@@ -65,9 +65,20 @@ export const updateSingleStudentAPI = async (_id: string, data: any) =>
 //
 // -- STAFFS --
 //
+// Fetch all staffs
+export const fetchAllStaffsAPI = async (filterBy: string = "", searchInput: string = "") =>
+  chiefWardenAPI.get(`staffs?role=${filterBy}&name=${searchInput}`);
+
 // Fetch staffs by department
 export const fetchStaffsByDeptAPI = async (department: StaffDepartment) =>
   chiefWardenAPI.get(`staffs/department/${department}`);
+
+// Fetch complaint statistics by staff
+export const complaintStatByStaffAPI = async (staff: string) =>
+  await chiefWardenAPI.get(`staffs/${staff}`);
+
+// New staff
+export const newStaffAPI = async (formData: any) => await chiefWardenAPI.post(`staffs`, formData);
 
 //
 // -- MEAL PLANS --

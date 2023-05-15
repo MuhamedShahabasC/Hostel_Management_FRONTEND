@@ -58,7 +58,7 @@ function Chat() {
             allMessages.map(({ date, message, profilePic, userName, userId }, i) => (
               <MessageChat
                 key={`${date}${i}`}
-                date={`${moment(date).format("LTS")} ${moment(date).format("L")}`}
+                date={`${moment(date).format("LT")} ${moment(date).format("L")}`}
                 message={message}
                 profilePic={profilePic}
                 userName={userName}

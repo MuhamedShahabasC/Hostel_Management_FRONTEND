@@ -1,22 +1,20 @@
 import { ErrorMessage, Field } from "formik";
 import { useState } from "react";
+import { blockedEye, openEye } from "../../assets/icons/icons";
 
-interface Props {
-  id: string;
-  name: string;
-  placeholder: string;
-}
-
-const hide =
-  "https://res.cloudinary.com/dqrnskj2b/image/upload/v1680583256/Hostel%20Management%20Project/UI/icons/viewPassword_tbzoeq.png";
-const show =
-  "https://res.cloudinary.com/dqrnskj2b/image/upload/v1680583256/Hostel%20Management%20Project/UI/icons/hidePassword_yrbwks.png";
-
-function PasswordInput({ id, name, placeholder }: Props) {
+function PasswordInput({ id, name, placeholder, edit }: Props) {
   const [toggle, setToggle] = useState<"shown" | "hidden">("hidden");
 
   return (
     <div className="flex flex-col w-full">
+      {edit && (
+        <label
+          htmlFor={name}
+          className="text-sm font-semibold mb-1 ml-1 tracking-widest text-primary"
+        >
+          {placeholder}
+        </label>
+      )}
       <div className="flex justify-between relative items-center rounded-md px-4 py-2 shadow w-full">
         <Field
           className="outline-none w-4/5"
@@ -28,7 +26,7 @@ function PasswordInput({ id, name, placeholder }: Props) {
         />
         <img
           className="w-5 h-5"
-          src={toggle === "hidden" ? hide : show}
+          src={toggle === "hidden" ? openEye : blockedEye}
           alt="showOrHidePassword"
           onClick={(): void => {
             setToggle((prevState) => {
@@ -43,6 +41,13 @@ function PasswordInput({ id, name, placeholder }: Props) {
       </span>
     </div>
   );
+}
+
+interface Props {
+  id: string;
+  name: string;
+  placeholder: string;
+  edit?: boolean;
 }
 
 export default PasswordInput;

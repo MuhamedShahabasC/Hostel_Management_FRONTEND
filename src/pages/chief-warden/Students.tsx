@@ -33,16 +33,6 @@ function Students() {
     null
   );
 
-  const filterHandler = (value: string) => {
-    setFilterBy(value);
-    fetchAllStudents(value, searchInput);
-  };
-
-  const searchHandler = () => {
-    fetchAllStudents(filterBy, searchInput);
-    setSearchInput("");
-  };
-
   const fetchAllStudents = useCallback((filter?: string, search?: string) => {
     setPending(true);
     fetchAllStudentsAPI(filter, search)
@@ -57,6 +47,16 @@ function Students() {
     fetchAllStudents();
     // eslint-disable-next-line
   }, []);
+
+  const filterHandler = (value: string) => {
+    setFilterBy(value);
+    fetchAllStudents(value, searchInput);
+  };
+
+  const searchHandler = () => {
+    fetchAllStudents(filterBy, searchInput);
+    setSearchInput("");
+  };
 
   const columns: TableColumn<IStudent>[] = useMemo(
     () => [
@@ -90,15 +90,7 @@ function Students() {
                     .then(({ data: { message } }) => {
                       setRoomAvailability(message);
                     })
-                    .catch(
-                      ({
-                        response: {
-                          data: { message },
-                        },
-                      }) => {
-                        setRoomAvailability(message);
-                      }
-                    )
+                    .catch(() => setRoomAvailability("unavailable"))
                     .finally(() => {
                       fetchAvailableRooms(row?.block?._id!)
                         .then(({ data: { data } }) => {

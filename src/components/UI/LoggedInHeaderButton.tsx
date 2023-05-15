@@ -4,12 +4,7 @@ import { currentUserActions } from "../../store/currentUser";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { defaultAvatarImg } from "../../assets/icons/images";
-
-interface Props {
-  children?: any;
-  currentUser: ICurrentUser;
-  role: "staff" | "chiefWarden" | "student";
-}
+import { toast } from "react-toastify";
 
 function LoggedInHeaderButton({ currentUser, children, role }: Props) {
   const dispatch = useDispatch();
@@ -33,7 +28,10 @@ function LoggedInHeaderButton({ currentUser, children, role }: Props) {
       <div className="hidden lg:block">
         <Link
           to={`/${route}/login`}
-          onClick={() => dispatch(currentUserActions.logout())}
+          onClick={() => {
+            toast.success("Logged out");
+            return dispatch(currentUserActions.logout());
+          }}
           className="invisible px-4 py-2 bg-white rounded-md border-1 text-primary shadow-lg hover:brightness-90 text-sm font-black group-hover:visible absolute z-10 top-12 right-9"
         >
           Logout
@@ -71,7 +69,10 @@ function LoggedInHeaderButton({ currentUser, children, role }: Props) {
           <Link to={`/${route}/profile`}>Profile</Link>
           <Link
             to={`/${route}/login`}
-            onClick={() => dispatch(currentUserActions.logout())}
+            onClick={() => {
+              toast.success("Logged out");
+              return dispatch(currentUserActions.logout());
+            }}
             className="border-t-2 pt-1 text-red-700"
           >
             Logout
@@ -80,6 +81,12 @@ function LoggedInHeaderButton({ currentUser, children, role }: Props) {
       </div>
     </div>
   );
+}
+
+interface Props {
+  children?: any;
+  currentUser: ICurrentUser;
+  role: "staff" | "chiefWarden" | "student";
 }
 
 export default LoggedInHeaderButton;

@@ -21,7 +21,6 @@ function DetailsForm() {
       <h2 className="text-lg font-extrabold mb-5">Admission Details</h2>
       <StudentDetailsForm
         submitHandler={admissionFromHandler}
-        navigateTo={"/students/admission/blocks"}
       />
     </div>
   );

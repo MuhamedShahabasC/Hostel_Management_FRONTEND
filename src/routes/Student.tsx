@@ -12,9 +12,12 @@ import Chat from "../pages/student/Chat";
 import MealPlans from "../pages/student/MealPlans";
 import Complaints from "../pages/student/Complaints";
 import Payments from "../pages/student/Payments";
+import { getLocalData } from "../utils/localStorage";
 
 // Student routes
 function StudentRoutes() {
+  const currentStudent = getLocalData();
+
   return (
     <Routes>
       <Route element={<ProtectedRoute role="student" />}>
@@ -33,7 +36,16 @@ function StudentRoutes() {
         <Route path="rooms" element={<Rooms />} />
         <Route path="mealplans" element={<MealPlansAdmission />} />
       </Route>
-      <Route path="login" element={<Navigate to="/" />} />
+      <Route
+        path="login"
+        element={
+          currentStudent?.role === "student" ? (
+            <Navigate to="/students/dashboard" />
+          ) : (
+            <Navigate to="/students/login" />
+          )
+        }
+      />
     </Routes>
   );
 }

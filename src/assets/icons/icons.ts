@@ -52,3 +52,11 @@ export const studentIcon =
 // Send Icon
 export const sendIcon =
   "https://res.cloudinary.com/dqrnskj2b/image/upload/c_scale,q_100,w_256/v1681976328/Hostel%20Management%20Project/UI/icons/send_mdtk6m.webp";
+
+// Password open eye
+export const openEye =
+  "https://res.cloudinary.com/dqrnskj2b/image/upload/v1680583256/Hostel%20Management%20Project/UI/icons/viewPassword_tbzoeq.png";
+
+// Password blocked eye
+export const blockedEye =
+  "https://res.cloudinary.com/dqrnskj2b/image/upload/v1680583256/Hostel%20Management%20Project/UI/icons/hidePassword_yrbwks.png";

@@ -15,7 +15,7 @@ function MessageChat({ userName, message, profilePic, date, self }: IMessageChat
           self ? " (You)" : ""
         }`}</span>
         <p className="text-primary my-1">{message}</p>
-        <span className="font-medium ml-auto mt-1">{date}</span>
+        <span className="font-medium text-[10px] ml-auto mt-1">{date}</span>
       </div>
     </div>
   );

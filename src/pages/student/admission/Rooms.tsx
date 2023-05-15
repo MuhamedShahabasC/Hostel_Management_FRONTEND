@@ -51,7 +51,7 @@ function Rooms() {
       })
       .then((result) => {
         if (result?.isConfirmed) {
-          navigate("/students/login");
+          navigate("/");
         }
       });
   };

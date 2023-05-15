@@ -109,6 +109,10 @@ function HeaderLinks({ currentUser }: Props) {
             link: `/chief-wardens/dashboard`,
           },
           {
+            name: `Staffs`,
+            link: `/chief-wardens/staffs`,
+          },
+          {
             name: `Students`,
             link: `/chief-wardens/students`,
           },

@@ -7,7 +7,7 @@ import SelectInput from "./SelectInput";
 import PasswordInput from "./PasswordInput";
 import { studentAdmissionSchema } from "../../schema/student";
 
-function StudentDetails({ studentData, submitHandler }: any) {
+function StudentDetails({ studentData, submitHandler }: Props) {
   // eslint-disable-next-line
   const [message, setMessage] = useState<string | null>(null);
 
@@ -108,19 +108,6 @@ function StudentDetails({ studentData, submitHandler }: any) {
           setSubmitting(true);
           submitHandler(formData);
           setSubmitting(false);
-          // submitHandler(formData, studentData._id)
-          //   .then(({ data: { message } }: any) => {
-          //     fetchAllMeals();
-          //     toast.success(message);
-          //   })
-          //   .catch(
-          //     ({
-          //       response: {
-          //         data: { message },
-          //       },
-          //     }) => setMessage(message)
-          //   )
-          //   .finally(() => setSubmitting(false));
         }}
       >
         {({ isSubmitting }) => (
@@ -167,6 +154,11 @@ function StudentDetails({ studentData, submitHandler }: any) {
       )}
     </>
   );
+}
+
+interface Props {
+  studentData?: any;
+  submitHandler: any;
 }
 
 export default StudentDetails;
