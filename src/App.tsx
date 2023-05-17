@@ -8,6 +8,7 @@ import { AppDispatch, RootState } from "./config/store";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { getLocalData } from "./utils/localStorage";
 import { Toaster } from "react-hot-toast";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const currentUser = getLocalData();
@@ -29,7 +30,7 @@ function App() {
               )
             }
           />
-          <Route path="/*" element={`NOT FOUND`} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
       <ReactToastify />

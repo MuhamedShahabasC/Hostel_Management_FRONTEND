@@ -13,6 +13,7 @@ import MealPlans from "../pages/student/MealPlans";
 import Complaints from "../pages/student/Complaints";
 import Payments from "../pages/student/Payments";
 import StudentLogin from "../pages/student/Login";
+import NotFound from "../pages/NotFound";
 
 // Student routes
 function StudentRoutes() {
@@ -35,6 +36,7 @@ function StudentRoutes() {
         <Route path="rooms" element={<Rooms />} />
         <Route path="mealplans" element={<MealPlansAdmission />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

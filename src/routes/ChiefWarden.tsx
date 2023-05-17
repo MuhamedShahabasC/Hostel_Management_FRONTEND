@@ -12,6 +12,7 @@ import Complaints from "../pages/chief-warden/Complaints";
 import Staffs from "../pages/chief-warden/Staffs";
 import Blocks from "../pages/chief-warden/Blocks";
 import { getLocalData } from "../utils/localStorage";
+import NotFound from "../pages/NotFound";
 
 // Chief warden routes
 function ChiefWardenRoutes() {
@@ -42,6 +43,7 @@ function ChiefWardenRoutes() {
           <Route path="complaints" element={<Complaints />} />
         </Route>
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

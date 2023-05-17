@@ -11,6 +11,7 @@ import Payments from "../pages/staff/Payments.warden";
 import Students from "../pages/staff/Students";
 import Maintenance from "../pages/staff/Maintenance";
 import { getLocalData } from "../utils/localStorage";
+import NotFound from "../pages/NotFound";
 
 // Staff routes
 function Staff() {
@@ -46,7 +47,7 @@ function Staff() {
           </Route>
         </Route>
       </Route>
-      <Route path="*" element={`NOT FOUND`} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

@@ -38,3 +38,11 @@ export const nonVegMealPlanImg =
 // Veg meal plan
 export const vegMealPlanImg =
   "https://res.cloudinary.com/dqrnskj2b/image/upload/q_100/v1683347090/Hostel%20Management%20Project/UI/images/vegMealPlan_ll6l9c.webp";
+
+// Internal Server Error / 500
+export const internalServerErrorImg =
+  "https://res.cloudinary.com/dqrnskj2b/image/upload/q_100/v1684333155/Hostel%20Management%20Project/UI/images/internal_server_error_afeify.png";
+
+// 404 Not found page
+export const notFoundImg =
+  "https://res.cloudinary.com/dqrnskj2b/image/upload/q_100/v1684333557/Hostel%20Management%20Project/UI/images/404-error_cddqa5.png";
