@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import StaffLayout from "../layouts/Staff";
 import Login from "../pages/staff/Login";
 import MealsChef from "../pages/staff/Meals.chef";
@@ -10,26 +10,14 @@ import Dashboard from "../pages/staff/Dashboard";
 import Payments from "../pages/staff/Payments.warden";
 import Students from "../pages/staff/Students";
 import Maintenance from "../pages/staff/Maintenance";
-import { getLocalData } from "../utils/localStorage";
 import NotFound from "../pages/NotFound";
 
 // Staff routes
 function Staff() {
-  const currentStaff = getLocalData();
-
   return (
     <Routes>
       <Route element={<StaffLayout />}>
-        <Route
-          path="login"
-          element={
-            currentStaff?.role !== "chiefWarden" ? (
-              <Login />
-            ) : (
-              <Navigate to="/chief-wardens/dashboard" />
-            )
-          }
-        />
+        <Route path="login" element={<Login />} />
         <Route element={<ProtectedRoute role="staff" />}>
           <Route path="profile" element={<Profile />} />
           <Route path="dashboard" element={<Dashboard />} />

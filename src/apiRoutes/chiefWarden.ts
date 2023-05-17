@@ -43,6 +43,14 @@ export const paymentStatisticsAPI = async () =>
 export const yearlyRevenueAPI = async () =>
   await chiefWardenAPI.get("payments/yearlyRevenue", setApiHeader());
 
+// Complaints statistics
+export const complaintsStatisticsAPI = async () =>
+  await chiefWardenAPI.get("complaints/statistics", setApiHeader());
+
+// Occupancy statistics
+export const occupancyStatisticsAPI = async () =>
+  await chiefWardenAPI.get("blocks/occupancyStatistics", setApiHeader());
+
 // Chat
 export const fetchAllChatsAPI = async (role: "student" | "staff" = "student") =>
   await chiefWardenAPI.get(`/chats/${role}`, setApiHeader());

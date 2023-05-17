@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Login from "../pages/chief-warden/Login";
 import ChiefWarden from "../layouts/ChiefWarden";
 import Notices from "../pages/chief-warden/Notices";
@@ -11,26 +11,14 @@ import Dashboard from "../pages/chief-warden/Dashboard";
 import Complaints from "../pages/chief-warden/Complaints";
 import Staffs from "../pages/chief-warden/Staffs";
 import Blocks from "../pages/chief-warden/Blocks";
-import { getLocalData } from "../utils/localStorage";
 import NotFound from "../pages/NotFound";
 
 // Chief warden routes
 function ChiefWardenRoutes() {
-  const currentChiefWarden = getLocalData();
-
   return (
     <Routes>
       <Route path="/" element={<ChiefWarden />}>
-        <Route
-          path="login"
-          element={
-            currentChiefWarden?.role !== "chiefWarden" ? (
-              <Login />
-            ) : (
-              <Navigate to="/chief-wardens/dashboard" />
-            )
-          }
-        />
+        <Route path="login" element={<Login />} />
         <Route element={<ProtectedRoute role="chiefWarden" />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="notices" element={<Notices />} />
