@@ -2,35 +2,38 @@ import { Link } from "react-router-dom";
 import { ICurrentUser } from "../../interfaces/auth";
 import { currentUserActions } from "../../store/currentUser";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { defaultAvatarImg } from "../../assets/icons/images";
 import { toast } from "react-toastify";
 
 function LoggedInHeaderButton({ currentUser, children, role }: Props) {
   const dispatch = useDispatch();
   const [dropdown, setDropdown] = useState<boolean>(false);
+  const [route, setRoute] = useState<"staffs" | "chief-wardens" | "students" | "">("");
 
-  let route: string;
-  switch (role) {
-    case "staff":
-      route = "staffs";
-      break;
-    case "chiefWarden":
-      route = "chief-wardens";
-      break;
-    case "student":
-      route = "students";
-      break;
-  }
+  useEffect(() => {
+    switch (role) {
+      case "staff":
+        setRoute("staffs");
+        break;
+      case "chiefWarden":
+        setRoute("chief-wardens");
+        break;
+      case "student":
+        setRoute("students");
+        break;
+    }
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div className="group">
       <div className="hidden lg:block">
         <Link
-          to={`/${route}/login`}
+          to={route !== "students" ? `/${route}/login` : "/"}
           onClick={() => {
-            toast.success("Logged out");
-            return dispatch(currentUserActions.logout());
+            dispatch(currentUserActions.logout());
+            return toast.success("Logged out");
           }}
           className="invisible px-4 py-2 bg-white rounded-md border-1 text-primary shadow-lg hover:brightness-90 text-sm font-black group-hover:visible absolute z-10 top-12 right-9"
         >

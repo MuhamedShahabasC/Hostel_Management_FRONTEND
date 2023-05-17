@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import DetailsForm from "../pages/student/admission/DetailsForm";
 import NewStudent from "../layouts/NewStudent";
 import Blocks from "../pages/student/admission/Blocks";
@@ -12,14 +12,13 @@ import Chat from "../pages/student/Chat";
 import MealPlans from "../pages/student/MealPlans";
 import Complaints from "../pages/student/Complaints";
 import Payments from "../pages/student/Payments";
-import { getLocalData } from "../utils/localStorage";
+import StudentLogin from "../pages/student/Login";
 
 // Student routes
 function StudentRoutes() {
-  const currentStudent = getLocalData();
-
   return (
     <Routes>
+      <Route path="login" element={<StudentLogin />} />
       <Route element={<ProtectedRoute role="student" />}>
         <Route element={<Student />}>
           <Route path="dashboard" element={<Dashboard />} />
@@ -36,16 +35,6 @@ function StudentRoutes() {
         <Route path="rooms" element={<Rooms />} />
         <Route path="mealplans" element={<MealPlansAdmission />} />
       </Route>
-      <Route
-        path="login"
-        element={
-          currentStudent?.role === "student" ? (
-            <Navigate to="/students/dashboard" />
-          ) : (
-            <Navigate to="/students/login" />
-          )
-        }
-      />
     </Routes>
   );
 }

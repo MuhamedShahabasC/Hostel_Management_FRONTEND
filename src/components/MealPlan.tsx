@@ -6,9 +6,9 @@ function MealPlan({
   return (
     <div className="md:mx-4 my-4 p-4 rounded shadow-lg flex flex-col w-full">
       <div className="flex">
-        <div className="text-center flex items-center grow">
+        <div className="text-center flex flex-col items-center grow">
           <h3 className="text-lg text-primary text-center grow font-bold">{title} Plan</h3>
-          {/* <span className="text-md text-primary font-bold">₹ {price} / Month</span> */}
+          <span className="text-md text-primary font-bold">₹ {price} / Month</span>
         </div>
         <img
           src={i === 0 ? nonVegMealPlanImg : vegMealPlanImg}
