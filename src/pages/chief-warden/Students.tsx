@@ -133,23 +133,28 @@ function Students() {
   );
 
   const searchElement = (
-    <div className="mx-1 my-2 md:m-0 ">
-      <div className="flex rounded-md py-2 md:py-0 h-full px-4 text-sm shadow focus:outline-none">
+    <form
+      className="mx-1 my-2 md:m-0"
+      onSubmit={(e) => {
+        e.preventDefault();
+        return searchHandler();
+      }}
+    >
+      <div className="flex rounded-md md:py-0 h-9 px-4 text-sm shadow focus:outline-none">
         <input
           className="grow focus:outline-none"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          placeholder="Search"
+          placeholder="Search staff"
           type="text"
         />
         <img
           src={searchIcon}
-          alt="search student"
-          onClick={searchHandler}
+          alt="Search staff"
           className="my-auto active:shadow-lg active:animate-ping h-5 w-5"
         />
       </div>
-    </div>
+    </form>
   );
 
   const studentStatusOptions = useMemo(
@@ -177,7 +182,7 @@ function Students() {
   return (
     <div className="parent-container">
       <h2>Students</h2>
-      <div className="flex flex-col md:flex-row md:justify-between pb-3">
+      <div className="flex flex-col items-center md:flex-row md:justify-between pb-3">
         {filterElement}
         {searchElement}
       </div>

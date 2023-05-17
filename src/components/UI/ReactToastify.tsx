@@ -1,5 +1,5 @@
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 function ReactToastify() {
   return (
@@ -16,7 +16,6 @@ function ReactToastify() {
       theme="dark"
     />
   );
-  
 }
 
 export default ReactToastify;

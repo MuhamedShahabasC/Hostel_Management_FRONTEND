@@ -4,7 +4,7 @@ import { currentUserActions } from "../../store/currentUser";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { defaultAvatarImg } from "../../assets/icons/images";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 function LoggedInHeaderButton({ currentUser, children, role }: Props) {
   const dispatch = useDispatch();
@@ -33,7 +33,9 @@ function LoggedInHeaderButton({ currentUser, children, role }: Props) {
           to={route !== "students" ? `/${route}/login` : "/"}
           onClick={() => {
             dispatch(currentUserActions.logout());
-            return toast.success("Logged out");
+            return toast.success("Logged out", {
+              style: { background: "rgb(0, 0, 0,0.9)", color: "white" },
+            });
           }}
           className="invisible px-4 py-2 bg-white rounded-md border-1 text-primary shadow-lg hover:brightness-90 text-sm font-black group-hover:visible absolute z-10 top-12 right-9"
         >
@@ -73,7 +75,9 @@ function LoggedInHeaderButton({ currentUser, children, role }: Props) {
           <Link
             to={`/${route}/login`}
             onClick={() => {
-              toast.success("Logged out");
+              toast.success("Logged out", {
+                style: { background: "rgb(0, 0, 0,0.9)", color: "white" },
+              });
               return dispatch(currentUserActions.logout());
             }}
             className="border-t-2 pt-1 text-red-700"

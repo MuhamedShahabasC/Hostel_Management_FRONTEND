@@ -4,13 +4,31 @@ import Input from "./Input";
 import Button from "../UI/Button";
 import PasswordInput from "./PasswordInput";
 import LoadingButton from "../UI/LoadingButton";
-import { toast } from "react-toastify";
-import { useState } from "react";
+import { toast } from "react-hot-toast";
+import { useCallback, useState } from "react";
 import { loginSchema } from "../../schema/auth";
+import { getLocalData } from "../../utils/localStorage";
+import { Navigate } from "react-router-dom";
 
 // Login form
 function LoginForm({ loginHandler, onSubmit }: Props) {
   const [message, setMessage] = useState<string | null>(null);
+  const currentUser = getLocalData();
+
+  const routeTo = useCallback((role: string): string | undefined => {
+    switch (role) {
+      case "chiefWarden":
+        return "chief-wardens";
+      case "staff":
+        return "staffs";
+      case "student":
+        return "students";
+      default:
+        break;
+    }
+  }, []);
+
+  if (currentUser) return <Navigate to={`/${routeTo(currentUser.role)}/dashboard`} />;
 
   return (
     <>
@@ -26,7 +44,9 @@ function LoginForm({ loginHandler, onSubmit }: Props) {
           onSubmit(formData)
             .then(({ data: { token, data } }) => {
               loginHandler(token, data);
-              toast.success(`Welcome ${data.name}`);
+              toast.success(`Welcome, ${data.name}`, {
+                style: { background: "rgb(0, 0, 0,0.9)", color: "white" },
+              });
             })
             .catch(
               ({

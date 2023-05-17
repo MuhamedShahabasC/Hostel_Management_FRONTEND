@@ -129,27 +129,25 @@ function Blocks() {
 
   const searchElement = (
     <form
+      className="mx-1 my-2 md:m-0"
       onSubmit={(e) => {
         e.preventDefault();
         return searchHandler();
       }}
-      className="mx-1 my-2 md:m-0 "
     >
-      <div className="flex rounded-md py-2 md:py-0 h-full px-4 text-sm shadow focus:outline-none">
+      <div className="flex rounded-md md:py-0 h-9 px-4 text-sm shadow focus:outline-none">
         <input
           className="grow focus:outline-none"
           value={searchInput}
-          onChange={({ target: { value } }) => setSearchInput(value)}
+          onChange={(e) => setSearchInput(e.target.value)}
           placeholder="Search student / room"
           type="text"
         />
-        <button type="submit">
-          <img
-            src={searchIcon}
-            alt="search student"
-            className="my-auto active:shadow-lg active:animate-ping h-5 w-5"
-          />
-        </button>
+        <img
+          src={searchIcon}
+          alt="Search student / room"
+          className="my-auto active:shadow-lg active:animate-ping h-5 w-5"
+        />
       </div>
     </form>
   );

@@ -24,16 +24,6 @@ function Students() {
   const [searchInput, setSearchInput] = useState<string>("");
   const [filterBy, setFilterBy] = useState<string>("");
 
-  const filterHandler = (value: string) => {
-    setFilterBy(value);
-    fetchAllStudents(value, searchInput);
-  };
-
-  const searchHandler = () => {
-    fetchAllStudents(filterBy, searchInput);
-    setSearchInput("");
-  };
-
   const fetchAllStudents = useCallback((filter?: string, search?: string) => {
     setPending(true);
     fetchAllStudentsAPI(filter, search)
@@ -48,6 +38,16 @@ function Students() {
     fetchAllStudents();
     // eslint-disable-next-line
   }, []);
+
+  const filterHandler = (value: string) => {
+    setFilterBy(value);
+    fetchAllStudents(value, searchInput);
+  };
+
+  const searchHandler = () => {
+    fetchAllStudents(filterBy, searchInput);
+    setSearchInput("");
+  };
 
   const columns: TableColumn<IStudent>[] = useMemo(
     () => [
@@ -107,29 +107,34 @@ function Students() {
   );
 
   const searchElement = (
-    <div>
-      <div className="flex rounded-md h-full px-4 text-sm shadow focus:outline-none">
+    <form
+      className="mx-1 my-2 md:m-0"
+      onSubmit={(e) => {
+        e.preventDefault();
+        return searchHandler();
+      }}
+    >
+      <div className="flex rounded-md md:py-0 h-9 px-4 text-sm shadow focus:outline-none">
         <input
           className="grow focus:outline-none"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          placeholder="Search"
+          placeholder="Search student"
           type="text"
         />
         <img
           src={searchIcon}
-          alt="search student"
-          onClick={searchHandler}
+          alt="Search student"
           className="my-auto active:shadow-lg active:animate-ping h-5 w-5"
         />
       </div>
-    </div>
+    </form>
   );
 
   return (
     <div className="parent-container">
       <h2>Students</h2>
-      <div className="flex flex-col md:flex-row md:justify-between pb-3">
+      <div className="flex flex-col items-center md:flex-row md:justify-between pb-3">
         {filterElement}
         {searchElement}
       </div>

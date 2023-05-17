@@ -7,13 +7,13 @@ import StaffRoutes from "./routes/Staff";
 import { AppDispatch, RootState } from "./config/store";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { getLocalData } from "./utils/localStorage";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const currentUser = getLocalData();
 
   return (
     <>
-      <ReactToastify />
       <BrowserRouter>
         <Routes>
           <Route path="/students/*" element={<StudentRoutes />} />
@@ -32,6 +32,8 @@ function App() {
           <Route path="/*" element={`NOT FOUND`} />
         </Routes>
       </BrowserRouter>
+      <ReactToastify />
+      <Toaster />
     </>
   );
 }

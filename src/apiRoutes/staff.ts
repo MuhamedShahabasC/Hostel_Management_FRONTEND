@@ -24,7 +24,7 @@ export const updateStudentPaymentAPI = (
 ) => staffAPI.patch(`/students/${studentId}`, formData, setApiHeader());
 
 export const fetchPaymentsAPI = (searchInput: string = "") =>
-  staffAPI.get(`/payments?student=${searchInput}`, setApiHeader());
+  staffAPI.get(`/payments?refId=${searchInput}`, setApiHeader());
 
 //
 // -- CHEF --

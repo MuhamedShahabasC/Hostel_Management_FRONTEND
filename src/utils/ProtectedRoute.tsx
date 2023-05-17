@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getLocalData } from "./localStorage";
 import { ICurrentUser, ICurrentUserDetails, ILoginResponse } from "../interfaces/auth";
 import { checkAuthAPI } from "../config/api";
@@ -11,19 +11,6 @@ function ProtectedRoute({ role, department }: Props) {
   const [auth, setAuth] = useState<ILoginResponse | ICurrentUser | null | false>(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  const routeTo = (role: string): string | undefined => {
-    switch (role) {
-      case "chiefWarden":
-        return "chief-wardens";
-      case "staff":
-        return "staffs";
-      case "student":
-        return "students";
-      default:
-        break;
-    }
-  };
 
   useEffect(() => {
     const localData = getLocalData() as ICurrentUser | null;
@@ -56,6 +43,19 @@ function ProtectedRoute({ role, department }: Props) {
         return setAuth(false);
       });
     // eslint-disable-next-line
+  }, []);
+
+  const routeTo = useCallback((role: string): string | undefined => {
+    switch (role) {
+      case "chiefWarden":
+        return "chief-wardens";
+      case "staff":
+        return "staffs";
+      case "student":
+        return "students";
+      default:
+        break;
+    }
   }, []);
 
   if (auth === null) return null;

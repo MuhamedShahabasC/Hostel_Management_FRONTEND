@@ -116,11 +116,11 @@ function Complaints() {
   );
 
   return (
-    <div className="parent-container md:relative">
+    <div className="parent-container relative">
       <h2>Complaints</h2>
       <select
         onChange={(e) => fetchComplaints(e.target.value)}
-        className="text-gray-400 text-sm rounded-md absolute top-10 px-4 py-2 max-w-fit shadow focus:outline-none"
+        className="text-gray-400 text-sm rounded-md mb-3 md:mb-0 mx-auto md:absolute top-10 px-4 py-2 max-w-fit shadow focus:outline-none"
       >
         <option value="">Filter by status</option>
         <option value="">All Complaints</option>
