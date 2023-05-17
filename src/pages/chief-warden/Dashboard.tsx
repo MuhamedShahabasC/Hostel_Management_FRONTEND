@@ -1,16 +1,23 @@
 import { useEffect, useState } from "react";
 import { complaintImg, noticeBoardImg, studentRisingHandImg } from "../../assets/icons/images";
 import Notices from "../../components/Notices";
-import { getAllNotices, noticeStatisticsAPI } from "../../apiRoutes/chiefWarden";
+import {
+  getAllNotices,
+  noticeStatisticsAPI,
+  paymentStatisticsAPI,
+} from "../../apiRoutes/chiefWarden";
+import { PieChart } from "../../components/PieChart";
 
 // Dashboard - Chief Warden
 function Dashboard() {
-  const [noticeStatistics, setNoticeStatistics] = useState<[number, number] | null>(null);
+  const [noticeStatistics, setNoticeStatistics] = useState<[number, number]>([0, 0]);
+  const [paymentData, setPaymentData] = useState<{ paid: number; pending: number } | null>(null);
 
   useEffect(() => {
     noticeStatisticsAPI().then(({ data: { data } }) => {
       setNoticeStatistics(data);
     });
+    paymentStatisticsAPI().then(({ data: { data } }) => setPaymentData(data));
   }, []);
 
   return (
@@ -40,15 +47,16 @@ function Dashboard() {
           <div className="flex flex-col">
             <span className="text-lg font-black">Notices</span>
             <div className="flex items-end">
-              <span className="text-2xl font-black">{noticeStatistics?.[0]}</span>
-              <span className="text-sm m-1">/ {noticeStatistics?.[1]}</span>
+              <span className="text-2xl font-black">{noticeStatistics[0]}</span>
+              <span className="text-sm m-1">/ {noticeStatistics[1]}</span>
             </div>
           </div>
           <img className="h-16" src={noticeBoardImg} alt="notices" />
         </div>
       </div>
-      <div className="h-72 w-1/3 flex">
-        <Notices fetchHandler={getAllNotices}/>
+      <div className="flex flex-col md:flex-row mb-2">
+        <Notices fetchHandler={getAllNotices} className="md:w-1/3" />
+        <PieChart className="md:w-1/3" data={[paymentData?.pending, paymentData?.paid]} />
       </div>
     </div>
   );

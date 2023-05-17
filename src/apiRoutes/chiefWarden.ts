@@ -35,6 +35,10 @@ export const deleteNotice = async (_id: string) =>
 export const noticeStatisticsAPI = async () =>
   await chiefWardenAPI.get("notices/statistics", setApiHeader());
 
+// Payment Statistics
+export const paymentStatisticsAPI = async () =>
+  await chiefWardenAPI.get("students/paymentStatus", setApiHeader());
+
 // Chat
 export const fetchAllChatsAPI = async (role: "student" | "staff" = "student") =>
   await chiefWardenAPI.get(`/chats/${role}`, setApiHeader());
@@ -44,6 +48,10 @@ export const fetchAllChatsAPI = async (role: "student" | "staff" = "student") =>
 //
 // Fetch all blocks
 export const fetchAllBlocksAPI = async () => await chiefWardenAPI.get("blocks", setApiHeader());
+
+// Fetch single block
+export const fetchBlockAPI = async (blockName: string) =>
+  await chiefWardenAPI.get(`/blocks/name/${blockName}`, setApiHeader());
 
 // Check room availability
 export const checkRoomAvailability = async (roomCode: string) =>
