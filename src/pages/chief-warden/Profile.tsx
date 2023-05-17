@@ -19,10 +19,7 @@ function Profile() {
     <div className="profile-container">
       <div className="flex flex-col mx-auto md:mx-0 text-center justify-center p-5 border-b-2 border-b-gray-400 md:border-b-0 lg:border-r md:border-r-gray-400">
         <div className="w-40 mb-5 rounded-full border-1 mx-auto">
-          <label className="relative" htmlFor="uploadImage">
-            <img src={defaultAvatarImg} alt="chief warden avatar" />
-          </label>
-          <input className="w-full hidden" type="file" name="uploadImage" id="uploadImage" />
+          <img src={defaultAvatarImg} alt="chief warden avatar" />
         </div>
         <div className="hidden md:block">
           {chiefWardenData?.currentUser?.name.split(" ").map((name) => (
