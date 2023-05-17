@@ -21,9 +21,6 @@ function Profile() {
         <div className="w-40 mb-5 rounded-full border-1 mx-auto">
           <label className="relative" htmlFor="uploadImage">
             <img src={defaultAvatarImg} alt="chief warden avatar" />
-            <span className="text-xs absolute bottom-3 rounded shadow-sm text-white bg-black bg-opacity-30 px-1 -left-7 max-w-max">
-              Change
-            </span>
           </label>
           <input className="w-full hidden" type="file" name="uploadImage" id="uploadImage" />
         </div>
