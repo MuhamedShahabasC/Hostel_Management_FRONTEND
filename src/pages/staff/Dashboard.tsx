@@ -96,6 +96,7 @@ function Dashboard() {
           <h3 className="hidden md:block">{staff?.currentUser?.email}</h3>
           <h1 className="normal-case md:hidden">{staff?.currentUser?.name}</h1>
           <h3 className="normal-case md:hidden">{staff?.currentUser?.email}</h3>
+          <h4 className="uppercase text-xs mt-1">{staff?.currentUser?.department}</h4>
         </div>
         <Notices fetchHandler={fetchNoticesAPI} className="md:w-2/3" />
       </div>

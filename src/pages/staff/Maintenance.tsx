@@ -177,8 +177,8 @@ function Maintenance() {
           <ModalRow label="Occupancy" value={roomData?.student ? "Occupied" : "Unoccupied"} />
           {roomData?.student ? (
             <>
-              <ModalRow label="Student Name" value={roomData?.student.name} />
-              <ModalRow label="Student Email" value={roomData?.student.email} />
+              <ModalRow label="Name" value={roomData?.student.name} />
+              <ModalRow label="Email" value={roomData?.student.email} />
             </>
           ) : (
             <>

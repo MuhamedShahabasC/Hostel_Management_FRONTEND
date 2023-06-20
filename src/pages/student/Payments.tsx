@@ -20,6 +20,7 @@ import { IPayment, RazorpayResponse } from "../../interfaces/payment";
 import { useAppSelector } from "../../App";
 import { ICurrentUser } from "../../interfaces/auth";
 import { newPaymentSchema } from "../../schema/student";
+import ModalRowDivider from "../../components/UI/ModalRowDivider";
 
 // Payments page for student
 function Payments() {
@@ -141,13 +142,13 @@ function Payments() {
         <div className="flex flex-col justify-center md:px-4">
           <ModalRow label="Reference ID" value={payment?.refId} />
           <ModalRow label="Date" value={moment(payment?.date).format("LLL")} />
-          <span className="border-b mx-10 my-3 "></span>
-          <ModalRow label="Amount" value={payment?.amount.toLocaleString("en-IN")} />
-          <span className="border-b mx-10 my-3 "></span>
-          <ModalRow label="Paid Amount" value={payment?.paidPayment.toLocaleString("en-IN")} />
+          <ModalRowDivider/>
+          <ModalRow label="Amount" value={`₹ ${payment?.amount.toLocaleString("en-IN")}`} />
+          <ModalRowDivider/>
+          <ModalRow label="Paid Amount" value={`₹ ${payment?.paidPayment.toLocaleString("en-IN")}`} />
           <ModalRow
             label="Balance Payment"
-            value={payment?.balancePayment.toLocaleString("en-IN")}
+            value={`₹ ${payment?.balancePayment.toLocaleString("en-IN")}`}
           />
         </div>
       </Modal>

@@ -98,5 +98,5 @@ export const updateStudentSchema = yup.object().shape({
 
 // New payment Schema
 export const newPaymentSchema = yup.object().shape({
-  amount: yup.number().min(500, "Min. ₹500").required('Enter an amount').max(5000,'Max. ₹5000'),
+  amount: yup.number().min(1, "Min. ₹1").required('Enter an amount').max(5000,'Max. ₹5000'),
 });

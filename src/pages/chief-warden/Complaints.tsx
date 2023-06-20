@@ -191,6 +191,7 @@ function Complaints() {
                       <ModalRow
                         value={
                           <SelectInput
+                          className="md:w-2/3"
                             label="Select Status"
                             name="status"
                             options={complaintStatusOptions.filter(

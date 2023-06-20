@@ -110,7 +110,7 @@ function Complaints() {
       <h2>Complaints</h2>
       <select
         onChange={(e) => fetchComplaints(e.target.value)}
-        className="text-gray-400 text-sm rounded-md absolute top-10 px-4 py-2 max-w-fit shadow focus:outline-none"
+        className="text-gray-400 text-sm rounded-md px-4 py-2 max-w-fit mb-2 md:absolute md:top-10 mx-auto shadow focus:outline-none"
       >
         <option value="">Filter by status</option>
         <option value="">All Complaints</option>

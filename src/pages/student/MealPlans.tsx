@@ -54,7 +54,7 @@ function MealPlans() {
     return updateMealPlan;
   };
 
-  const options = activePlans?.map((el: any) => {
+  let options = activePlans?.map((el: any) => {
     if (currentPlan?._id !== el._id) return { value: el._id, text: el.title };
     else return false;
   });
@@ -92,7 +92,11 @@ function MealPlans() {
       >
         {({ isSubmitting }) => (
           <Form className="flex mt-4 justify-center gap-4 px-1 mb-3">
-            <SelectInput label="Choose a meal plan" name="mealPlan" options={options} />
+            <SelectInput
+              label="Choose a meal plan"
+              name="mealPlan"
+              options={options.filter((el: any) => el)}
+            />
 
             {isSubmitting ? (
               <LoadingButton className="px-4" />

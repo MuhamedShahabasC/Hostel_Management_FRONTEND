@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import {
   allMealPlans,
-  changeAvailabilityMealPlan,
+  changeAvailabilityMealPlanAPI,
 } from "../../apiRoutes/staff";
 import Table, { TableColumn, Media } from "../../components/Table";
 import { errorToast } from "../../utils/toasts";
@@ -93,7 +93,7 @@ function MealsChef() {
               </button>
               <button
                 onClick={async () =>
-                  await changeAvailabilityMealPlan(row._id)
+                  await changeAvailabilityMealPlanAPI(row._id)
                     .then(fetchAllMeals)
                     .then(() => toast.success(`${row.title} plan updated`))
                 }

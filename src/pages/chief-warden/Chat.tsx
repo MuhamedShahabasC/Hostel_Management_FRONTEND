@@ -17,8 +17,6 @@ function Chat() {
   const [allMessages, setAllMessages] = useState<IMessage[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-
-
   useEffect(() => {
     setLoading(true);
     fetchAllChatsAPI(role)
@@ -89,6 +87,9 @@ function Chat() {
                 type="text"
                 onChange={(e) => setMessage(e.target.value)}
                 value={message}
+                onKeyDown={(e) => {
+                  if (e.keyCode === 13) return chatMessageHandler();
+                }}
               />
               <img
                 className="h-5 m-1 active:animate-ping"

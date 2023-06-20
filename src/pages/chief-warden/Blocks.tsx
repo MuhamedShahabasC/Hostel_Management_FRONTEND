@@ -155,7 +155,7 @@ function Blocks() {
   return (
     <div className="parent-container">
       <h2>Blocks</h2>
-      <div className="flex flex-col md:flex-row md:justify-between pb-3">
+      <div className="flex flex-col items-center md:flex-row md:justify-between pb-3">
         {filterElement}
         {searchElement}
       </div>

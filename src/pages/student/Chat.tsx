@@ -78,6 +78,9 @@ function Chat() {
                 type="text"
                 onChange={(e) => setMessage(e.target.value)}
                 value={message}
+                onKeyDown={(e) => {
+                  if (e.keyCode === 13) return chatMessageHandler();
+                }}
               />
               <img
                 className="h-5 m-1 active:animate-ping"

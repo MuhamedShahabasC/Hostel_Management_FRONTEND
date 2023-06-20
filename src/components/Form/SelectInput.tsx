@@ -11,7 +11,7 @@ function SelectInput({ name, options, className, label, edit, defaultValue }: Pr
           {label}
         </label>
       )}
-      <div className={`${className}`}>
+      <div className={`${className} flex flex-col`}>
         <Field
           as="select"
           name={name}

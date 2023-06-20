@@ -87,8 +87,8 @@ function Students() {
                 onClick={() => {
                   setStudentData(row);
                   checkRoomAvailability(row.room)
-                    .then(({ data: { message } }) => {
-                      setRoomAvailability(message);
+                    .then(({ data}) => {
+                      setRoomAvailability('available');
                     })
                     .catch(() => setRoomAvailability("unavailable"))
                     .finally(() => {
@@ -145,7 +145,7 @@ function Students() {
           className="grow focus:outline-none"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          placeholder="Search staff"
+          placeholder="Search student"
           type="text"
         />
         <img

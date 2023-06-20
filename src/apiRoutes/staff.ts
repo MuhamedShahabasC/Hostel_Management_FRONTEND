@@ -36,8 +36,8 @@ export const fetchActiveMealPlans = async () => staffAPI.get(`/meals/activePlans
 export const updateMealPlan = async (_id: string, data: any) =>
   await staffAPI.put(`/meals/${_id}`, data, setApiHeader());
 
-export const changeAvailabilityMealPlan = async (_id: string) =>
-  await staffAPI.patch(`/meals/${_id}`, setApiHeader());
+export const changeAvailabilityMealPlanAPI = async (_id: string) =>
+  await staffAPI.patch(`/meals/${_id}`, {}, setApiHeader());
 
 export const addNewPlan = async (data: any) => await staffAPI.post(`/meals`, data, setApiHeader());
 
